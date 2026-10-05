@@ -1,0 +1,57 @@
+# .gitignore para projeto Unity — colocar na RAIZ do projeto
+# (a pasta que contém Assets/, Packages/ e ProjectSettings/)
+
+# Caches e arquivos gerados pelo Unity (cada máquina recria sozinha)
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+.utmp/
+
+# Builds (não versionar APK; compartilhar por Drive/Releases)
+/[Bb]uild/
+/[Bb]uilds/
+*.apk
+*.aab
+*.unitypackage
+*.app
+
+# Arquivos de solução/projeto gerados pela IDE
+.vs/
+.idea/
+.vscode/
+.gradle/
+ExportedObj/
+.consulo/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Arquivos .meta de arquivos gerados
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# Relatórios de crash
+sysinfo.txt
+crashlytics-build.properties
+
+# Rider
+/[Aa]ssets/Plugins/Editor/JetBrains*
+
+# IMPORTANTE: NÃO ignorar *.meta (cada asset depende do seu .meta),
+# nem as pastas Assets/, Packages/ e ProjectSettings/.
