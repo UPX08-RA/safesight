@@ -1,0 +1,1599 @@
+{
+  "exitId": "L-0-01",
+  "exitName": "Entrada do térreo",
+  "points": [
+    {
+      "id": "L-0-01",
+      "description": "Entrada do térreo.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-0-02",
+      "description": "Primeiro extintor após a entrada.",
+      "noElevator": true,
+      "extinguisher": "neste ponto"
+    },
+    {
+      "id": "L-0-03",
+      "description": "Coluna após E1.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-0-04",
+      "description": "Extintor entre P1 e P2.",
+      "noElevator": true,
+      "extinguisher": "neste ponto"
+    },
+    {
+      "id": "L-0-05",
+      "description": "Coluna entre E2 e E3.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-0-06",
+      "description": "Extintor após P2.",
+      "noElevator": true,
+      "extinguisher": "neste ponto"
+    },
+    {
+      "id": "L-0-07",
+      "description": "Extintor na parte inferior junto à rampa.",
+      "noElevator": true,
+      "extinguisher": "neste ponto"
+    },
+    {
+      "id": "L-0-09",
+      "description": "Coluna no canto superior junto à rampa.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-0-10",
+      "description": "Extintor entre P3 e P4.",
+      "noElevator": true,
+      "extinguisher": "neste ponto"
+    },
+    {
+      "id": "L-0-11",
+      "description": "Coluna entre E5 e E6.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-0-12",
+      "description": "Extintor entre P4 e P5.",
+      "noElevator": true,
+      "extinguisher": "neste ponto"
+    },
+    {
+      "id": "L-0-13",
+      "description": "Coluna após E6.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-0-14",
+      "description": "Coluna no canto superior da escada.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-0-15",
+      "description": "Ponto junto à escada, após P6.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-1-01",
+      "description": "Coluna ao pé da escada. Seguir para baixo até E1.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-1-02",
+      "description": "Primeiro extintor, na parte inferior junto à escada.",
+      "noElevator": true,
+      "extinguisher": "neste ponto"
+    },
+    {
+      "id": "L-1-03",
+      "description": "Primeira coluna após E1.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-1-04",
+      "description": "Extintor entre P1 e P2.",
+      "noElevator": true,
+      "extinguisher": "neste ponto"
+    },
+    {
+      "id": "L-1-05",
+      "description": "Coluna entre E2 e E3.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-1-06",
+      "description": "Extintor após P2, seguindo em direção à rampa.",
+      "noElevator": true,
+      "extinguisher": "neste ponto"
+    },
+    {
+      "id": "L-1-07",
+      "description": "Extintor na parte inferior junto à rampa.",
+      "noElevator": true,
+      "extinguisher": "neste ponto"
+    },
+    {
+      "id": "L-1-09",
+      "description": "Coluna no canto superior junto à rampa.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-1-10",
+      "description": "Primeiro extintor após a rampa, seguindo para a esquerda.",
+      "noElevator": true,
+      "extinguisher": "neste ponto"
+    },
+    {
+      "id": "L-1-11",
+      "description": "Coluna entre E5 e E6.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-1-12",
+      "description": "Extintor entre P4 e P5.",
+      "noElevator": true,
+      "extinguisher": "neste ponto"
+    },
+    {
+      "id": "L-1-13",
+      "description": "Coluna após E6, seguindo em direção à escada.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-1-14",
+      "description": "Coluna no canto superior da escada.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-2-01",
+      "description": "Coluna ao pé da escada. Seguir até E1.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-2-02",
+      "description": "Primeiro extintor junto à escada.",
+      "noElevator": true,
+      "extinguisher": "neste ponto"
+    },
+    {
+      "id": "L-2-03",
+      "description": "Coluna após E1.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-2-04",
+      "description": "Extintor entre P1 e P2.",
+      "noElevator": true,
+      "extinguisher": "neste ponto"
+    },
+    {
+      "id": "L-2-05",
+      "description": "Coluna entre E2 e E3.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-2-06",
+      "description": "Extintor após P2.",
+      "noElevator": true,
+      "extinguisher": "neste ponto"
+    },
+    {
+      "id": "L-2-07",
+      "description": "Extintor na parte inferior junto à rampa.",
+      "noElevator": true,
+      "extinguisher": "neste ponto"
+    },
+    {
+      "id": "L-2-09",
+      "description": "Coluna no canto superior junto à rampa.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-2-10",
+      "description": "Coluna após P3. Trecho indicado de 18 m.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-2-11",
+      "description": "Extintor entre P4 e P5.",
+      "noElevator": true,
+      "extinguisher": "neste ponto"
+    },
+    {
+      "id": "L-2-12",
+      "description": "Coluna após E6. Seguir para a coluna externa.",
+      "noElevator": true,
+      "extinguisher": ""
+    },
+    {
+      "id": "L-2-13",
+      "description": "Coluna externa à esquerda. Seguir até E1.",
+      "noElevator": true,
+      "extinguisher": ""
+    }
+  ],
+  "routes": [
+    {
+      "startId": "L-0-02",
+      "legs": [
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-0-03",
+      "legs": [
+        {
+          "toId": "L-0-02",
+          "meters": 9.4,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-0-04",
+      "legs": [
+        {
+          "toId": "L-0-03",
+          "meters": 9.0,
+          "turn": "none"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 9.4,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-0-05",
+      "legs": [
+        {
+          "toId": "L-0-04",
+          "meters": 9.2,
+          "turn": "none"
+        },
+        {
+          "toId": "L-0-03",
+          "meters": 9.0,
+          "turn": "none"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 9.4,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-0-06",
+      "legs": [
+        {
+          "toId": "L-0-05",
+          "meters": 9.5,
+          "turn": "none"
+        },
+        {
+          "toId": "L-0-04",
+          "meters": 9.2,
+          "turn": "none"
+        },
+        {
+          "toId": "L-0-03",
+          "meters": 9.0,
+          "turn": "none"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 9.4,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-0-07",
+      "legs": [
+        {
+          "toId": "L-0-06",
+          "meters": 8.5,
+          "turn": "none"
+        },
+        {
+          "toId": "L-0-05",
+          "meters": 9.5,
+          "turn": "none"
+        },
+        {
+          "toId": "L-0-04",
+          "meters": 9.2,
+          "turn": "none"
+        },
+        {
+          "toId": "L-0-03",
+          "meters": 9.0,
+          "turn": "none"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 9.4,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-0-09",
+      "legs": [
+        {
+          "toId": "L-0-10",
+          "meters": 8.85,
+          "turn": "none"
+        },
+        {
+          "toId": "L-0-11",
+          "meters": 9.0,
+          "turn": "none"
+        },
+        {
+          "toId": "L-0-12",
+          "meters": 9.3,
+          "turn": "none"
+        },
+        {
+          "toId": "L-0-13",
+          "meters": 9.5,
+          "turn": "none"
+        },
+        {
+          "toId": "L-0-14",
+          "meters": 6.8,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 1.66,
+          "turn": "right"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-0-10",
+      "legs": [
+        {
+          "toId": "L-0-11",
+          "meters": 9.0,
+          "turn": "none"
+        },
+        {
+          "toId": "L-0-12",
+          "meters": 9.3,
+          "turn": "none"
+        },
+        {
+          "toId": "L-0-13",
+          "meters": 9.5,
+          "turn": "none"
+        },
+        {
+          "toId": "L-0-14",
+          "meters": 6.8,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 1.66,
+          "turn": "right"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-0-11",
+      "legs": [
+        {
+          "toId": "L-0-12",
+          "meters": 9.3,
+          "turn": "none"
+        },
+        {
+          "toId": "L-0-13",
+          "meters": 9.5,
+          "turn": "none"
+        },
+        {
+          "toId": "L-0-14",
+          "meters": 6.8,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 1.66,
+          "turn": "right"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-0-12",
+      "legs": [
+        {
+          "toId": "L-0-13",
+          "meters": 9.5,
+          "turn": "none"
+        },
+        {
+          "toId": "L-0-14",
+          "meters": 6.8,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 1.66,
+          "turn": "right"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-0-13",
+      "legs": [
+        {
+          "toId": "L-0-14",
+          "meters": 6.8,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 1.66,
+          "turn": "right"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-0-14",
+      "legs": [
+        {
+          "toId": "L-0-15",
+          "meters": 1.66,
+          "turn": "right"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-0-15",
+      "legs": [
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-1-01",
+      "legs": [
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-1-02",
+      "legs": [
+        {
+          "toId": "L-1-01",
+          "meters": 2.16,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-1-03",
+      "legs": [
+        {
+          "toId": "L-1-02",
+          "meters": 9.4,
+          "turn": "right"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 2.16,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-1-04",
+      "legs": [
+        {
+          "toId": "L-1-03",
+          "meters": 9.0,
+          "turn": "none"
+        },
+        {
+          "toId": "L-1-02",
+          "meters": 9.4,
+          "turn": "right"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 2.16,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-1-05",
+      "legs": [
+        {
+          "toId": "L-1-04",
+          "meters": 9.2,
+          "turn": "none"
+        },
+        {
+          "toId": "L-1-03",
+          "meters": 9.0,
+          "turn": "none"
+        },
+        {
+          "toId": "L-1-02",
+          "meters": 9.4,
+          "turn": "right"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 2.16,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-1-06",
+      "legs": [
+        {
+          "toId": "L-1-05",
+          "meters": 9.5,
+          "turn": "none"
+        },
+        {
+          "toId": "L-1-04",
+          "meters": 9.2,
+          "turn": "none"
+        },
+        {
+          "toId": "L-1-03",
+          "meters": 9.0,
+          "turn": "none"
+        },
+        {
+          "toId": "L-1-02",
+          "meters": 9.4,
+          "turn": "right"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 2.16,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-1-07",
+      "legs": [
+        {
+          "toId": "L-1-06",
+          "meters": 8.5,
+          "turn": "none"
+        },
+        {
+          "toId": "L-1-05",
+          "meters": 9.5,
+          "turn": "none"
+        },
+        {
+          "toId": "L-1-04",
+          "meters": 9.2,
+          "turn": "none"
+        },
+        {
+          "toId": "L-1-03",
+          "meters": 9.0,
+          "turn": "none"
+        },
+        {
+          "toId": "L-1-02",
+          "meters": 9.4,
+          "turn": "right"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 2.16,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-1-09",
+      "legs": [
+        {
+          "toId": "L-1-10",
+          "meters": 9.0,
+          "turn": "none"
+        },
+        {
+          "toId": "L-1-11",
+          "meters": 9.2,
+          "turn": "none"
+        },
+        {
+          "toId": "L-1-12",
+          "meters": 9.3,
+          "turn": "none"
+        },
+        {
+          "toId": "L-1-13",
+          "meters": 9.5,
+          "turn": "none"
+        },
+        {
+          "toId": "L-1-14",
+          "meters": 6.5,
+          "turn": "left"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 4.3,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-1-10",
+      "legs": [
+        {
+          "toId": "L-1-11",
+          "meters": 9.2,
+          "turn": "none"
+        },
+        {
+          "toId": "L-1-12",
+          "meters": 9.3,
+          "turn": "none"
+        },
+        {
+          "toId": "L-1-13",
+          "meters": 9.5,
+          "turn": "none"
+        },
+        {
+          "toId": "L-1-14",
+          "meters": 6.5,
+          "turn": "left"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 4.3,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-1-11",
+      "legs": [
+        {
+          "toId": "L-1-12",
+          "meters": 9.3,
+          "turn": "none"
+        },
+        {
+          "toId": "L-1-13",
+          "meters": 9.5,
+          "turn": "none"
+        },
+        {
+          "toId": "L-1-14",
+          "meters": 6.5,
+          "turn": "left"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 4.3,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-1-12",
+      "legs": [
+        {
+          "toId": "L-1-13",
+          "meters": 9.5,
+          "turn": "none"
+        },
+        {
+          "toId": "L-1-14",
+          "meters": 6.5,
+          "turn": "left"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 4.3,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-1-13",
+      "legs": [
+        {
+          "toId": "L-1-14",
+          "meters": 6.5,
+          "turn": "left"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 4.3,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-1-14",
+      "legs": [
+        {
+          "toId": "L-1-01",
+          "meters": 4.3,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-2-01",
+      "legs": [
+        {
+          "toId": "L-1-01",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-2-02",
+      "legs": [
+        {
+          "toId": "L-2-01",
+          "meters": 3.6,
+          "turn": "left"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-2-03",
+      "legs": [
+        {
+          "toId": "L-2-02",
+          "meters": 9.4,
+          "turn": "right"
+        },
+        {
+          "toId": "L-2-01",
+          "meters": 3.6,
+          "turn": "left"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-2-04",
+      "legs": [
+        {
+          "toId": "L-2-03",
+          "meters": 9.0,
+          "turn": "none"
+        },
+        {
+          "toId": "L-2-02",
+          "meters": 9.4,
+          "turn": "right"
+        },
+        {
+          "toId": "L-2-01",
+          "meters": 3.6,
+          "turn": "left"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-2-05",
+      "legs": [
+        {
+          "toId": "L-2-04",
+          "meters": 9.2,
+          "turn": "none"
+        },
+        {
+          "toId": "L-2-03",
+          "meters": 9.0,
+          "turn": "none"
+        },
+        {
+          "toId": "L-2-02",
+          "meters": 9.4,
+          "turn": "right"
+        },
+        {
+          "toId": "L-2-01",
+          "meters": 3.6,
+          "turn": "left"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-2-06",
+      "legs": [
+        {
+          "toId": "L-2-05",
+          "meters": 9.5,
+          "turn": "none"
+        },
+        {
+          "toId": "L-2-04",
+          "meters": 9.2,
+          "turn": "none"
+        },
+        {
+          "toId": "L-2-03",
+          "meters": 9.0,
+          "turn": "none"
+        },
+        {
+          "toId": "L-2-02",
+          "meters": 9.4,
+          "turn": "right"
+        },
+        {
+          "toId": "L-2-01",
+          "meters": 3.6,
+          "turn": "left"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-2-07",
+      "legs": [
+        {
+          "toId": "L-2-06",
+          "meters": 8.5,
+          "turn": "none"
+        },
+        {
+          "toId": "L-2-05",
+          "meters": 9.5,
+          "turn": "none"
+        },
+        {
+          "toId": "L-2-04",
+          "meters": 9.2,
+          "turn": "none"
+        },
+        {
+          "toId": "L-2-03",
+          "meters": 9.0,
+          "turn": "none"
+        },
+        {
+          "toId": "L-2-02",
+          "meters": 9.4,
+          "turn": "right"
+        },
+        {
+          "toId": "L-2-01",
+          "meters": 3.6,
+          "turn": "left"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-2-09",
+      "legs": [
+        {
+          "toId": "L-2-10",
+          "meters": 18.0,
+          "turn": "none"
+        },
+        {
+          "toId": "L-2-11",
+          "meters": 9.3,
+          "turn": "none"
+        },
+        {
+          "toId": "L-2-12",
+          "meters": 9.5,
+          "turn": "none"
+        },
+        {
+          "toId": "L-2-13",
+          "meters": 9.38,
+          "turn": "left"
+        },
+        {
+          "toId": "L-2-02",
+          "meters": 5.6,
+          "turn": "left"
+        },
+        {
+          "toId": "L-2-01",
+          "meters": 3.6,
+          "turn": "left"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-2-10",
+      "legs": [
+        {
+          "toId": "L-2-11",
+          "meters": 9.3,
+          "turn": "none"
+        },
+        {
+          "toId": "L-2-12",
+          "meters": 9.5,
+          "turn": "none"
+        },
+        {
+          "toId": "L-2-13",
+          "meters": 9.38,
+          "turn": "left"
+        },
+        {
+          "toId": "L-2-02",
+          "meters": 5.6,
+          "turn": "left"
+        },
+        {
+          "toId": "L-2-01",
+          "meters": 3.6,
+          "turn": "left"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-2-11",
+      "legs": [
+        {
+          "toId": "L-2-12",
+          "meters": 9.5,
+          "turn": "none"
+        },
+        {
+          "toId": "L-2-13",
+          "meters": 9.38,
+          "turn": "left"
+        },
+        {
+          "toId": "L-2-02",
+          "meters": 5.6,
+          "turn": "left"
+        },
+        {
+          "toId": "L-2-01",
+          "meters": 3.6,
+          "turn": "left"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-2-12",
+      "legs": [
+        {
+          "toId": "L-2-13",
+          "meters": 9.38,
+          "turn": "left"
+        },
+        {
+          "toId": "L-2-02",
+          "meters": 5.6,
+          "turn": "left"
+        },
+        {
+          "toId": "L-2-01",
+          "meters": 3.6,
+          "turn": "left"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    },
+    {
+      "startId": "L-2-13",
+      "legs": [
+        {
+          "toId": "L-2-02",
+          "meters": 5.6,
+          "turn": "left"
+        },
+        {
+          "toId": "L-2-01",
+          "meters": 3.6,
+          "turn": "left"
+        },
+        {
+          "toId": "L-1-01",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-15",
+          "meters": 13.2,
+          "turn": "none",
+          "kind": "stairs"
+        },
+        {
+          "toId": "L-0-02",
+          "meters": 4.96,
+          "turn": "left"
+        },
+        {
+          "toId": "L-0-01",
+          "meters": 9.0,
+          "turn": "none"
+        }
+      ]
+    }
+  ]
+}
