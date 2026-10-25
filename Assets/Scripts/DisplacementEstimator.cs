@@ -53,6 +53,12 @@ public class DisplacementEstimator : MonoBehaviour
     public bool TrackingLost => trackingLost;
     public bool Started => hasStart;
 
+    /// <summary>
+    /// Se verdadeiro (padrao), reinicia sozinho a cada QR lido. A navegacao desliga isso e chama
+    /// Restart() so em QR valido, para um QR estranho nao zerar a distancia no meio do trecho.
+    /// </summary>
+    public bool AutoRestartOnQr { get; set; } = true;
+
     public float LegMeters => legMeters;
     public float RemainingMeters => Mathf.Max(0f, legMeters - StraightMeters);
     public bool LegExceeded => hasStart && StraightMeters > legMeters + overshootMeters;
@@ -73,6 +79,7 @@ public class DisplacementEstimator : MonoBehaviour
 
     void HandleQr(string text)
     {
+        if (!AutoRestartOnQr) return;
         bool gap = Time.realtimeSinceStartup - lastQrEventTime > rescanGapSeconds;
         lastQrEventTime = Time.realtimeSinceStartup;
         if (gap || !hasStart) Restart(text);
