@@ -98,12 +98,24 @@ namespace SafeSight.Navigation
         /// <param name="now">Tempo em segundos (Time.realtimeSinceStartup no app).</param>
         public QrResult OnQrRead(string id, float now)
         {
-            bool gap = now - lastQrTime > RescanGapSeconds;
-            lastQrTime = now;
-            if (id == currentId && !gap) return QrResult.Ignored; // mesmo QR ainda no campo de visao
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                Message = "QR não reconhecido. Tente outro código";
+                return QrResult.Unknown;
+            }
+
+            // So leituras do QR atual contam para o intervalo. Um QR estranho nao
+            // deve impedir a recuperacao da posicao por uma nova leitura valida.
+            if (id == currentId)
+            {
+                bool gap = now - lastQrTime >= RescanGapSeconds;
+                lastQrTime = now;
+                if (!gap) return QrResult.Ignored; // mesmo QR ainda no campo de visao
+            }
 
             if (id == data.exitId) // a saida tambem esta em "points": checar antes
             {
+                lastQrTime = now;
                 currentId = id;
                 route = null;
                 arrived = true;
@@ -124,6 +136,7 @@ namespace SafeSight.Navigation
                 return QrResult.NoRoute;
             }
 
+            lastQrTime = now;
             currentId = id;
             route = r;
             arrived = false;
@@ -141,6 +154,8 @@ namespace SafeSight.Navigation
         {
             if (arrived) { State = NavState.Arrived; return; }
             if (route == null) { State = NavState.Idle; return; }
+            // Depois de perder a referencia, so um QR valido pode liberar a navegacao.
+            if (State == NavState.NeedNewQr) return;
 
             straightMeters = straight;
             if (trackingLost) { State = NavState.NeedNewQr; return; }

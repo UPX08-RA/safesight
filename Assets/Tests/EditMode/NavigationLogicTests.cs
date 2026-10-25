@@ -97,6 +97,109 @@ public class NavigationLogicTests
         Assert.AreEqual(9.0f, logic.RemainingLegMeters, 0.001f);   // reiniciou
     }
 
+    [TestCase(null)]
+    [TestCase("")]
+    [TestCase("   ")]
+    [TestCase("QR-DESCONHECIDO")]
+    public void QrInvalidoDuranteRota_PreservaPosicao_E_Avisa(string qr)
+    {
+        logic.OnQrRead(P9, 0f);
+        logic.Tick(4f, false);
+
+        Assert.AreEqual(QrResult.Unknown, logic.OnQrRead(qr, 2f));
+        Assert.AreEqual(NavState.Following, logic.State);
+        Assert.AreEqual(P9, logic.CurrentId);
+        Assert.AreEqual(5f, logic.RemainingLegMeters, 0.001f);
+        Assert.AreEqual(23.4f, logic.RemainingTotalMeters, 0.01f);
+        StringAssert.Contains("não reconhecido", logic.Message);
+    }
+
+    [Test]
+    public void QrDesconhecido_NaoAdiaReleituraDoQrAtual()
+    {
+        logic.OnQrRead(P9, 0f);
+        logic.Tick(5f, false);
+
+        Assert.AreEqual(QrResult.Unknown, logic.OnQrRead("QR-DESCONHECIDO", 1.9f));
+        Assert.AreEqual(QrResult.RouteLoaded, logic.OnQrRead(P9, 2f));
+        Assert.AreEqual(9f, logic.RemainingLegMeters, 0.001f);
+        Assert.IsEmpty(logic.Message);
+    }
+
+    [Test]
+    public void PontoSemRota_PreservaNavegacao_E_NaoAdiaQrValido()
+    {
+        // O JSON real tem rotas para todos os pontos exceto a saida.
+        var data = logic.Data;
+        data.points.Add(new TrajPoint { id = "SEM-ROTA" });
+        logic = new NavigationLogic(data);
+        logic.OnQrRead(P9, 0f);
+        logic.Tick(4f, false);
+
+        Assert.AreEqual(QrResult.NoRoute, logic.OnQrRead("SEM-ROTA", 1.9f));
+        Assert.AreEqual(NavState.Following, logic.State);
+        Assert.AreEqual(P9, logic.CurrentId);
+        Assert.AreEqual(5f, logic.RemainingLegMeters, 0.001f);
+        StringAssert.Contains("Sem rota cadastrada", logic.Message);
+        Assert.AreEqual(QrResult.RouteLoaded, logic.OnQrRead(P9, 2f));
+        Assert.IsEmpty(logic.Message);
+    }
+
+    [Test]
+    public void MesmoQr_IntervaloExatoDeUmSegundoEMeio_PermiteReleitura()
+    {
+        logic.OnQrRead(P9, 0f);
+        logic.Tick(5f, false);
+
+        Assert.AreEqual(QrResult.RouteLoaded, logic.OnQrRead(P9, 1.5f));
+        Assert.AreEqual(9f, logic.RemainingLegMeters, 0.001f);
+    }
+
+    [Test]
+    public void MesmoQrContinuamenteVisivel_NaoReiniciaDistancia()
+    {
+        logic.OnQrRead(P9, 0f);
+        logic.Tick(5f, false);
+
+        for (int i = 1; i <= 5; i++)
+            Assert.AreEqual(QrResult.Ignored, logic.OnQrRead(P9, i * 0.5f));
+
+        Assert.AreEqual(4f, logic.RemainingLegMeters, 0.001f);
+    }
+
+    [TestCase(P9, 10.6f, false)]
+    [TestCase(P9, 2f, true)]
+    [TestCase("L-1-01", 5f, true)]
+    public void PosicaoIncerta_SoRetomaComQrValido(string ponto, float distancia, bool perdeuRastreamento)
+    {
+        logic.OnQrRead(ponto, 0f);
+        logic.Tick(distancia, perdeuRastreamento);
+        Assert.AreEqual(NavState.NeedNewQr, logic.State);
+
+        // Voltar para dentro do trecho ou recuperar o ARCore nao confirma a posicao.
+        logic.Tick(2f, false);
+        Assert.AreEqual(NavState.NeedNewQr, logic.State);
+        Assert.AreEqual(QrResult.Unknown, logic.OnQrRead("QR-DESCONHECIDO", 1.9f));
+        logic.Tick(2f, false);
+        Assert.AreEqual(NavState.NeedNewQr, logic.State);
+
+        Assert.AreEqual(QrResult.RouteLoaded, logic.OnQrRead(ponto, 2f));
+        Assert.AreEqual(NavState.Following, logic.State);
+        Assert.AreEqual(logic.CurrentLeg.meters, logic.RemainingLegMeters, 0.001f);
+    }
+
+    [Test]
+    public void QrDaSaida_ConfirmaChegadaMesmoComPosicaoIncerta()
+    {
+        logic.OnQrRead(P9, 0f);
+        logic.Tick(2f, true);
+
+        Assert.AreEqual(QrResult.Arrived, logic.OnQrRead(logic.ExitId, 0.5f));
+        logic.Tick(20f, true);
+        Assert.AreEqual(NavState.Arrived, logic.State);
+        Assert.AreEqual(0f, logic.RemainingTotalMeters);
+    }
+
     [Test]
     public void DistanciaTotalAteASaida()
     {
