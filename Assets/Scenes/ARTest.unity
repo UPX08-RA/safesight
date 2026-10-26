@@ -645,6 +645,8 @@ GameObject:
   - component: {fileID: 1806086140}
   - component: {fileID: 1806086139}
   - component: {fileID: 1806086141}
+  - component: {fileID: 1806086142}
+  - component: {fileID: 1806086143}
   m_Layer: 0
   m_Name: XR Origin
   m_TagString: Untagged
@@ -700,6 +702,44 @@ MonoBehaviour:
   cameraManager: {fileID: 0}
   showDebugPanel: 1
   scanEveryNFrames: 5
+--- !u!114 &1806086142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806086138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02d29f9cd6bd3e1468802c702286012f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DisplacementEstimator
+  qrScanner: {fileID: 0}
+  legMeters: 5
+  warnMeters: 1
+  overshootMeters: 1.5
+  rescanGapSeconds: 1.5
+  turnThresholdDegrees: 60
+  showDebugPanel: 1
+--- !u!114 &1806086143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806086138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a7bed4f1395b54e8de867ee1983fd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NavigationController
+  trajetoJson: {fileID: 0}
+  qrScanner: {fileID: 0}
+  estimator: {fileID: 0}
+  warnMeters: 1
+  overshootMeters: 1.5
+  rescanGapSeconds: 1.5
+  showDebugPanel: 0
 --- !u!1 &1837328809
 GameObject:
   m_ObjectHideFlags: 0
