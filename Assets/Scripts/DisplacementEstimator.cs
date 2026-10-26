@@ -37,6 +37,8 @@ public class DisplacementEstimator : MonoBehaviour
     [Tooltip("Mostra o painel de teste. Desligar quando a UI definitiva existir.")]
     [SerializeField] bool showDebugPanel = true;
 
+    public bool ShowDebugPanel { get => showDebugPanel; set => showDebugPanel = value; }
+
     Transform cam;
     Vector3 startPos;
     Vector3 lastPos;
