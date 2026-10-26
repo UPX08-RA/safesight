@@ -3,8 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// Liga o QrScanner e o DisplacementEstimator a NavigationLogic (regras de navegacao por rota
-/// cadastrada) e expoe o estado para o HUD. Tem so um painel de teste simples; as telas
-/// definitivas ficam com o HUD (Canvas).
+/// cadastrada) e expoe o estado para o HUD (NavigationHud). O painel de teste so aparece se ligado.
 /// </summary>
 public class NavigationController : MonoBehaviour
 {
@@ -19,24 +18,50 @@ public class NavigationController : MonoBehaviour
     [SerializeField, Min(0.5f)] float rescanGapSeconds = 1.5f;
 
     [Header("Teste")]
-    [SerializeField] bool showDebugPanel = true;
+    [SerializeField] bool showDebugPanel = false;
 
     NavigationLogic logic;
+    TextAsset jsonAsset;
     string toast = "";
     float toastUntil;
 
     public NavigationLogic Logic => logic;
+    public DisplacementEstimator Estimator => estimator;
     public NavState State => logic != null ? logic.State : NavState.Idle;
+
+    /// <summary>Aviso temporario (QR invalido, ponto sem rota).</summary>
+    public string ToastText => toast;
+    public bool ToastActive => Time.realtimeSinceStartup < toastUntil;
+
+    public bool ShowDebugPanel { get => showDebugPanel; set => showDebugPanel = value; }
+
+    /// <summary>Liga/desliga os paineis de teste (navegacao, leitor de QR e estimador).</summary>
+    public void SetAllDebugPanels(bool on)
+    {
+        showDebugPanel = on;
+        if (qrScanner != null) qrScanner.ShowDebugPanel = on;
+        if (estimator != null) estimator.ShowDebugPanel = on;
+    }
+
+    /// <summary>Volta ao estado inicial (aguardando QR).</summary>
+    public void ResetNavigation()
+    {
+        if (jsonAsset == null) return;
+        logic = NavigationLogic.FromJson(jsonAsset.text);
+        ApplyThresholds();
+        toast = "";
+        toastUntil = 0f;
+    }
 
     void Awake()
     {
-        var ta = trajetoJson != null ? trajetoJson : Resources.Load<TextAsset>("trajeto");
-        if (ta == null)
+        jsonAsset = trajetoJson != null ? trajetoJson : Resources.Load<TextAsset>("trajeto");
+        if (jsonAsset == null)
         {
             Debug.LogError("trajeto.json nao encontrado em Resources");
             return;
         }
-        logic = NavigationLogic.FromJson(ta.text);
+        logic = NavigationLogic.FromJson(jsonAsset.text);
         ApplyThresholds();
     }
 
@@ -93,7 +118,7 @@ public class NavigationController : MonoBehaviour
         logic.Tick(estimator.StraightMeters, estimator.TrackingLost);
     }
 
-    // Painel de teste simples (sem Canvas). A UI definitiva e do HUD.
+    // Painel de teste simples (sem Canvas). A UI do usuario e o NavigationHud.
     void OnGUI()
     {
         if (logic == null || !showDebugPanel) return;
@@ -102,13 +127,13 @@ public class NavigationController : MonoBehaviour
         style.normal.textColor = Color.white;
 
         float pad = size;
-        var rect = new Rect(pad, Screen.height * 0.62f, Screen.width - 2 * pad, Screen.height * 0.34f);
+        var rect = new Rect(pad, Screen.height * 0.02f, Screen.width - 2 * pad, Screen.height * 0.30f);
         GUI.Box(rect, GUIContent.none);
 
         string ponto = logic.CurrentPoint != null ? logic.CurrentId : "-";
         string alertas = (logic.ShowElevatorAlert ? "NAO USE O ELEVADOR  " : "") +
                          (string.IsNullOrEmpty(logic.ExtinguisherText) ? "" : $"Extintor: {logic.ExtinguisherText}");
-        string msg = Time.realtimeSinceStartup < toastUntil ? $"\n{toast}" : "";
+        string msg = ToastActive ? $"\n{toast}" : "";
 
         GUI.Label(rect,
             $"Estado: {logic.State}  |  Ponto: {ponto}  |  Destino: {logic.ExitName}\n" +

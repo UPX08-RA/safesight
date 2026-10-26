@@ -17,8 +17,10 @@ public class QrScanner : MonoBehaviour
     [SerializeField] ARCameraManager cameraManager;
 
     [Header("Teste")]
-    [Tooltip("Mostra o painel de teste (texto lido, ms, FPS). Desligar quando a UI definitiva existir.")]
+    [Tooltip("Mostra o painel de teste (texto lido, ms, FPS). O HUD controla este valor pelo botao Debug.")]
     [SerializeField] bool showDebugPanel = true;
+
+    public bool ShowDebugPanel { get => showDebugPanel; set => showDebugPanel = value; }
 
     [Header("Desempenho")]
     [Tooltip("Tenta decodificar a cada N frames (maior = mais leve).")]
