@@ -700,7 +700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::QrScanner
   cameraManager: {fileID: 0}
-  showDebugPanel: 1
+  showDebugPanel: 0
   scanEveryNFrames: 5
 --- !u!114 &1806086142
 MonoBehaviour:
