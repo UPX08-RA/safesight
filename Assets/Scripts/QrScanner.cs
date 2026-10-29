@@ -104,12 +104,13 @@ public class QrScanner : MonoBehaviour
     void OnGUI()
     {
         if (!showDebugPanel) return;
-        int size = Mathf.RoundToInt(Screen.height * 0.035f);
+        // Paineis de teste empilhados sem sobreposicao: QrScanner (topo), Navigation (meio), Estimator (baixo).
+        int size = Mathf.RoundToInt(Screen.height * 0.026f);
         var style = new GUIStyle(GUI.skin.label) { fontSize = size, wordWrap = true };
         style.normal.textColor = Color.white;
 
-        float pad = size;
-        var rect = new Rect(pad, pad, Screen.width - 2 * pad, Screen.height * 0.4f);
+        float pad = Screen.height * 0.02f;
+        var rect = new Rect(pad, Screen.height * 0.10f, Screen.width - 2 * pad, Screen.height * 0.17f);
         GUI.Box(rect, GUIContent.none);
         GUI.Label(rect,
             $"{status}\n" +

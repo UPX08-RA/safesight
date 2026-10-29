@@ -132,12 +132,12 @@ public class DisplacementEstimator : MonoBehaviour
     void OnGUI()
     {
         if (!showDebugPanel) return;
-        int size = Mathf.RoundToInt(Screen.height * 0.035f);
+        int size = Mathf.RoundToInt(Screen.height * 0.026f);
         var style = new GUIStyle(GUI.skin.label) { fontSize = size, wordWrap = true };
         style.normal.textColor = Color.white;
 
-        float pad = size;
-        var rect = new Rect(pad, Screen.height * 0.5f, Screen.width - 2 * pad, Screen.height * 0.3f);
+        float pad = Screen.height * 0.02f;
+        var rect = new Rect(pad, Screen.height * 0.52f, Screen.width - 2 * pad, Screen.height * 0.22f);
         GUI.Box(rect, GUIContent.none);
 
         string state = !hasStart ? "Leia um QR para iniciar"
@@ -154,7 +154,7 @@ public class DisplacementEstimator : MonoBehaviour
             $"Trecho: {legMeters:0.0} m  |  Faltam: {RemainingMeters:0.00} m  |  Giro: {YawDelta:0}°", style);
 
         float bw = Screen.width * 0.4f, bh = Screen.height * 0.07f;
-        if (GUI.Button(new Rect(pad, Screen.height * 0.82f, bw, bh), "Zerar agora"))
+        if (GUI.Button(new Rect(pad, Screen.height * 0.76f, bw, bh), "Zerar agora"))
             Restart(startQr);
     }
 }

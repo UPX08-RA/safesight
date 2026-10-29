@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using SafeSight.Navigation;
 using UnityEngine;
@@ -7,6 +8,8 @@ using UnityEngine;
 /// camera, sem ancoragem espacial. Le o estado da NavigationController/NavigationLogic.
 /// Estados: aguardando QR (moldura), rota ativa (seta, instrucao, progresso, proximos passos),
 /// novo QR necessario ("?"), chegada (check) e aviso de QR invalido. Elevador e extintor como alertas.
+/// Os botoes Reiniciar e Debug sao icones no canto do cartao superior. Com o Debug ligado, so os
+/// paineis de teste aparecem (o HUD some), um de cada vez.
 /// </summary>
 public class NavigationHud : MonoBehaviour
 {
@@ -22,14 +25,16 @@ public class NavigationHud : MonoBehaviour
     static readonly Color Red = new Color(0.90f, 0.22f, 0.22f);
     static readonly Color Muted = new Color(0.66f, 0.73f, 0.84f);
 
-    Texture2D arrowTex;
+    Texture2D arrowTex, restartTex, bugTex;
     GUIStyle sty;
     float u;          // unidade de escala (relativa ao tamanho da tela)
     bool debugOn;
 
     void Awake()
     {
-        arrowTex = MakeArrow();
+        arrowTex = Bake(256, (x, y) => InArrow(x, y, 0.035f) ? 1f : 0f, (x, y) => InArrow(x, y, 0f));
+        restartTex = Bake(128, RestartIcon);
+        bugTex = Bake(128, BugIcon);
     }
 
     void Start()
@@ -71,23 +76,35 @@ public class NavigationHud : MonoBehaviour
         return sty.CalcSize(new GUIContent(s)).x;
     }
 
-    // Pilula de alerta com icone "!"; devolve a altura usada.
-    float Pill(float x, float y, string s, Color bg, Color fg)
+    /// <summary>Menor tamanho de fonte (em u) que faz o texto caber em maxW; ate minSize.</summary>
+    float FitSize(string s, float size, float maxW, bool bold, float minSize)
+    {
+        float w = TextWidth(s, size, bold);
+        if (w <= maxW) return size;
+        return Mathf.Max(minSize, size * maxW / w);
+    }
+
+    // Pilula de alerta com icone "!"; o texto encolhe para caber na largura; devolve a altura usada.
+    float Pill(float x, float y, float maxW, string s, Color bg, Color fg)
     {
         float h = 56f * u;
-        float w = TextWidth(s, 28, true) + 96f * u;
+        float size = FitSize(s, 28f, maxW - 96f * u, true, 16f);
+        float w = TextWidth(s, size, true) + 96f * u;
         Round(new Rect(x, y, w, h), bg, h / 2f);
         var ic = new Rect(x + 12f * u, y + 10f * u, 36f * u, 36f * u);
         Round(ic, Color.white, 18f * u);
         Text(ic, "!", 26, bg, TextAnchor.MiddleCenter, true);
-        Text(new Rect(x + 58f * u, y, w - 62f * u, h), s, 28, fg, TextAnchor.MiddleLeft, true);
+        Text(new Rect(x + 58f * u, y, w - 62f * u, h), s, size, fg, TextAnchor.MiddleLeft, true);
         return h;
     }
 
-    bool GhostButton(Rect r, string s)
+    /// <summary>Botao redondo com icone. active = destaque verde.</summary>
+    bool IconButton(Rect r, Texture2D icon, bool active)
     {
-        Round(r, new Color(1f, 1f, 1f, 0.20f), r.height / 2f);
-        Text(r, s, 24, Color.white, TextAnchor.MiddleCenter, true);
+        Round(r, active ? new Color(Green.r, Green.g, Green.b, 0.95f) : new Color(1f, 1f, 1f, 0.22f), r.height / 2f);
+        float pad = r.width * 0.2f;
+        var ir = new Rect(r.x + pad, r.y + pad, r.width - 2f * pad, r.height - 2f * pad);
+        GUI.DrawTexture(ir, icon, ScaleMode.ScaleToFit, true, 0f, active ? Color.black : Color.white, 0f, 0f);
         return GUI.Button(r, GUIContent.none, GUIStyle.none);
     }
 
@@ -134,55 +151,73 @@ public class NavigationHud : MonoBehaviour
         float bottom = (Screen.height - sa.yMin) - m;
         float cx = sa.x + sa.width / 2f;
 
+        // Cartao superior (no modo debug nao e desenhado, mas os botoes ficam no mesmo lugar).
+        var tc = new Rect(left, top, colW, 130f * u);
+        float bs = 56f * u;
+        var bugR = new Rect(tc.xMax - 14f * u - bs, tc.y + 8f * u, bs, bs);
+        var restartR = new Rect(bugR.x - 8f * u - bs, bugR.y, bs, bs);
+
+        if (!debugOn) DrawHud(logic, est, state, leg, sa, H, left, colW, top, bottom, cx, tc, restartR);
+
+        // Botoes (sempre visiveis, por cima de tudo)
+        if (IconButton(restartR, restartTex, false)) controller.ResetNavigation();
+        if (IconButton(bugR, bugTex, debugOn))
+        {
+            debugOn = !debugOn;
+            controller.SetAllDebugPanels(debugOn);
+        }
+    }
+
+    void DrawHud(NavigationLogic logic, DisplacementEstimator est, NavState state, TrajLeg leg,
+                 Rect sa, float H, float left, float colW, float top, float bottom, float cx, Rect tc, Rect restartR)
+    {
         Color accent = state == NavState.NeedNewQr ? Red : state == NavState.TurnWarning ? Amber : Green;
         bool active = leg != null && est != null && est.Started &&
                       state != NavState.Idle && state != NavState.Arrived;
 
         // ===== Cartao superior: onde estou / destino (RF05) =====
-        var tc = new Rect(left, top, colW, 124f * u);
         Round(tc, Panel, 30f * u);
         Text(new Rect(tc.x + 26f * u, tc.y + 12f * u, colW * 0.5f, 26f * u), "VOCÊ ESTÁ EM", 19, Muted, bold: true);
-        Text(new Rect(tc.x + 26f * u, tc.y + 34f * u, colW * 0.5f, 60f * u),
-             string.IsNullOrEmpty(logic.CurrentId) ? "-" : logic.CurrentId, 50, Color.white, bold: true);
-        var cp = logic.CurrentPoint;
-        if (cp != null && !string.IsNullOrEmpty(cp.description))
-            Text(new Rect(tc.x + 26f * u, tc.y + 90f * u, colW * 0.62f, 28f * u), cp.description, 21, Muted);
-        Text(new Rect(tc.x + colW * 0.45f, tc.y + 12f * u, colW * 0.55f - 26f * u, 26f * u), "DESTINO", 19, Muted,
+        string id = string.IsNullOrEmpty(logic.CurrentId) ? "-" : logic.CurrentId;
+        Text(new Rect(tc.x + 26f * u, tc.y + 32f * u, colW * 0.45f, 62f * u), id, 50, Color.white, bold: true);
+        float idW = TextWidth(id, 50, true) + 40f * u;
+
+        // DESTINO: rotulo ao lado dos botoes; nome logo abaixo, encolhendo para caber
+        Text(new Rect(tc.x + 26f * u, tc.y + 12f * u, restartR.x - tc.x - 26f * u - 12f * u, 26f * u), "DESTINO", 19, Muted,
              TextAnchor.UpperRight, true);
-        Text(new Rect(tc.x + colW * 0.45f, tc.y + 40f * u, colW * 0.55f - 26f * u, 50f * u), logic.ExitName, 36, Green,
+        float nameAvail = colW - 26f * u - idW - 26f * u;
+        string exitName = logic.ExitName;
+        float nameSize = FitSize(exitName, 34f, nameAvail, true, 18f);
+        Text(new Rect(tc.xMax - 26f * u - nameAvail, tc.y + 56f * u, nameAvail, 44f * u), exitName, nameSize, Green,
              TextAnchor.UpperRight, true);
 
-        // ===== Alertas (RF07) + botoes =====
+        var cp = logic.CurrentPoint;
+        if (cp != null && !string.IsNullOrEmpty(cp.description))
+            Text(new Rect(tc.x + 26f * u, tc.y + 98f * u, colW - 52f * u, 28f * u), cp.description, 21, Muted);
+
+        // ===== Alertas (RF07) =====
         float ay = tc.yMax + 10f * u;
         if (cp != null)
         {
-            if (logic.ShowElevatorAlert) ay += Pill(left, ay, "Não utilize o elevador", Red, Color.white) + 8f * u;
+            if (logic.ShowElevatorAlert) ay += Pill(left, ay, colW, "Não utilize o elevador", Red, Color.white) + 8f * u;
             if (!string.IsNullOrEmpty(logic.ExtinguisherText))
-                ay += Pill(left, ay, "Extintor: " + logic.ExtinguisherText, Amber, new Color(0.15f, 0.1f, 0f)) + 8f * u;
+                ay += Pill(left, ay, colW, "Extintor: " + logic.ExtinguisherText, Amber, new Color(0.15f, 0.1f, 0f)) + 8f * u;
         }
-        float bh = 50f * u, bw = 170f * u;
-        if (GhostButton(new Rect(left + colW - bw, tc.yMax + 10f * u, bw, bh), debugOn ? "Ocultar debug" : "Debug"))
-        {
-            debugOn = !debugOn;
-            controller.SetAllDebugPanels(debugOn);
-        }
-        if (GhostButton(new Rect(left + colW - 2 * bw - 10f * u, tc.yMax + 10f * u, bw, bh), "Reiniciar"))
-            controller.ResetNavigation();
 
         // ===== Centro: seta / estado =====
         float cy = H * 0.46f;
         float pulse = 1f + 0.035f * Mathf.Sin(Time.realtimeSinceStartup * 3f);
-        float D = 330f * u * pulse;
+        float D = 240f * u * pulse;
         var circle = new Rect(cx - D / 2f, cy - D / 2f, D, D);
 
         if (state == NavState.Following || state == NavState.TurnWarning)
         {
-            Round(circle, new Color(0.05f, 0.07f, 0.11f, 0.55f), D / 2f);
-            RingShape(circle, accent, 7f * u);
+            Round(circle, new Color(0.05f, 0.07f, 0.11f, 0.45f), D / 2f);
+            RingShape(circle, accent, 6f * u);
             float angle = 0f;
             if (state == NavState.TurnWarning && leg != null && !logic.IsLastLeg)
                 angle = leg.turn == "right" ? 90f : leg.turn == "left" ? -90f : 0f;
-            float S = 230f * u * pulse;
+            float S = 165f * u * pulse;
             var ar = new Rect(cx - S / 2f, cy - S / 2f, S, S);
             var old = GUI.matrix;
             GUIUtility.RotateAroundPivot(angle, ar.center);
@@ -192,18 +227,18 @@ public class NavigationHud : MonoBehaviour
         else if (state == NavState.Arrived)
         {
             Round(circle, new Color(0.12f, 0.78f, 0.35f, 0.95f), D / 2f);
-            var v = new Vector2(cx - 20f * u, cy + 55f * u); // vertice do "check"
-            RotatedBar(new Vector2(v.x - 48f * u, v.y - 28f * u), 90f * u, 30f * u, 45f, Color.white);
-            RotatedBar(new Vector2(v.x + 55f * u, v.y - 65f * u), 190f * u, 30f * u, -50f, Color.white);
+            var v = new Vector2(cx - 14f * u, cy + 40f * u); // vertice do "check"
+            RotatedBar(new Vector2(v.x - 35f * u, v.y - 20f * u), 66f * u, 22f * u, 45f, Color.white);
+            RotatedBar(new Vector2(v.x + 40f * u, v.y - 47f * u), 138f * u, 22f * u, -50f, Color.white);
         }
         else if (state == NavState.NeedNewQr)
         {
             Round(circle, new Color(0.90f, 0.22f, 0.22f, 0.90f), D / 2f);
-            Text(circle, "?", 170, Color.white, TextAnchor.MiddleCenter, true);
+            Text(circle, "?", 125, Color.white, TextAnchor.MiddleCenter, true);
         }
         else // Idle: moldura de leitura de QR
         {
-            float s = 330f * u, L = 70f * u, th = 10f * u;
+            float s = 250f * u, L = 54f * u, th = 8f * u;
             var c = new Color(1f, 1f, 1f, 0.9f);
             float x0 = cx - s / 2f, y0 = cy - s / 2f, x1 = cx + s / 2f, y1 = cy + s / 2f;
             Round(new Rect(x0, y0, L, th), c, th / 2f); Round(new Rect(x0, y0, th, L), c, th / 2f);
@@ -271,32 +306,101 @@ public class NavigationHud : MonoBehaviour
         }
     }
 
-    // Seta gerada em codigo (sem asset): contorno branco + preenchimento verde.
-    static Texture2D MakeArrow()
+    // ---------- Texturas geradas em codigo (sem assets) ----------
+
+    /// <summary>Gera uma textura branca com alfa vindo de cov (x,y em 0..1, y para cima), com suavizacao 3x3.</summary>
+    static Texture2D Bake(int n, Func<float, float, float> cov)
     {
-        const int N = 256;
-        var tex = new Texture2D(N, N, TextureFormat.RGBA32, false) { wrapMode = TextureWrapMode.Clamp };
-        var px = new Color32[N * N];
-        for (int y = 0; y < N; y++)
-            for (int x = 0; x < N; x++)
+        var tex = new Texture2D(n, n, TextureFormat.RGBA32, false) { wrapMode = TextureWrapMode.Clamp };
+        var px = new Color32[n * n];
+        const int SS = 3;
+        for (int y = 0; y < n; y++)
+            for (int x = 0; x < n; x++)
             {
-                float px01 = (x + 0.5f) / N, py01 = (y + 0.5f) / N;
-                Color32 c = new Color32(0, 0, 0, 0);
-                if (InArrow(px01, py01, 0.035f)) c = new Color32(255, 255, 255, 255);
-                if (InArrow(px01, py01, 0f)) c = new Color32(30, 200, 90, 255);
-                px[y * N + x] = c;
+                float a = 0f;
+                for (int sy = 0; sy < SS; sy++)
+                    for (int sx = 0; sx < SS; sx++)
+                        a += cov((x + (sx + 0.5f) / SS) / n, (y + (sy + 0.5f) / SS) / n);
+                a /= SS * SS;
+                px[y * n + x] = new Color32(255, 255, 255, (byte)Mathf.RoundToInt(255f * a));
             }
         tex.SetPixels32(px);
         tex.Apply();
         return tex;
     }
 
-    static bool InArrow(float u, float v, float m)
+    // Seta: contorno branco + preenchimento verde (cores proprias, nao tingida).
+    static Texture2D Bake(int n, Func<float, float, float> outline, Func<float, float, bool> fill)
     {
-        // cabeca (triangulo) + haste (retangulo); v cresce para cima
-        bool head = v >= 0.5f - m && v <= 0.95f + m &&
-                    Mathf.Abs(u - 0.5f) <= (0.38f + m) * ((0.95f + m) - v) / (0.45f + 2f * m);
-        bool shaft = Mathf.Abs(u - 0.5f) <= 0.13f + m && v >= 0.05f - m && v <= 0.55f;
+        var tex = new Texture2D(n, n, TextureFormat.RGBA32, false) { wrapMode = TextureWrapMode.Clamp };
+        var px = new Color32[n * n];
+        for (int y = 0; y < n; y++)
+            for (int x = 0; x < n; x++)
+            {
+                float fx = (x + 0.5f) / n, fy = (y + 0.5f) / n;
+                Color32 c = new Color32(0, 0, 0, 0);
+                if (outline(fx, fy) > 0f) c = new Color32(255, 255, 255, 255);
+                if (fill(fx, fy)) c = new Color32(30, 200, 90, 255);
+                px[y * n + x] = c;
+            }
+        tex.SetPixels32(px);
+        tex.Apply();
+        return tex;
+    }
+
+    static bool InArrow(float x, float y, float m)
+    {
+        // cabeca (triangulo) + haste (retangulo); y cresce para cima
+        bool head = y >= 0.5f - m && y <= 0.95f + m &&
+                    Mathf.Abs(x - 0.5f) <= (0.38f + m) * ((0.95f + m) - y) / (0.45f + 2f * m);
+        bool shaft = Mathf.Abs(x - 0.5f) <= 0.13f + m && y >= 0.05f - m && y <= 0.55f;
         return head || shaft;
+    }
+
+    static float DistSeg(float px, float py, float ax, float ay, float bx, float by)
+    {
+        float vx = bx - ax, vy = by - ay;
+        float t = Mathf.Clamp01(((px - ax) * vx + (py - ay) * vy) / (vx * vx + vy * vy));
+        float dx = px - (ax + t * vx), dy = py - (ay + t * vy);
+        return Mathf.Sqrt(dx * dx + dy * dy);
+    }
+
+    static bool InTri(float px, float py, float ax, float ay, float bx, float by, float cx, float cy)
+    {
+        float d1 = (px - bx) * (ay - by) - (ax - bx) * (py - by);
+        float d2 = (px - cx) * (by - cy) - (bx - cx) * (py - cy);
+        float d3 = (px - ax) * (cy - ay) - (cx - ax) * (py - ay);
+        bool neg = d1 < 0 || d2 < 0 || d3 < 0, pos = d1 > 0 || d2 > 0 || d3 > 0;
+        return !(neg && pos);
+    }
+
+    // Icone "reiniciar": seta circular no sentido horario.
+    static float RestartIcon(float x, float y)
+    {
+        const float R = 0.27f, T = 0.09f;
+        float dx = x - 0.5f, dy = y - 0.5f;
+        float r = Mathf.Sqrt(dx * dx + dy * dy);
+        float a = Mathf.Atan2(dx, dy) * Mathf.Rad2Deg;      // graus, sentido horario a partir do topo
+        if (a < 0f) a += 360f;
+        bool arc = Mathf.Abs(r - R) <= T / 2f && a >= 55f;   // abertura entre 0 e 55 graus
+        bool head = InTri(x, y, 0.5f + 0.13f, 0.5f + R, 0.5f, 0.5f + R + 0.11f, 0.5f, 0.5f + R - 0.11f);
+        return arc || head ? 1f : 0f;
+    }
+
+    // Icone "debug": inseto.
+    static float BugIcon(float x, float y)
+    {
+        float ex = (x - 0.5f) / 0.16f, ey = (y - 0.42f) / 0.24f;
+        bool body = ex * ex + ey * ey <= 1f;
+        float hx = x - 0.5f, hy = y - 0.72f;
+        bool head = hx * hx + hy * hy <= 0.09f * 0.09f;
+        const float L = 0.0225f;                              // meia espessura das pernas
+        float mx = 1f - x;                                    // espelho para o lado direito
+        bool legs =
+            DistSeg(x, y, 0.36f, 0.52f, 0.18f, 0.60f) <= L || DistSeg(mx, y, 0.36f, 0.52f, 0.18f, 0.60f) <= L ||
+            DistSeg(x, y, 0.34f, 0.42f, 0.15f, 0.42f) <= L || DistSeg(mx, y, 0.34f, 0.42f, 0.15f, 0.42f) <= L ||
+            DistSeg(x, y, 0.36f, 0.32f, 0.18f, 0.24f) <= L || DistSeg(mx, y, 0.36f, 0.32f, 0.18f, 0.24f) <= L ||
+            DistSeg(x, y, 0.46f, 0.79f, 0.38f, 0.92f) <= L * 0.8f || DistSeg(mx, y, 0.46f, 0.79f, 0.38f, 0.92f) <= L * 0.8f;
+        return body || head || legs ? 1f : 0f;
     }
 }

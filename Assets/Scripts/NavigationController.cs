@@ -122,12 +122,12 @@ public class NavigationController : MonoBehaviour
     void OnGUI()
     {
         if (logic == null || !showDebugPanel) return;
-        int size = Mathf.RoundToInt(Screen.height * 0.03f);
+        int size = Mathf.RoundToInt(Screen.height * 0.024f);
         var style = new GUIStyle(GUI.skin.label) { fontSize = size, wordWrap = true };
         style.normal.textColor = Color.white;
 
-        float pad = size;
-        var rect = new Rect(pad, Screen.height * 0.02f, Screen.width - 2 * pad, Screen.height * 0.30f);
+        float pad = Screen.height * 0.02f;
+        var rect = new Rect(pad, Screen.height * 0.28f, Screen.width - 2 * pad, Screen.height * 0.22f);
         GUI.Box(rect, GUIContent.none);
 
         string ponto = logic.CurrentPoint != null ? logic.CurrentId : "-";
