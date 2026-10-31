@@ -282,3 +282,23 @@ flowchart TD
     K -- Sim --> L[Chegada]
     K -- Não --> D
 ```
+
+## Caso de Uso
+
+O usuário (pessoa que evacua) lê o QR, acompanha as instruções e lê o próximo QR até a saída. Não há administrador nem servidor no escopo.
+
+---
+
+## Fluxo de Navegação
+
+```text
+Câmera (aguardando QR)
+    ↓ lê QR
+Rota ativa (seta, instrução, progresso, próximos passos)
+    ↓ fim do trecho → lê QR do próximo ponto
+Rota ativa (próximo trecho)
+    ↓ ... até ler o QR da saída
+Chegada
+```
+
+Não há tela inicial separada: o app abre direto na câmera, pois o uso ocorre em situação de pressa.
