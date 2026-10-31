@@ -139,3 +139,49 @@ NavigationLogic → NavigationHud → Seta, instruções e alertas sobre a câme
 - barra de progresso do trecho e distância até a saída;
 - alertas de elevador e de extintor;
 - estados: aguardando QR, rota ativa, novo QR necessário, QR inválido e chegada.
+
+## Estrutura do Projeto
+
+```text
+safesight/
+├── Assets/
+│   ├── Resources/
+│   │   └── trajeto.json          # pontos e rotas do Prédio L
+│   ├── Scenes/
+│   │   └── ARTest.unity          # cena principal
+│   ├── Packages/
+│   │   └── ZXing.Net.0.16.11/    # biblioteca de QR (NuGet, versionada)
+│   ├── Scripts/
+│   │   ├── Navigation/           # lógica de navegação (sem MonoBehaviour)
+│   │   ├── QrScanner.cs
+│   │   ├── DisplacementEstimator.cs
+│   │   ├── NavigationController.cs
+│   │   └── NavigationHud.cs
+│   ├── Tests/EditMode/           # testes automatizados
+│   └── tools/
+│       ├── gerar_trajeto.py      # conversor planilha → JSON
+│       └── gerar_qrcodes.py      # gerador e validador dos QR codes
+├── Packages/
+├── ProjectSettings/
+├── docs/
+│   ├── Mapeamento_Predio_L_todos_andares.xlsx
+│   ├── diagrams/                 # diagramas (.png e fonte .mmd)
+│   ├── documents/                # documentos complementares
+│   └── images/                   # prints do aplicativo
+├── .gitignore
+└── README.md
+```
+
+> Árvore conferida com o repositório em 31/10. Pastas geradas pelo Unity (`Library`, `Temp`, `Logs`, `UserSettings`) e os builds são ignorados pelo `.gitignore`.
+
+| Pasta | Finalidade |
+|---|---|
+| `Assets/Scripts` | Scripts produzidos pela equipe |
+| `Assets/Scripts/Navigation` | Lógica de navegação e dados do trajeto (assembly `SafeSight.Navigation`) |
+| `Assets/Resources/trajeto.json` | Pontos e rotas cadastradas do Prédio L |
+| `Assets/Tests/EditMode` | Testes automatizados da navegação |
+| `Assets/tools` | Conversor da planilha de mapeamento para JSON e gerador/validador dos QR codes |
+| `Assets/Packages` | ZXing.Net 0.16.11 (NuGet), versionado |
+| `docs/diagrams` | Diagramas técnicos |
+| `docs/images` | Screenshots do aplicativo |
+| `docs/documents` | Documentos complementares (`validacao_qrcodes.txt`: resultado da geração e validação dos QR codes) |
