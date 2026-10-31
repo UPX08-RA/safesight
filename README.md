@@ -53,3 +53,13 @@ Pessoas que não conhecem o Prédio L da UniFacens: calouros, visitantes e profe
 | RF10 | Pedir novo QR | Pede nova leitura se o rastreamento é perdido ou o trecho é excedido | ✅ |
 
 **Legenda:** ✅ Implementado · 🚧 Em desenvolvimento · ⬜ Planejado · ❌ Cancelado
+
+## Requisitos Não Funcionais
+
+| ID | Categoria | Requisito |
+|---|---|---|
+| RNF01 | Conectividade | Funcionar offline, sem servidor |
+| RNF02 | Compatibilidade | Executar em Android com suporte ao ARCore |
+| RNF03 | Usabilidade | Interface legível, com texto grande e sem menus |
+| RNF04 | Desempenho | Ler QR sem comprometer a fluidez (30 fps ou mais) |
+| RNF05 | Infraestrutura | Não depender de nada além dos QR codes impressos |
