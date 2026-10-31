@@ -90,7 +90,7 @@ Pessoas que não conhecem o Prédio L da UniFacens: calouros, visitantes e profe
 | RF03 | Definir posição e carregar rota | Valida o ID e carrega a rota cadastrada do ponto; nova leitura a qualquer momento | ✅ |
 | RF04 | Orientar até a saída-alvo | Segue a rota cadastrada, trecho a trecho, sem elevador | ✅ |
 | RF05 | Identificar a saída-alvo | Mostra o destino na tela | ✅ |
-| RF06 | Instrução, próximos passos, distância e chegada | Instrução atual, próximos passos, distância restante; chegada ao ler o QR da saída | ✅ |
+| RF06 | Instrução, próximos passos, distância e chegada | Instrução atual, próximos passos, distância restante; chegada ao ler o QR da saída (ou ao completar a distância do último trecho) | ✅ |
 | RF07 | Alertas | "Não utilize o elevador" e extintor cadastrado do ponto atual | ✅ |
 | RF08 | Estimar distância entre QR codes | Distância percorrida pelo rastreamento de movimento do ARCore | ✅ |
 | RF09 | Avisar curva | Avisa a aproximação da curva (cerca de 1 m do fim do trecho) | ✅ |
@@ -176,7 +176,7 @@ NavigationLogic → NavigationHud → Seta, instruções e alertas sobre a câme
 2. O `QrScanner` obtém o frame (`XRCpuImage`), copia o plano de luminância e o decodifica com o ZXing.Net, a cada 5 frames.
 3. O ID lido é validado contra os pontos do `trajeto.json`; a rota cadastrada do ponto é carregada.
 4. O `DisplacementEstimator` guarda a pose inicial e acompanha a pose da câmera no plano horizontal: distância em linha reta, caminho acumulado e giro.
-5. A `NavigationLogic` compara a distância com o comprimento do trecho: segue, avisa a curva (a cerca de 1 m do fim), pede novo QR (rastreamento perdido ou 1,5 m além do trecho) ou informa a chegada (QR da saída).
+5. A `NavigationLogic` compara a distância com o comprimento do trecho: segue, avisa a curva (a cerca de 1 m do fim), pede novo QR (rastreamento perdido ou 1,5 m além do trecho) ou informa a chegada (ao ler o QR da saída ou ao completar a distância do último trecho).
 6. O `NavigationHud` mostra seta, instrução, distância restante, próximos passos e alertas sobre a imagem da câmera.
 7. Ao ler o QR do próximo ponto, a estimativa reinicia e a rota seguinte é carregada.
 
