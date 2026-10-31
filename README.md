@@ -93,3 +93,17 @@ Pessoas que não conhecem o Prédio L da UniFacens: calouros, visitantes e profe
 | Computador | Notebook com Intel Core i7-1165G7 2,80 GHz, 8 GB de RAM e Intel Iris Xe Graphics | CPU, RAM e GPU | Desenvolvimento (João) |
 
 > Foram usados apenas os três aparelhos acima. Nenhuma compatibilidade foi declarada para outros equipamentos.
+
+## Arquitetura do Sistema
+
+O app é 100% Unity e roda localmente. O `QrScanner` lê o QR; o `NavigationController` liga leitura, estimativa de deslocamento e lógica; a `NavigationLogic` (sem dependência de ARCore, testável isoladamente) decide o estado a partir das rotas do `trajeto.json`; o `NavigationHud` desenha a interface.
+
+![Arquitetura do sistema](docs/diagrams/arquitetura.png)
+
+### Fluxo resumido
+
+```text
+Usuário → Câmera (ARCore) → QrScanner → NavigationController → NavigationLogic (trajeto.json)
+                                    ↘ DisplacementEstimator (pose do ARCore) ↗
+NavigationLogic → NavigationHud → Seta, instruções e alertas sobre a câmera
+```
