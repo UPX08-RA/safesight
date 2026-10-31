@@ -261,3 +261,24 @@ cd safesight
 Os botões **Reiniciar** e **Debug** ficam no topo da tela.
 
 ![Rota ativa](docs/images/hud_rota.jpeg)
+
+## Fluxo de Funcionamento
+
+```mermaid
+flowchart TD
+    A[Abrir app] --> B[Câmera ativa]
+    B --> C{QR válido?}
+    C -- Não --> B
+    C -- Sim --> D[Carregar rota do ponto]
+    D --> E[Seguir trecho: estimar distância]
+    E --> F{Fim do trecho próximo?}
+    F -- Sim --> G[Avisar curva]
+    F -- Não --> E
+    E --> H{Rastreamento perdido ou trecho excedido?}
+    H -- Sim --> I[Pedir novo QR]
+    G --> J[Ler QR do próximo ponto]
+    I --> J
+    J --> K{QR da saída?}
+    K -- Sim --> L[Chegada]
+    K -- Não --> D
+```
