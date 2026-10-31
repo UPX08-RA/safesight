@@ -336,3 +336,37 @@ Chegada
 ```
 
 Não há tela inicial separada: o app abre direto na câmera, pois o uso ocorre em situação de pressa.
+
+## Interface
+
+Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR codes exibidos em um monitor.
+
+| Tela | Finalidade | Principais elementos | Ação do usuário |
+|---|---|---|---|
+| Aguardando QR (`hud_idle.jpeg`) | Pedir a leitura do primeiro QR | Moldura de leitura e instrução "Aponte a câmera para um QR Code para começar" | Aponta a câmera para um QR code do corredor |
+| Rota ativa (`hud_rota.jpeg`) | Orientar o trecho atual | "Você está em" / destino, seta, instrução, barra de progresso, próximos passos e alertas | Caminha seguindo a seta e as instruções |
+| Aviso de curva (`hud_curva.jpeg`) | Avisar a curva próxima | Seta girada e em âmbar, com a distância até a curva | Prepara-se para virar para o lado indicado |
+| Novo QR (`hud_novo_qr.jpeg`) | Pedir nova leitura | "?" em vermelho e mensagem de posição incerta | Lê o QR code do próximo ponto |
+| QR inválido (`hud_qr_invalido.jpeg`) | Informar QR não reconhecido | Aviso temporário "QR não reconhecido" | Lê um QR code do projeto |
+| Chegada (`hud_chegada.jpeg`) | Informar a chegada | Check em verde e confirmação de chegada | Encerra a rota |
+
+<p>
+<img src="docs/images/hud_idle.jpeg" alt="Aguardando QR" width="220">
+<img src="docs/images/hud_rota.jpeg" alt="Rota ativa" width="220">
+<img src="docs/images/hud_curva.jpeg" alt="Aviso de curva" width="220">
+</p>
+<p>
+<img src="docs/images/hud_novo_qr.jpeg" alt="Novo QR necessário" width="220">
+<img src="docs/images/hud_qr_invalido.jpeg" alt="QR inválido" width="220">
+<img src="docs/images/hud_chegada.jpeg" alt="Chegada" width="220">
+</p>
+
+---|---|---|
+| Aguardando QR (`hud_idle.jpeg`) | Pedir a leitura do primeiro QR | Moldura de leitura |
+| Rota ativa (`hud_rota.jpeg`) | Orientar o trecho atual | Você está em / destino, seta, instrução, barra, próximos passos, alertas |
+| Aviso de curva (`hud_curva.jpeg`) | Avisar a curva próxima | Seta girada e em âmbar |
+| Novo QR (`hud_novo_qr.jpeg`) | Pedir nova leitura | "?" em vermelho |
+| QR inválido (`hud_qr_invalido.jpeg`) | Informar QR não reconhecido | Aviso temporário |
+| Chegada (`hud_chegada.jpeg`) | Informar a chegada | Check em verde |
+
+![Rota ativa](docs/images/hud_rota.jpeg)
