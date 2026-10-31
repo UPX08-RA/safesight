@@ -17,6 +17,7 @@ public class NavigationHud : MonoBehaviour
     [SerializeField, Min(10f)] float turnConfirmDegrees = 60f;
     [Tooltip("Mostra os paineis de teste ao iniciar (o botao Debug alterna).")]
     [SerializeField] bool debugAtStart = false;
+
     static readonly Color Panel = new Color(0.05f, 0.07f, 0.11f, 0.80f);
     static readonly Color Green = new Color(0.12f, 0.78f, 0.35f);
     static readonly Color Amber = new Color(1f, 0.72f, 0.10f);
@@ -24,30 +25,35 @@ public class NavigationHud : MonoBehaviour
     static readonly Color Muted = new Color(0.66f, 0.73f, 0.84f);
     Texture2D arrowTex, restartTex, bugTex;
     GUIStyle sty;
-    float u;          // unidade de escala (relativa ao tamanho da tela)
+    float u;          // unidade de escala (tamanho da tela)
     bool debugOn;
+
     void Awake()
     {
         arrowTex = Bake(256, (x, y) => InArrow(x, y, 0.035f) ? 1f : 0f, (x, y) => InArrow(x, y, 0f));
         restartTex = Bake(128, RestartIcon);
         bugTex = Bake(128, BugIcon);
     }
+
     void Start()
     {
         if (controller == null) controller = FindFirstObjectByType<NavigationController>();
         debugOn = debugAtStart;
         if (controller != null) controller.SetAllDebugPanels(debugOn);
     }
+
     // ---------- Desenho ----------
     static void Round(Rect r, Color c, float radius)
     {
         GUI.DrawTexture(r, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0f, c, 0f,
             Mathf.Min(radius, Mathf.Min(r.width, r.height) / 2f));
     }
+
     static void RingShape(Rect r, Color c, float width)
     {
         GUI.DrawTexture(r, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0f, c, width, r.width / 2f);
     }
+
     void Text(Rect r, string s, float size, Color c, TextAnchor a = TextAnchor.UpperLeft, bool bold = false, bool wrap = false)
     {
         sty.fontSize = Mathf.RoundToInt(size * u);
@@ -59,6 +65,7 @@ public class NavigationHud : MonoBehaviour
         sty.normal.textColor = c;
         GUI.Label(r, s, sty);
     }
+
     float TextWidth(string s, float size, bool bold)
     {
         sty.fontSize = Mathf.RoundToInt(size * u);
@@ -66,6 +73,7 @@ public class NavigationHud : MonoBehaviour
         sty.wordWrap = false;
         return sty.CalcSize(new GUIContent(s)).x;
     }
+
     /// <summary>Menor tamanho de fonte (em u) que faz o texto caber em maxW; ate minSize.</summary>
     float FitSize(string s, float size, float maxW, bool bold, float minSize)
     {
@@ -73,6 +81,7 @@ public class NavigationHud : MonoBehaviour
         if (w <= maxW) return size;
         return Mathf.Max(minSize, size * maxW / w);
     }
+
     /// <summary>Maior tamanho de fonte (em u, ate size) em que o texto, quebrando linha, cabe em w x h.</summary>
     float FitWrapSize(string s, float size, float w, float h, bool bold, float minSize)
     {
@@ -85,6 +94,7 @@ public class NavigationHud : MonoBehaviour
         }
         return minSize;
     }
+
     // Pilula de alerta com icone "!"; o texto encolhe para caber na largura; devolve a altura usada.
     float Pill(float x, float y, float maxW, string s, Color bg, Color fg)
     {
@@ -98,6 +108,7 @@ public class NavigationHud : MonoBehaviour
         Text(new Rect(x + 58f * u, y, w - 62f * u, h), s, size, fg, TextAnchor.MiddleLeft, true);
         return h;
     }
+
     /// <summary>Botao redondo com icone. active = destaque verde.</summary>
     bool IconButton(Rect r, Texture2D icon, bool active)
     {
@@ -107,6 +118,7 @@ public class NavigationHud : MonoBehaviour
         GUI.DrawTexture(ir, icon, ScaleMode.ScaleToFit, true, 0f, active ? Color.black : Color.white, 0f, 0f);
         return GUI.Button(r, GUIContent.none, GUIStyle.none);
     }
+
     void RotatedBar(Vector2 center, float len, float th, float angle, Color c)
     {
         var old = GUI.matrix;
@@ -114,6 +126,7 @@ public class NavigationHud : MonoBehaviour
         Round(new Rect(center.x - len / 2f, center.y - th / 2f, len, th), c, th / 2f);
         GUI.matrix = old;
     }
+
     static string StepText(TrajLeg l, string exitId)
     {
         if (l.IsStairs) return $"Use a escada ({l.meters:0} m)";
@@ -121,12 +134,14 @@ public class NavigationHud : MonoBehaviour
         if (l.toId == exitId) return s + " até a saída";
         return l.turn == "none" ? s : s + " e " + NavigationLogic.TurnText(l.turn);
     }
+
     bool TurnConfirmed(TrajLeg leg, DisplacementEstimator est)
     {
         if (leg == null || est == null) return false;
         return (leg.turn == "right" && est.YawDelta >= turnConfirmDegrees) ||
                (leg.turn == "left" && est.YawDelta <= -turnConfirmDegrees);
     }
+
     void OnGUI()
     {
         if (controller == null || controller.Logic == null) return;
@@ -158,6 +173,7 @@ public class NavigationHud : MonoBehaviour
             controller.SetAllDebugPanels(debugOn);
         }
     }
+
     void DrawHud(NavigationLogic logic, DisplacementEstimator est, NavState state, TrajLeg leg,
                  Rect sa, float H, float left, float colW, float top, float bottom, float cx, Rect tc, Rect restartR)
     {
@@ -189,6 +205,7 @@ public class NavigationHud : MonoBehaviour
             if (!string.IsNullOrEmpty(logic.ExtinguisherText))
                 ay += Pill(left, ay, colW, "Extintor: " + logic.ExtinguisherText, Amber, new Color(0.15f, 0.1f, 0f)) + 8f * u;
         }
+
         // ===== Centro: seta / estado =====
         float cy = H * 0.46f;
         float pulse = 1f + 0.035f * Mathf.Sin(Time.realtimeSinceStartup * 3f);
@@ -230,6 +247,7 @@ public class NavigationHud : MonoBehaviour
             Round(new Rect(x0, y1 - th, L, th), c, th / 2f); Round(new Rect(x0, y1 - L, th, L), c, th / 2f);
             Round(new Rect(x1 - L, y1 - th, L, th), c, th / 2f); Round(new Rect(x1 - th, y1 - L, th, L), c, th / 2f);
         }
+
         // ===== Cartao inferior: instrucao, progresso e proximos passos (RF06) =====
         var steps = new List<TrajLeg>(3);
         if (active)
@@ -287,6 +305,7 @@ public class NavigationHud : MonoBehaviour
             Text(tr, toast, tsize, Color.white, TextAnchor.MiddleCenter, true);
         }
     }
+
     // ---------- Texturas geradas em codigo (sem assets) ----------
     /// <summary>Gera uma textura branca com alfa vindo de cov (x,y em 0..1, y para cima), com suavizacao 3x3.</summary>
     static Texture2D Bake(int n, Func<float, float, float> cov)
@@ -308,6 +327,7 @@ public class NavigationHud : MonoBehaviour
         tex.Apply();
         return tex;
     }
+
     // Seta: contorno branco + preenchimento verde (cores proprias, nao tingida).
     static Texture2D Bake(int n, Func<float, float, float> outline, Func<float, float, bool> fill)
     {
@@ -326,6 +346,7 @@ public class NavigationHud : MonoBehaviour
         tex.Apply();
         return tex;
     }
+
     static bool InArrow(float x, float y, float m)
     {
         // cabeca (triangulo) + haste (retangulo); y cresce para cima
@@ -334,6 +355,7 @@ public class NavigationHud : MonoBehaviour
         bool shaft = Mathf.Abs(x - 0.5f) <= 0.13f + m && y >= 0.05f - m && y <= 0.55f;
         return head || shaft;
     }
+
     static float DistSeg(float px, float py, float ax, float ay, float bx, float by)
     {
         float vx = bx - ax, vy = by - ay;
@@ -341,6 +363,7 @@ public class NavigationHud : MonoBehaviour
         float dx = px - (ax + t * vx), dy = py - (ay + t * vy);
         return Mathf.Sqrt(dx * dx + dy * dy);
     }
+
     static bool InTri(float px, float py, float ax, float ay, float bx, float by, float cx, float cy)
     {
         float d1 = (px - bx) * (ay - by) - (ax - bx) * (py - by);
@@ -349,6 +372,7 @@ public class NavigationHud : MonoBehaviour
         bool neg = d1 < 0 || d2 < 0 || d3 < 0, pos = d1 > 0 || d2 > 0 || d3 > 0;
         return !(neg && pos);
     }
+
     // Icone "reiniciar": seta circular no sentido horario.
     static float RestartIcon(float x, float y)
     {
@@ -361,6 +385,7 @@ public class NavigationHud : MonoBehaviour
         bool head = InTri(x, y, 0.5f + 0.13f, 0.5f + R, 0.5f, 0.5f + R + 0.11f, 0.5f, 0.5f + R - 0.11f);
         return arc || head ? 1f : 0f;
     }
+
     // Icone "debug": inseto.
     static float BugIcon(float x, float y)
     {
