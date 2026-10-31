@@ -10,7 +10,7 @@
 
 ---
 
-## Identificação do Projeto
+## 1. Identificação do Projeto
 
 | Item | Informação |
 |---|---|
@@ -32,7 +32,9 @@
 | Luiz Augusto Marques Zocca | 235623 | Scrum Master: organização e Trello, logística e participação nos testes de campo |
 | Henrique Seiji Kuroiwa | 236060 | Pesquisa, artigo científico e documentação |
 
-## Visão Geral
+---
+
+## 2. Visão Geral
 
 O **SafeSight** é um aplicativo Android de Realidade Aumentada que orienta pessoas que não conhecem o prédio até a **saída-alvo** de uma rota segura previamente cadastrada, em uma **simulação controlada de incêndio** (sem fogo ou fumaça reais).
 
@@ -42,19 +44,23 @@ A Realidade Aumentada entra como a camada que une a câmera ao vivo, o rastreame
 
 ![Visão geral do projeto](docs/images/hud_rota.jpeg)
 
-## Problema
+---
+
+## 3. Problema
 
 Placas de saída fixas pressupõem que a pessoa já conhece o prédio. Isso não funciona bem para calouros, visitantes e professores substitutos, principalmente sob estresse. A orientação para a saída segura depende da memória do usuário e de sinalização estática, que não indica por onde ir a partir do ponto em que a pessoa está.
 
 O impacto é a perda de tempo e a possibilidade de escolher um caminho errado durante uma evacuação. O SafeSight propõe uma orientação passo a passo a partir da posição atual do usuário.
 
-## Objetivos
+---
 
-### Objetivo Geral
+## 4. Objetivos
+
+### 4.1 Objetivo Geral
 
 Desenvolver uma aplicação de Realidade Aumentada que oriente o usuário, por rota cadastrada, até a saída-alvo do Prédio L em uma simulação controlada de incêndio.
 
-### Objetivos Técnicos
+### 4.2 Objetivos Técnicos
 
 - Ler QR codes pela câmera do ARCore (AR Foundation + ZXing.Net) e identificar o ponto atual.
 - Carregar a rota cadastrada de cada ponto a partir de um arquivo local (`trajeto.json`).
@@ -63,7 +69,9 @@ Desenvolver uma aplicação de Realidade Aumentada que oriente o usuário, por r
 - Exibir um HUD com seta, instrução, distância restante, próximos passos e alertas.
 - Executar a aplicação em dispositivo Android e verificar o funcionamento por testes.
 
-## Público-Alvo
+---
+
+## 5. Público-Alvo
 
 Pessoas que não conhecem o Prédio L da UniFacens: calouros, visitantes e professores substitutos. O uso ocorre em simulação de incêndio, em movimento e com pouca atenção disponível para a tela; por isso o HUD usa texto grande, poucas informações e nenhum menu.
 
@@ -71,7 +79,9 @@ Pessoas que não conhecem o Prédio L da UniFacens: calouros, visitantes e profe
 - **Necessidades:** saber para onde ir a partir do ponto onde está, a cada trecho, e ser avisado da curva e do elevador proibido.
 - **Limitações do uso:** o app depende de o usuário encontrar e ler os QR codes e de o dispositivo ter suporte ao ARCore; o experimento com usuários ainda não foi executado.
 
-## Funcionalidades
+---
+
+## 6. Funcionalidades
 
 | ID | Funcionalidade | Descrição | Status |
 |---|---|---|---|
@@ -88,7 +98,9 @@ Pessoas que não conhecem o Prédio L da UniFacens: calouros, visitantes e profe
 
 **Legenda:** ✅ Implementado · 🚧 Em desenvolvimento · ⬜ Planejado · ❌ Cancelado
 
-## Requisitos Não Funcionais
+---
+
+## 7. Requisitos Não Funcionais
 
 | ID | Categoria | Requisito |
 |---|---|---|
@@ -98,7 +110,9 @@ Pessoas que não conhecem o Prédio L da UniFacens: calouros, visitantes e profe
 | RNF04 | Desempenho | Ler QR sem comprometer a fluidez (30 fps ou mais) |
 | RNF05 | Infraestrutura | Não depender de nada além dos QR codes impressos |
 
-## Tecnologias Utilizadas
+---
+
+## 8. Tecnologias Utilizadas
 
 | Tecnologia | Versão | Utilização |
 |---|---|---|
@@ -116,7 +130,9 @@ Pessoas que não conhecem o Prédio L da UniFacens: calouros, visitantes e profe
 | OpenCV (Python) 5.0.0, NumPy 2.5.3 e ReportLab 5.0.1 | mesmo ambiente de execução (Python 3.13, 25/10) | Geração e validação dos QR codes e do PDF de impressão (`Assets/tools/gerar_qrcodes.py`, escrito com apoio de IA) |
 | Git e GitHub | — | Controle de versão e hospedagem |
 
-## Hardware Utilizado
+---
+
+## 9. Hardware Utilizado
 
 | Equipamento | Modelo | Característica relevante | Utilização |
 |---|---|---|---|
@@ -128,7 +144,9 @@ Pessoas que não conhecem o Prédio L da UniFacens: calouros, visitantes e profe
 
 > Foram usados apenas os três aparelhos acima. Nenhuma compatibilidade foi declarada para outros equipamentos.
 
-## Arquitetura do Sistema
+---
+
+## 10. Arquitetura do Sistema
 
 O app é 100% Unity e roda localmente. O `QrScanner` lê o QR; o `NavigationController` liga leitura, estimativa de deslocamento e lógica; a `NavigationLogic` (sem dependência de ARCore, testável isoladamente) decide o estado a partir das rotas do `trajeto.json`; o `NavigationHud` desenha a interface.
 
@@ -142,13 +160,15 @@ Usuário → Câmera (ARCore) → QrScanner → NavigationController → Navigat
 NavigationLogic → NavigationHud → Seta, instruções e alertas sobre a câmera
 ```
 
-## Funcionamento da Realidade Aumentada
+---
 
-### Técnica utilizada
+## 11. Funcionamento da Realidade Aumentada
+
+### 11.1 Técnica utilizada
 
 **QR Code como referência de posição, mais rastreamento de movimento do ARCore (odometria visual-inercial).** O QR só informa a posição no instante da leitura (o ZXing.Net decodifica o texto, sem pose). Entre dois QR codes, a distância é estimada pela pose do dispositivo fornecida pelo ARCore. A seta e as instruções são um **HUD fixo na tela**, não ancorado ao piso.
 
-### Fluxo técnico
+### 11.2 Fluxo técnico
 
 ![Diagrama de sequência](docs/diagrams/sequencia.png)
 
@@ -160,11 +180,11 @@ NavigationLogic → NavigationHud → Seta, instruções e alertas sobre a câme
 6. O `NavigationHud` mostra seta, instrução, distância restante, próximos passos e alertas sobre a imagem da câmera.
 7. Ao ler o QR do próximo ponto, a estimativa reinicia e a rota seguinte é carregada.
 
-### Estados da navegação
+### 11.3 Estados da navegação
 
 ![Estados da navegação](docs/diagrams/estados.png)
 
-### Elementos virtuais
+### 11.4 Elementos virtuais
 
 > Os elementos abaixo são uma interface sobreposta ao vídeo da câmera (HUD), controlada pelo estado da navegação. Não há ancoragem tridimensional ao piso nem aos elementos do ambiente; o ARCore é usado para estimar o deslocamento.
 
@@ -174,7 +194,9 @@ NavigationLogic → NavigationHud → Seta, instruções e alertas sobre a câme
 - alertas de elevador e de extintor;
 - estados: aguardando QR, rota ativa, novo QR necessário, QR inválido e chegada.
 
-## Estrutura do Projeto
+---
+
+## 12. Estrutura do Projeto
 
 ```text
 safesight/
@@ -220,7 +242,9 @@ safesight/
 | `docs/images` | Screenshots do aplicativo |
 | `docs/documents` | Documentos complementares (`validacao_qrcodes.txt`: resultado da geração e validação dos QR codes) |
 
-## Principais Scripts
+---
+
+## 13. Principais Scripts
 
 | Script | Responsabilidade |
 |---|---|
@@ -232,7 +256,9 @@ safesight/
 | `NavigationHud.cs` | Desenha o HUD (IMGUI): seta, instrução, progresso, próximos passos e alertas |
 | `NavigationLogicTests.cs`, `NavigationRotasReaisTests.cs` | Testes automatizados com as rotas reais |
 
-## Dependências
+---
+
+## 14. Dependências
 
 ```text
 AR Foundation 6.3.5
@@ -249,7 +275,9 @@ Input System 1.20.0
 
 Versões conferidas em `Packages/manifest.json` e `Packages/packages-lock.json`. O ZXing.Net 0.16.11 está **versionado no repositório** (`Assets/Packages/ZXing.Net.0.16.11/`, com `Assets/NuGet.config` e `Assets/packages.config`), então não é preciso restaurá-lo manualmente.
 
-## Configuração do Ambiente
+---
+
+## 15. Configuração do Ambiente
 
 ### Pré-requisitos
 
@@ -274,7 +302,9 @@ Em 31/10, o procedimento foi executado em um **clone novo** do repositório (`gi
 
 ![Test Runner e Console no clone limpo](docs/images/validacao_clone_limpo.png)
 
-## Como Executar
+---
+
+## 16. Como Executar
 
 ```bash
 git clone https://github.com/UPX08-RA/safesight.git
@@ -288,7 +318,9 @@ cd safesight
 5. Conecte o dispositivo por USB.
 6. Execute **Build and Run**.
 
-## Como Utilizar a Aplicação
+---
+
+## 17. Como Utilizar a Aplicação
 
 1. Abra o SafeSight no dispositivo e autorize o acesso à câmera.
 2. Aponte a câmera para o QR code de um ponto do corredor (a cerca de 30 cm).
@@ -302,7 +334,9 @@ Os botões **Reiniciar** e **Debug** ficam no topo da tela.
 
 ![Rota ativa](docs/images/hud_rota.jpeg)
 
-## Fluxo de Funcionamento
+---
+
+## 18. Fluxo de Funcionamento
 
 ```mermaid
 flowchart TD
@@ -323,13 +357,15 @@ flowchart TD
     K -- Não --> D
 ```
 
-## Caso de Uso
+---
+
+## 19. Caso de Uso
 
 O usuário (pessoa que evacua) lê o QR, acompanha as instruções e lê o próximo QR até a saída. Não há administrador nem servidor no escopo.
 
 ---
 
-## Fluxo de Navegação
+## 20. Fluxo de Navegação
 
 ```text
 Câmera (aguardando QR)
@@ -343,7 +379,9 @@ Chegada
 
 Não há tela inicial separada: o app abre direto na câmera, pois o uso ocorre em situação de pressa.
 
-## Interface
+---
+
+## 21. Interface
 
 Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR codes exibidos em um monitor.
 
@@ -377,7 +415,9 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 
 ![Rota ativa](docs/images/hud_rota.jpeg)
 
-## Testes Técnicos
+---
+
+## 22. Testes Técnicos
 
 | Teste | Procedimento | Resultado esperado | Resultado obtido | Status |
 |---|---|---|---|---|
@@ -396,7 +436,9 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 
 > Registrar apenas testes realmente realizados. Tolerância de deslocamento definida antes da coleta: ±0,5 m ou 10% do trecho. As medições de deslocamento correspondem às tentativas válidas; em cerca de 1 a cada 5 tentativas nos celulares a contagem falhou e a tentativa foi descartada e repetida (ver Limitações Conhecidas).
 
-## Dispositivos Testados
+---
+
+## 23. Dispositivos Testados
 
 | Dispositivo | Sistema | Versão | Resultado |
 |---|---|---|---|
@@ -404,7 +446,9 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 | Samsung Galaxy M54 5G | Android | 16 (One UI 8) | Testes de deslocamento e avisos (28/10) |
 | Samsung Galaxy A54 5G | Android | 16 (One UI 8) | Testes de deslocamento e avisos (28/10) |
 
-## Limitações Conhecidas
+---
+
+## 24. Limitações Conhecidas
 
 - A estimativa de deslocamento entre QR codes tem erro; trechos longos (até 18 m) acumulam mais erro. A medição real está na seção de testes.
 - Os QR codes ficam a mais de 8 m de distância em 30 dos 38 trechos (média de 8,6 m; máximo de 18 m), por causa do posicionamento das colunas do prédio; o recomendado era de 5 a 8 m.
@@ -420,7 +464,9 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 - Cobertura do mapeamento: o pilar E5 do 2º andar não foi mapeado e, por isso, não está no `trajeto.json` nem tem QR code; os pontos de rampa (`L-0-08`, `L-1-08` e `L-2-08`) também não têm QR. O aplicativo funciona sobre os pontos cadastrados; incluir o E5 exige novo mapeamento, atualização do JSON e novo QR.
 - As distâncias do mapeamento vêm do levantamento da equipe e não foram remedidas com trena, exceto nos testes de campo.
 
-## Evidências de Funcionamento
+---
+
+## 25. Evidências de Funcionamento
 
 - Fluxo completo no Prédio L, partindo de E2 até a saída, no Galaxy Tab S9 FE (`FluxoCompleto.mp4`): [Assistir demonstração](https://drive.google.com/file/d/18JaCDjUtASLCdQrbMRw2V49AzesUXK67/view?usp=drive_link)
 - Print do HUD em rota ativa: `docs/images/hud_rota.jpeg`
@@ -429,7 +475,9 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 - Teste em modo avião, Galaxy Tab S9 FE (`AirPlaneModeRecord.mp4`): [Assistir](https://drive.google.com/file/d/1UJedqn4sCrBkW8ny2FhqSKy3TsL88zlw/view?usp=sharing)
 - Print do Test Runner (27 testes verdes): `docs/images/testes_unitarios.png`
 
-## Repositórios e Recursos
+---
+
+## 26. Repositórios e Recursos
 
 | Recurso | Link |
 |---|---|
@@ -438,7 +486,9 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 | Vídeos de teste | [Google Drive](https://drive.google.com/drive/folders/1dR31eKBIoCvF3lHZx4ewHU1OO9hYw7vx?usp=sharing) |
 | Documentação complementar | `docs/documents/` |
 
-## Cronograma Técnico
+---
+
+## 27. Cronograma Técnico
 
 | Atividade | Responsável | Status |
 |---|---|---|
@@ -455,7 +505,9 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 | Testes de campo no Prédio L | Equipe | 🚧 |
 | Documentação técnica | Equipe | ✅ |
 
-## Controle de Versão
+---
+
+## 28. Controle de Versão
 
 As funcionalidades principais (leitura de QR, deslocamento, `trajeto.json`, controle de navegação e HUD) foram desenvolvidas em branches `feature/*` e integradas por pull requests (#1 a #4). Ajustes posteriores do HUD e a documentação (prints, diagramas e README) foram commitados direto na `main`. Exemplos de mensagens de commit:
 
@@ -468,7 +520,9 @@ docs: atualiza README
 
 A versão entregue está marcada com a tag `v1.0`.
 
-## Problemas Encontrados e Soluções
+---
+
+## 29. Problemas Encontrados e Soluções
 
 ### Problema 1 — Leitura de QR com a câmera já ocupada pelo ARCore
 
@@ -506,7 +560,9 @@ A versão entregue está marcada com a tag `v1.0`.
 **Causa:** não identificada. O comportamento é compatível com perda momentânea de rastreamento do ARCore durante a caminhada, mas isso não foi investigado.
 **Solução:** sem correção definitiva. Mitigação: o app pede nova leitura de QR quando detecta a perda de rastreamento ou o trecho excedido, e as tentativas com falha foram descartadas e repetidas nos testes.
 
-## Melhorias Futuras
+---
+
+## 30. Melhorias Futuras
 
 - registrar a orientação do QR (direção da primeira curva);
 - mais QR codes ao longo dos trechos longos;
@@ -514,7 +570,9 @@ A versão entregue está marcada com a tag `v1.0`.
 - teste em outros dispositivos Android;
 - rastreamento contínuo em mapa 2D e rota ancorada ao piso.
 
-## Custos e Recursos
+---
+
+## 31. Custos e Recursos
 
 | Recurso | Tipo | Custo/Condição |
 |---|---|---|
@@ -523,11 +581,15 @@ A versão entregue está marcada com a tag `v1.0`.
 | Galaxy Tab S9 FE | Hardware | Equipamento da equipe |
 | QR codes impressos | Material | Impressão em papel sulfite |
 
-## Licença
+---
+
+## 32. Licença
 
 Projeto acadêmico desenvolvido para fins educacionais na disciplina de UPX — Realidade Aumentada.
 
-## Autores
+---
+
+## 33. Autores
 
 - **Gustavo Oliveira Gomes** — Tech Lead
 - **João Victor Cardoso Engler Rizzi de Araujo** — lógica de navegação
@@ -538,6 +600,8 @@ Projeto acadêmico desenvolvido para fins educacionais na disciplina de UPX — 
 **Instituição:** UniFacens
 **Disciplina:** UPX — Realidade Aumentada
 **Semestre:** 8º semestre (2026.2)
+
+---
 
 ## Checklist de Entrega
 
