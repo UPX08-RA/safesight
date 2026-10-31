@@ -1,0 +1,7 @@
+Validacao dos QR codes - Predio L
+Pontos/QR gerados: 39 (saida: L-0-01)
+Decodificacao do PNG cheio: 39/39
+Decodificacao reduzida+borrada (7 escalas, 30-70%, OpenCV): total 271/273; pior QR 5/7
+Rotas: 38 (todas terminam na saida: sim)
+Trechos usados nas rotas: 38 (distancia entre QRs vizinhos); media = 8.6 m; maior = 18.0 m; acima de 8 m: 30
+Erros: nenhum
