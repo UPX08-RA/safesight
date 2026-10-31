@@ -520,3 +520,34 @@ A versão entregue está marcada com a tag `v1.0`.
 ## Licença
 
 Projeto acadêmico desenvolvido para fins educacionais na disciplina de UPX — Realidade Aumentada.
+
+## Autores
+
+- **Gustavo Oliveira Gomes** — Tech Lead
+- **João Victor Cardoso Engler Rizzi de Araujo** — lógica de navegação
+- **Giulia Oliveira** — mapeamento e QR codes
+- **Luiz Augusto Marques Zocca** — Scrum Master e testes de campo
+- **Henrique Seiji Kuroiwa** — pesquisa, artigo e documentação
+
+**Instituição:** UniFacens
+**Disciplina:** UPX — Realidade Aumentada
+**Semestre:** 8º semestre (2026.2)
+
+## Checklist de Entrega
+
+- [x] Código-fonte atualizado
+- [x] README completamente preenchido
+- [x] Versões das tecnologias registradas
+- [x] Arquitetura apresentada
+- [x] Funcionamento da RA explicado
+- [x] Estrutura de pastas documentada
+- [x] Scripts principais descritos
+- [ ] Procedimento de instalação testado em clone limpo
+- [x] Procedimento de execução testado
+- [x] Screenshots reais adicionados
+- [x] Testes registrados
+- [x] Dispositivos testados informados
+- [x] Limitações conhecidas documentadas
+- [x] Evidência de funcionamento adicionada
+- [x] Commits representam a evolução do projeto
+- [x] Tag ou release criada
