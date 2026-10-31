@@ -397,3 +397,19 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 | Samsung Galaxy Tab S9 FE | Android | 16 (One UI 8) | Build instalado; HUD (27/10), fluxo completo (30/10), modo avião e uso contínuo de 5 minutos (31/10) |
 | Samsung Galaxy M54 5G | Android | 16 (One UI 8) | Testes de deslocamento e avisos (28/10) |
 | Samsung Galaxy A54 5G | Android | 16 (One UI 8) | Testes de deslocamento e avisos (28/10) |
+
+## Limitações Conhecidas
+
+- A estimativa de deslocamento entre QR codes tem erro; trechos longos (até 18 m) acumulam mais erro. A medição real está na seção de testes.
+- Os QR codes ficam a mais de 8 m de distância em 30 dos 38 trechos (média de 8,6 m; máximo de 18 m), por causa do posicionamento das colunas do prédio; o recomendado era de 5 a 8 m.
+- A direção da primeira curva depende de como o QR é posicionado: o app não registra a orientação do QR. Mitigação: colar o QR virado para o sentido de caminhada, à altura do peito.
+- Na escada, a estimativa mede só o plano horizontal; por isso não há aviso por distância nesse trecho. O QR no fim da escada continua a rota.
+- O aviso de rastreamento perdido depende do estado da sessão do ARCore; em campo, cobrir a câmera o disparou (28/10), mas outras causas de perda de rastreamento não foram testadas.
+- Os ícones em PNG/SVG foram gerados com apoio de IA e não são usados pelo aplicativo: o HUD desenha a seta e os ícones por código. Não houve arquivo de design no Figma.
+- A contagem de deslocamento falhou de forma intermitente nas gravações de campo (27/10): em cerca de 1 a cada 5 tentativas, nos celulares Galaxy M54 5G e Galaxy A54 5G, o contador parou de acompanhar o percurso (por exemplo, marcou 7,5 m ao fim de um trecho de 9 m), como se o rastreamento se perdesse durante a caminhada. Isso não foi observado no Galaxy Tab S9 FE. As tentativas com falha foram descartadas e repetidas; as medições da seção de testes correspondem às tentativas válidas. A causa não foi identificada.
+- Testado em três aparelhos Samsung (Tab S9 FE, Galaxy M54 5G e Galaxy A54 5G); não há garantia de compatibilidade com outros aparelhos.
+- O pedido de novo QR por trecho excedido (distância maior que o trecho cadastrado mais 1,5 m) foi verificado apenas nos testes automatizados; em campo foi testada a perda de rastreamento.
+- A curva à direita foi verificada apenas com o QR exibido em um monitor (print), sem caminhar um trecho real no prédio; em campo foram gravados esquerda e reto.
+- A experiência com usuários (experimento com dois grupos) está planejada e não foi executada.
+- Cobertura do mapeamento: o pilar E5 do 2º andar não foi mapeado e, por isso, não está no `trajeto.json` nem tem QR code; os pontos de rampa (`L-0-08`, `L-1-08` e `L-2-08`) também não têm QR. O aplicativo funciona sobre os pontos cadastrados; incluir o E5 exige novo mapeamento, atualização do JSON e novo QR.
+- As distâncias do mapeamento vêm do levantamento da equipe e não foram remedidas com trena, exceto nos testes de campo.
