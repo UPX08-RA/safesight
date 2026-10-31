@@ -233,3 +233,17 @@ Versões conferidas em `Packages/manifest.json` e `Packages/packages-lock.json`.
 5. Abra o projeto pelo Unity Hub (aguarde a importação).
 6. O ZXing.Net já acompanha o repositório (`Assets/Packages`); se o Unity avisar de pacote ausente, abra **NuGet → Restore Packages**.
 7. Em Build Profiles, selecione Android.
+
+## Como Executar
+
+```bash
+git clone https://github.com/UPX08-RA/safesight.git
+cd safesight
+```
+
+1. Abra o Unity Hub e clique em **Add / Open Project**.
+2. Selecione a pasta clonada e confirme a versão 6000.3.25f1.
+3. Abra a cena `Assets/Scenes/ARTest.unity`.
+4. Em **Build Profiles**, selecione **Android**.
+5. Conecte o dispositivo por USB.
+6. Execute **Build and Run**.
