@@ -214,3 +214,22 @@ Input System 1.20.0
 **Onde obter:** AR Foundation, ARCore XR Plugin, XR Plugin Management, Input System, URP e Test Framework vêm do Unity Package Manager. O ZXing.Net 0.16.11 é obtido no [NuGet](https://www.nuget.org/packages/ZXing.Net/0.16.11) (código em [micjahn/ZXing.Net](https://github.com/micjahn/ZXing.Net)) e o NuGetForUnity em [GlitchEnzo/NuGetForUnity](https://github.com/GlitchEnzo/NuGetForUnity).
 
 Versões conferidas em `Packages/manifest.json` e `Packages/packages-lock.json`. O ZXing.Net 0.16.11 está **versionado no repositório** (`Assets/Packages/ZXing.Net.0.16.11/`, com `Assets/NuGet.config` e `Assets/packages.config`), então não é preciso restaurá-lo manualmente.
+
+## Configuração do Ambiente
+
+### Pré-requisitos
+
+- Windows 10 ou 11;
+- Unity Hub e Unity **6000.3.25f1** com o módulo **Android Build Support** (SDK, NDK e OpenJDK pelo Hub);
+- Git;
+- tablet ou smartphone Android com suporte ao ARCore e depuração USB ativada.
+
+### Procedimento
+
+1. Instale o Unity Hub.
+2. Instale o Unity 6000.3.25f1 com Android Build Support.
+3. Instale o Git.
+4. Clone o repositório.
+5. Abra o projeto pelo Unity Hub (aguarde a importação).
+6. O ZXing.Net já acompanha o repositório (`Assets/Packages`); se o Unity avisar de pacote ausente, abra **NuGet → Restore Packages**.
+7. Em Build Profiles, selecione Android.
