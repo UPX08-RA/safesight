@@ -63,3 +63,21 @@ Pessoas que não conhecem o Prédio L da UniFacens: calouros, visitantes e profe
 | RNF03 | Usabilidade | Interface legível, com texto grande e sem menus |
 | RNF04 | Desempenho | Ler QR sem comprometer a fluidez (30 fps ou mais) |
 | RNF05 | Infraestrutura | Não depender de nada além dos QR codes impressos |
+
+## Tecnologias Utilizadas
+
+| Tecnologia | Versão | Utilização |
+|---|---|---|
+| Unity | 6000.3.25f1 (6.3 LTS) | Desenvolvimento principal (template 3D, URP) |
+| C# | compatível com Unity 6 | Scripts da aplicação |
+| AR Foundation | 6.3.5 | Camada de abstração de RA |
+| Google ARCore XR Plugin | 6.3.5 | Rastreamento de movimento e câmera em Android |
+| ZXing.Net | 0.16.11 | Decodificação de QR codes |
+| NuGetForUnity | pacote Git (GlitchEnzo/NuGetForUnity, `src/NuGetForUnity`) | Instalação do ZXing.Net |
+| Unity Test Framework (NUnit) | 1.6.0 | Testes automatizados (EditMode) |
+| Universal Render Pipeline (URP) | 17.3.0 | Pipeline gráfico |
+| Input System | 1.20.0 | Entrada (novo Input System) |
+| XR Plugin Management | 4.6.1 | Carregamento do ARCore no Android |
+| Python 3.13 e openpyxl 3.1.5 | versões do ambiente em que os scripts foram executados (25/10); na máquina do Tech Lead há Python 3.12.7 (sem openpyxl instalado) | Conversor planilha→JSON (`Assets/tools/gerar_trajeto.py`) |
+| OpenCV (Python) 5.0.0, NumPy 2.5.3 e ReportLab 5.0.1 | mesmo ambiente de execução (Python 3.13, 25/10) | Geração e validação dos QR codes e do PDF de impressão (`Assets/tools/gerar_qrcodes.py`, escrito com apoio de IA) |
+| Git e GitHub | — | Controle de versão e hospedagem |
