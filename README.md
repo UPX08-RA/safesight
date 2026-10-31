@@ -448,6 +448,7 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 | Testes automatizados da navegação | Test Runner (EditMode) | Todos passam | 27 de 27 em 29/10 (23 anteriores + 4 testes que percorrem as 38 rotas reais; 0,237 s) | ✅ |
 | Abertura e câmera | Build no tablet | Câmera abre | Câmera liga no tablet (25/10) | ✅ |
 | Leitura de QR | Ler `L-0-04` no tablet | ID mostrado no HUD | HUD mostra "L-0-04", destino, alertas e passos | ✅ |
+| Leitura dos QR codes impressos | Ler com o app todos os QR codes impressos do Prédio L (Giulia, 27/10, durante as primeiras gravações de campo) | Todos os QR codes lidos | Todos foram lidos pelo app sem falha e nenhum precisou ser reimpresso; o tamanho impresso ficou um pouco menor que o planejado (10 cm) e, mesmo assim, a leitura funcionou | ✅ |
 | Deslocamento (5 m) | 3 medições com trena | Erro dentro da tolerância | 5,1 / 4,9 / 4,9 m; erro absoluto médio 0,10 m (2,0%); maior erro 0,1 m | ✅ |
 | Deslocamento (9 m) | 3 medições com trena | Erro dentro da tolerância | 9,3 / 9,1 / 8,8 m; erro absoluto médio 0,20 m (2,2%); maior erro 0,3 m (3,3%) | ✅ |
 | Aviso de curva | Andar até cerca de 1 m do fim do trecho | Aviso e seta girada | Partida em L-2-12 (trecho de 9,38 m, curva à esquerda): aviso apareceu ao andar ~8,7 m (28/10) | ✅ |
