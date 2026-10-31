@@ -107,3 +107,35 @@ Usuário → Câmera (ARCore) → QrScanner → NavigationController → Navigat
                                     ↘ DisplacementEstimator (pose do ARCore) ↗
 NavigationLogic → NavigationHud → Seta, instruções e alertas sobre a câmera
 ```
+
+## Funcionamento da Realidade Aumentada
+
+### Técnica utilizada
+
+**QR Code como referência de posição, mais rastreamento de movimento do ARCore (odometria visual-inercial).** O QR só informa a posição no instante da leitura (o ZXing.Net decodifica o texto, sem pose). Entre dois QR codes, a distância é estimada pela pose do dispositivo fornecida pelo ARCore. A seta e as instruções são um **HUD fixo na tela**, não ancorado ao piso.
+
+### Fluxo técnico
+
+![Diagrama de sequência](docs/diagrams/sequencia.png)
+
+1. A câmera do ARCore é iniciada pelo AR Foundation.
+2. O `QrScanner` obtém o frame (`XRCpuImage`), copia o plano de luminância e o decodifica com o ZXing.Net, a cada 5 frames.
+3. O ID lido é validado contra os pontos do `trajeto.json`; a rota cadastrada do ponto é carregada.
+4. O `DisplacementEstimator` guarda a pose inicial e acompanha a pose da câmera no plano horizontal: distância em linha reta, caminho acumulado e giro.
+5. A `NavigationLogic` compara a distância com o comprimento do trecho: segue, avisa a curva (a cerca de 1 m do fim), pede novo QR (rastreamento perdido ou 1,5 m além do trecho) ou informa a chegada (QR da saída).
+6. O `NavigationHud` mostra seta, instrução, distância restante, próximos passos e alertas sobre a imagem da câmera.
+7. Ao ler o QR do próximo ponto, a estimativa reinicia e a rota seguinte é carregada.
+
+### Estados da navegação
+
+![Estados da navegação](docs/diagrams/estados.png)
+
+### Elementos virtuais
+
+> Os elementos abaixo são uma interface sobreposta ao vídeo da câmera (HUD), controlada pelo estado da navegação. Não há ancoragem tridimensional ao piso nem aos elementos do ambiente; o ARCore é usado para estimar o deslocamento.
+
+- seta de direção (gira à direita ou à esquerda na curva);
+- instrução do trecho atual e lista dos próximos passos;
+- barra de progresso do trecho e distância até a saída;
+- alertas de elevador e de extintor;
+- estados: aguardando QR, rota ativa, novo QR necessário, QR inválido e chegada.
