@@ -247,3 +247,17 @@ cd safesight
 4. Em **Build Profiles**, selecione **Android**.
 5. Conecte o dispositivo por USB.
 6. Execute **Build and Run**.
+
+## Como Utilizar a Aplicação
+
+1. Abra o SafeSight no dispositivo e autorize o acesso à câmera.
+2. Aponte a câmera para o QR code de um ponto do corredor (a cerca de 30 cm).
+3. Leia a instrução e siga a seta. A barra mostra o avanço do trecho e o texto, a distância até a saída.
+4. Perto da curva, a seta gira para o lado indicado.
+5. No fim do trecho, leia o QR code do próximo ponto.
+6. Se aparecer o "?", leia o próximo QR code para retomar.
+7. Ao ler o QR da saída, aparece a confirmação de chegada.
+
+Os botões **Reiniciar** e **Debug** ficam no topo da tela.
+
+![Rota ativa](docs/images/hud_rota.jpeg)
