@@ -370,3 +370,30 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 | Chegada (`hud_chegada.jpeg`) | Informar a chegada | Check em verde |
 
 ![Rota ativa](docs/images/hud_rota.jpeg)
+
+## Testes Técnicos
+
+| Teste | Procedimento | Resultado esperado | Resultado obtido | Status |
+|---|---|---|---|---|
+| Testes automatizados da navegação | Test Runner (EditMode) | Todos passam | 27 de 27 em 29/10 (23 anteriores + 4 testes que percorrem as 38 rotas reais; 0,237 s) | ✅ |
+| Abertura e câmera | Build no tablet | Câmera abre | Câmera liga no tablet (25/10) | ✅ |
+| Leitura de QR | Ler `L-0-04` no tablet | ID mostrado no HUD | HUD mostra "L-0-04", destino, alertas e passos | ✅ |
+| Deslocamento (5 m) | 3 medições com trena | Erro dentro da tolerância | 5,1 / 4,9 / 4,9 m; erro absoluto médio 0,10 m (2,0%); maior erro 0,1 m | ✅ |
+| Deslocamento (9 m) | 3 medições com trena | Erro dentro da tolerância | 9,3 / 9,1 / 8,8 m; erro absoluto médio 0,20 m (2,2%); maior erro 0,3 m (3,3%) | ✅ |
+| Aviso de curva | Andar até cerca de 1 m do fim do trecho | Aviso e seta girada | Partida em L-2-12 (trecho de 9,38 m, curva à esquerda): aviso apareceu ao andar ~8,7 m (28/10) | ✅ |
+| Curva à direita (L-0-14) | Ler `L-0-14` e andar cerca de 0,7 m | Aviso e seta à direita | "Em 0.9 m, vire à direita", seta à direita em âmbar (print `hud_curva.jpeg`, QR em monitor, 29/10) | ✅ |
+| Direção e instruções | Ler L-2-13 e depois L-2-02 | Seta e passos acompanham o trecho | Seta muda de direção, lista de passos atualiza e, no final, aparece a instrução de escada; curva à direita não gravada em campo (27/10), apenas verificada com QR em monitor (linha acima) | ✅ |
+| Rastreamento perdido | Cobrir a câmera ao caminhar | Pede novo QR | App perdeu o rastreamento e mostrou "Posição incerta. Leia o próximo QR Code" (28/10) | ✅ |
+| Fluxo completo | Partir de E2 (`L-0-04`) e ler, em ordem, `L-0-03`, `L-0-02` e `L-0-01` (saída), caminhando os trechos de 9,0 m, 9,4 m e 9,0 m | Chegada informada | Os 4 QR codes foram lidos em sequência e, ao ler `L-0-01`, apareceu "Você chegou à saída"; aviso de curva a 8,7 m de `L-0-03` (trecho de 9,4 m, curva à esquerda); sem falha da contagem. Galaxy Tab S9 FE, 30/10 ([vídeo](https://drive.google.com/file/d/18JaCDjUtASLCdQrbMRw2V49AzesUXK67/view?usp=drive_link)) | ✅ |
+| Desempenho | 5 min de uso contínuo, alternando os QR codes exibidos em um monitor e movendo o tablet, com o painel de depuração (FPS) consultado durante o teste | 30 fps e sem travar | Nos momentos em que o painel de depuração estava aberto, o FPS permaneceu em 30, mesmo ao mover o tablet e trocar os QR codes (observação visual, sem registro contínuo dos valores). O app não travou, não fechou e não ficou lento, e não houve aquecimento perceptível. Galaxy Tab S9 FE, 31/10 ([vídeo](https://drive.google.com/file/d/1ACtUHaKLJrBJdK2zor92q3utx3Aw_69Q/view?usp=drive_link)) | ✅ |
+| Offline | Desligar Wi-Fi e Bluetooth, ligar o modo avião, abrir o app e ler 2 QR codes | Leitura e rota funcionam sem rede | Wi-Fi e Bluetooth desligados e modo avião ligado antes de abrir o app; 2 QR codes lidos normalmente, com a rota carregada. Testado apenas no Galaxy Tab S9 FE ([vídeo](https://drive.google.com/file/d/1UJedqn4sCrBkW8ny2FhqSKy3TsL88zlw/view?usp=sharing)) | ✅ |
+
+> Registrar apenas testes realmente realizados. Tolerância de deslocamento definida antes da coleta: ±0,5 m ou 10% do trecho. As medições de deslocamento correspondem às tentativas válidas; em cerca de 1 a cada 5 tentativas nos celulares a contagem falhou e a tentativa foi descartada e repetida (ver Limitações Conhecidas).
+
+## Dispositivos Testados
+
+| Dispositivo | Sistema | Versão | Resultado |
+|---|---|---|---|
+| Samsung Galaxy Tab S9 FE | Android | 16 (One UI 8) | Build instalado; HUD (27/10), fluxo completo (30/10), modo avião e uso contínuo de 5 minutos (31/10) |
+| Samsung Galaxy M54 5G | Android | 16 (One UI 8) | Testes de deslocamento e avisos (28/10) |
+| Samsung Galaxy A54 5G | Android | 16 (One UI 8) | Testes de deslocamento e avisos (28/10) |
