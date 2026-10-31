@@ -268,6 +268,12 @@ Versões conferidas em `Packages/manifest.json` e `Packages/packages-lock.json`.
 6. O ZXing.Net já acompanha o repositório (`Assets/Packages`); se o Unity avisar de pacote ausente, abra **NuGet → Restore Packages**.
 7. Em Build Profiles, selecione Android.
 
+### Validação do procedimento
+
+Em 31/10, o procedimento foi executado em um **clone novo** do repositório (`git clone` em uma pasta vazia, sem a pasta `Library`), na máquina do Tech Lead (Windows), com o Unity 6000.3.25f1. A primeira abertura e importação do projeto levou cerca de 10 minutos, o Console não mostrou erros e o Test Runner (EditMode) executou os 27 testes com sucesso (0,209 s). O build para Android não foi repetido nesse clone; ele foi verificado no projeto de desenvolvimento.
+
+![Test Runner e Console no clone limpo](docs/images/validacao_clone_limpo.png)
+
 ## Como Executar
 
 ```bash
@@ -542,7 +548,7 @@ Projeto acadêmico desenvolvido para fins educacionais na disciplina de UPX — 
 - [x] Funcionamento da RA explicado
 - [x] Estrutura de pastas documentada
 - [x] Scripts principais descritos
-- [ ] Procedimento de instalação testado em clone limpo
+- [x] Procedimento de instalação testado em clone limpo
 - [x] Procedimento de execução testado
 - [x] Screenshots reais adicionados
 - [x] Testes registrados
