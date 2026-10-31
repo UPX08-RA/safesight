@@ -1,0 +1,22 @@
+sequenceDiagram
+    actor U as Usuário
+    participant C as Câmera (ARCore)
+    participant Q as QrScanner
+    participant N as NavigationController
+    participant L as NavigationLogic
+    participant E as DisplacementEstimator
+    participant H as NavigationHud
+    U->>C: aponta a câmera para o QR
+    C->>Q: frame (XRCpuImage)
+    Q->>N: OnQrRead(id)
+    N->>L: OnQrRead(id)
+    L-->>N: RouteLoaded (rota do ponto)
+    N->>E: Restart() e SetLeg(metros)
+    loop a cada frame
+        E->>C: lê a pose do dispositivo
+        E->>N: linha reta desde o QR, rastreamento
+        N->>L: Tick(distância, rastreamento perdido)
+        L-->>H: estado, instrução, próximos passos
+        H-->>U: seta e instruções sobre a câmera
+    end
+    U->>C: lê o QR do próximo ponto (ou da saída)
