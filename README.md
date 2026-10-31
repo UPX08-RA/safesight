@@ -461,3 +461,41 @@ docs: atualiza README
 ```
 
 A versão entregue está marcada com a tag `v1.0`.
+
+## Problemas Encontrados e Soluções
+
+### Problema 1 — Leitura de QR com a câmera já ocupada pelo ARCore
+
+**Problema:** não era possível usar uma segunda câmera (`WebCamTexture`) para ler QR.
+**Causa:** o ARCore ocupa a câmera.
+**Solução:** obter o frame pelo `ARCameraManager` (`XRCpuImage`), copiar o plano de luminância e decodificar com o ZXing.Net a cada 5 frames, mantendo 30 fps.
+
+### Problema 2 — O mesmo QR no campo de visão reiniciava a estimativa
+
+**Problema:** a estimativa zerava enquanto o mesmo QR continuava visível.
+**Causa:** cada leitura do mesmo QR era tratada como um novo ponto.
+**Solução:** intervalo de 1,5 s para reler o QR atual, e só um QR válido reinicia a estimativa (correção revisada nos testes de regressão).
+
+### Problema 3 — Distância horizontal na escada
+
+**Problema:** a estimativa não representa o comprimento de uma escada.
+**Causa:** o `DisplacementEstimator` mede só o plano horizontal.
+**Solução:** trechos de escada não têm aviso por distância; o QR no fim da escada continua a rota.
+
+### Problema 4 — Alterações da cena fora do commit
+
+**Problema:** a cena e os `.meta` não apareciam no `git status`.
+**Causa:** a cena não foi salva antes do commit.
+**Solução:** `Ctrl+S` na cena antes de commitar e conferir o `git status` (regra da equipe).
+
+### Problema 5 — Defeitos visuais do HUD no tablet
+
+**Problema:** o botão "Reiniciar" cobria o aviso de elevador, o texto do destino era cortado em telas estreitas, a seta e os ícones estavam desalinhados e os painéis de depuração apareciam por padrão.
+**Causa:** o layout do HUD (IMGUI) usava posições e tamanhos fixos, sem adaptar à largura útil da tela.
+**Solução:** layout recalculado a partir da altura e da largura úteis, botões de ícone no canto do cartão superior, texto com redução automática e painéis de depuração ocultos por padrão (botão de depuração para exibi-los). Verificado no tablet em 27/10. Em 29/10, o mesmo tipo de defeito (texto de tamanho fixo que não cabia) apareceu na instrução inicial "Aponte a câmera para um QR Code para começar", que passou a encolher para caber no cartão (verificado no tablet). O aviso "QR não reconhecido" recebeu o mesmo ajuste de forma preventiva; nos testes ele sempre coube na tela, sem corte observado.
+
+### Problema 6 — Contagem de deslocamento falhando de forma intermitente
+
+**Problema:** nos testes de campo com os celulares, em cerca de 1 a cada 5 tentativas a distância percorrida mostrada pelo app ficava abaixo da real (por exemplo, 7,5 m ao final de um trecho de 9 m), como se o rastreamento se perdesse durante o percurso. Não foi observado no tablet.
+**Causa:** não identificada. O comportamento é compatível com perda momentânea de rastreamento do ARCore durante a caminhada, mas isso não foi investigado.
+**Solução:** sem correção definitiva. Mitigação: o app pede nova leitura de QR quando detecta a perda de rastreamento ou o trecho excedido, e as tentativas com falha foram descartadas e repetidas nos testes.
