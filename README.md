@@ -499,3 +499,24 @@ A versão entregue está marcada com a tag `v1.0`.
 **Problema:** nos testes de campo com os celulares, em cerca de 1 a cada 5 tentativas a distância percorrida mostrada pelo app ficava abaixo da real (por exemplo, 7,5 m ao final de um trecho de 9 m), como se o rastreamento se perdesse durante o percurso. Não foi observado no tablet.
 **Causa:** não identificada. O comportamento é compatível com perda momentânea de rastreamento do ARCore durante a caminhada, mas isso não foi investigado.
 **Solução:** sem correção definitiva. Mitigação: o app pede nova leitura de QR quando detecta a perda de rastreamento ou o trecho excedido, e as tentativas com falha foram descartadas e repetidas nos testes.
+
+## Melhorias Futuras
+
+- registrar a orientação do QR (direção da primeira curva);
+- mais QR codes ao longo dos trechos longos;
+- experimento com usuários (SafeSight vs. sinalização estática);
+- teste em outros dispositivos Android;
+- rastreamento contínuo em mapa 2D e rota ancorada ao piso.
+
+## Custos e Recursos
+
+| Recurso | Tipo | Custo/Condição |
+|---|---|---|
+| Unity | Software | Licença Personal (gratuita) |
+| Git e GitHub | Software | Gratuito |
+| Galaxy Tab S9 FE | Hardware | Equipamento da equipe |
+| QR codes impressos | Material | Impressão em papel sulfite |
+
+## Licença
+
+Projeto acadêmico desenvolvido para fins educacionais na disciplina de UPX — Realidade Aumentada.
