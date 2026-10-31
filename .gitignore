@@ -53,3 +53,10 @@ crashlytics-build.properties
 
 # Rider
 /[Aa]ssets/Plugins/Editor/JetBrains*
+
+# Segredos e arquivos de sistema
+.env
+*.keystore
+*.jks
+.DS_Store
+Thumbs.db
