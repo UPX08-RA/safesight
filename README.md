@@ -13,3 +13,18 @@ A Realidade Aumentada entra como a camada que une a câmera ao vivo, o rastreame
 Placas de saída fixas pressupõem que a pessoa já conhece o prédio. Isso não funciona bem para calouros, visitantes e professores substitutos, principalmente sob estresse. A orientação para a saída segura depende da memória do usuário e de sinalização estática, que não indica por onde ir a partir do ponto em que a pessoa está.
 
 O impacto é a perda de tempo e a possibilidade de escolher um caminho errado durante uma evacuação. O SafeSight propõe uma orientação passo a passo a partir da posição atual do usuário.
+
+## Objetivos
+
+### Objetivo Geral
+
+Desenvolver uma aplicação de Realidade Aumentada que oriente o usuário, por rota cadastrada, até a saída-alvo do Prédio L em uma simulação controlada de incêndio.
+
+### Objetivos Técnicos
+
+- Ler QR codes pela câmera do ARCore (AR Foundation + ZXing.Net) e identificar o ponto atual.
+- Carregar a rota cadastrada de cada ponto a partir de um arquivo local (`trajeto.json`).
+- Estimar a distância percorrida entre QR codes pelo rastreamento de movimento do ARCore.
+- Avisar a aproximação de curvas e pedir novo QR quando o rastreamento é perdido ou o trecho é excedido.
+- Exibir um HUD com seta, instrução, distância restante, próximos passos e alertas.
+- Executar a aplicação em dispositivo Android e verificar o funcionamento por testes.
