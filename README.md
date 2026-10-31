@@ -413,3 +413,21 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 - A experiência com usuários (experimento com dois grupos) está planejada e não foi executada.
 - Cobertura do mapeamento: o pilar E5 do 2º andar não foi mapeado e, por isso, não está no `trajeto.json` nem tem QR code; os pontos de rampa (`L-0-08`, `L-1-08` e `L-2-08`) também não têm QR. O aplicativo funciona sobre os pontos cadastrados; incluir o E5 exige novo mapeamento, atualização do JSON e novo QR.
 - As distâncias do mapeamento vêm do levantamento da equipe e não foram remedidas com trena, exceto nos testes de campo.
+
+## Evidências de Funcionamento
+
+- Fluxo completo no Prédio L, partindo de E2 até a saída, no Galaxy Tab S9 FE (`FluxoCompleto.mp4`): [Assistir demonstração](https://drive.google.com/file/d/18JaCDjUtASLCdQrbMRw2V49AzesUXK67/view?usp=drive_link)
+- Print do HUD em rota ativa: `docs/images/hud_rota.jpeg`
+- Vídeos de deslocamento (5 m e 9 m, 3 repetições cada), avisos e direção/instruções (`DirecaoInstrucoes.mp4`): [Pasta UPX08 no Google Drive](https://drive.google.com/drive/folders/1dR31eKBIoCvF3lHZx4ewHU1OO9hYw7vx?usp=sharing)
+- Teste de desempenho de 5 minutos de uso contínuo, Galaxy Tab S9 FE: [Assistir](https://drive.google.com/file/d/1ACtUHaKLJrBJdK2zor92q3utx3Aw_69Q/view?usp=drive_link)
+- Teste em modo avião, Galaxy Tab S9 FE (`AirPlaneModeRecord.mp4`): [Assistir](https://drive.google.com/file/d/1UJedqn4sCrBkW8ny2FhqSKy3TsL88zlw/view?usp=sharing)
+- Print do Test Runner (27 testes verdes): `docs/images/testes_unitarios.png`
+
+## Repositórios e Recursos
+
+| Recurso | Link |
+|---|---|
+| Código-fonte | https://github.com/UPX08-RA/safesight |
+| Trello | [Quadro UPX 8](https://trello.com/b/XR5ZFyCX/upx-8) |
+| Vídeos de teste | [Google Drive](https://drive.google.com/drive/folders/1dR31eKBIoCvF3lHZx4ewHU1OO9hYw7vx?usp=sharing) |
+| Documentação complementar | `docs/documents/` |
