@@ -431,3 +431,33 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 | Trello | [Quadro UPX 8](https://trello.com/b/XR5ZFyCX/upx-8) |
 | Vídeos de teste | [Google Drive](https://drive.google.com/drive/folders/1dR31eKBIoCvF3lHZx4ewHU1OO9hYw7vx?usp=sharing) |
 | Documentação complementar | `docs/documents/` |
+
+## Cronograma Técnico
+
+| Atividade | Responsável | Status |
+|---|---|---|
+| Configuração do projeto Unity e AR Foundation | Gustavo | ✅ |
+| Pesquisa e artigo científico | Equipe | ✅ |
+| Mapeamento do Prédio L (planilha e plantas) | Giulia | ✅ |
+| Leitura de QR code | Gustavo | ✅ |
+| Dados do trajeto (JSON e conversor) | Gustavo | ✅ |
+| Lógica de navegação e testes | Gustavo e João | ✅ |
+| Estimativa de deslocamento com ARCore | Gustavo | ✅ |
+| HUD de navegação | Gustavo | ✅ |
+| Geração e validação dos QR codes | Gustavo e Giulia | 🚧 |
+| Ícones e seta (PNG/SVG) | Gerados com apoio de IA e entregues à equipe; o HUD atual desenha seta e ícones por código | ✅ (assets entregues; ainda não usados no app) |
+| Testes de campo no Prédio L | Equipe | 🚧 |
+| Documentação técnica | Equipe | ✅ |
+
+## Controle de Versão
+
+As funcionalidades principais (leitura de QR, deslocamento, `trajeto.json`, controle de navegação e HUD) foram desenvolvidas em branches `feature/*` e integradas por pull requests (#1 a #4). Ajustes posteriores do HUD e a documentação (prints, diagramas e README) foram commitados direto na `main`. Exemplos de mensagens de commit:
+
+```text
+feat: implementa leitura de QR com ZXing.Net
+feat: adiciona controle de navegação por rota cadastrada
+test: adiciona testes de regressão da navegação
+docs: atualiza README
+```
+
+A versão entregue está marcada com a tag `v1.0`.
