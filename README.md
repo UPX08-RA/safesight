@@ -230,9 +230,12 @@ safesight/
 
 > Árvore conferida com o repositório em 31/10. Pastas geradas pelo Unity (`Library`, `Temp`, `Logs`, `UserSettings`) e os builds são ignorados pelo `.gitignore`.
 
+### Pastas principais
+
 | Pasta | Finalidade |
 |---|---|
 | `Assets/Scripts` | Scripts produzidos pela equipe |
+| `Assets/Scenes` | Cena principal da aplicação (`ARTest.unity`) |
 | `Assets/Scripts/Navigation` | Lógica de navegação e dados do trajeto (assembly `SafeSight.Navigation`) |
 | `Assets/Resources/trajeto.json` | Pontos e rotas cadastradas do Prédio L |
 | `Assets/Tests/EditMode` | Testes automatizados da navegação |
@@ -434,7 +437,7 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 | Desempenho | 5 min de uso contínuo, alternando os QR codes exibidos em um monitor e movendo o tablet, com o painel de depuração (FPS) consultado durante o teste | 30 fps e sem travar | Nos momentos em que o painel de depuração estava aberto, o FPS permaneceu em 30, mesmo ao mover o tablet e trocar os QR codes (observação visual, sem registro contínuo dos valores). O app não travou, não fechou e não ficou lento, e não houve aquecimento perceptível. Galaxy Tab S9 FE, 31/10 ([vídeo](https://drive.google.com/file/d/1ACtUHaKLJrBJdK2zor92q3utx3Aw_69Q/view?usp=drive_link)) | ✅ |
 | Offline | Desligar Wi-Fi e Bluetooth, ligar o modo avião, abrir o app e ler 2 QR codes | Leitura e rota funcionam sem rede | Wi-Fi e Bluetooth desligados e modo avião ligado antes de abrir o app; 2 QR codes lidos normalmente, com a rota carregada. Testado apenas no Galaxy Tab S9 FE ([vídeo](https://drive.google.com/file/d/1UJedqn4sCrBkW8ny2FhqSKy3TsL88zlw/view?usp=sharing)) | ✅ |
 
-> Registrar apenas testes realmente realizados. Tolerância de deslocamento definida antes da coleta: ±0,5 m ou 10% do trecho. As medições de deslocamento correspondem às tentativas válidas; em cerca de 1 a cada 5 tentativas nos celulares a contagem falhou e a tentativa foi descartada e repetida (ver Limitações Conhecidas).
+> Tolerância de deslocamento definida antes da coleta: ±0,5 m ou 10% do trecho. As medições de deslocamento correspondem às tentativas válidas; em cerca de 1 a cada 5 tentativas nos celulares a contagem falhou e a tentativa foi descartada e repetida (ver Limitações Conhecidas).
 
 ---
 
