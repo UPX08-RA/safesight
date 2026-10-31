@@ -366,6 +366,27 @@ flowchart TD
 
 O usuário (pessoa que evacua) lê o QR, acompanha as instruções e lê o próximo QR até a saída. Não há administrador nem servidor no escopo.
 
+```mermaid
+flowchart LR
+    U([Usuário])
+    subgraph S[SafeSight - funciona offline]
+        C1(Ler QR code do ponto atual)
+        C2(Seguir seta e instruções do trecho)
+        C3(Receber alertas de elevador e extintor)
+        C4(Receber aviso de curva)
+        C5(Ler novo QR quando o app pedir)
+        C6(Reiniciar a leitura)
+        C7(Receber a confirmação de chegada)
+    end
+    U --> C1
+    U --> C2
+    U --> C3
+    U --> C4
+    U --> C5
+    U --> C6
+    U --> C7
+```
+
 ---
 
 ## 20. Fluxo de Navegação
