@@ -1,0 +1,16 @@
+stateDiagram-v2
+    direction LR
+    [*] --> Idle
+    Idle --> Following: QR válido
+    Following --> TurnWarning: faltam até 1 m
+    TurnWarning --> Following: QR do próximo ponto
+    Following --> NeedNewQr: sem rastreamento ou trecho excedido
+    TurnWarning --> NeedNewQr: idem
+    NeedNewQr --> Following: QR válido
+    TurnWarning --> Arrived: último trecho concluído
+    Following --> Arrived: QR da saída
+    Arrived --> [*]
+    note right of Arrived
+      O QR da saída leva a Arrived
+      a partir de qualquer estado
+    end note
