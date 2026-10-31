@@ -1,3 +1,37 @@
+# SafeSight
+
+> **Projeto UPX — Realidade Aumentada (Engenharia da Computação, UniFacens)**
+> Orientação por Realidade Aumentada até a saída-alvo em uma simulação controlada de incêndio no Prédio L, a partir de QR codes.
+
+![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
+![Plataforma](https://img.shields.io/badge/plataforma-Android-green)
+![Tecnologia](https://img.shields.io/badge/RA-AR%20Foundation%20%2B%20ARCore-blue)
+![Unity](https://img.shields.io/badge/Unity-6000.3.25f1-black)
+
+---
+
+## Identificação do Projeto
+
+| Item | Informação |
+|---|---|
+| **Projeto** | SafeSight |
+| **Equipe** | RotAR |
+| **Curso** | Engenharia da Computação |
+| **Disciplina** | UPX — Realidade Aumentada |
+| **Professor** | Daniel Ohata |
+| **Semestre** | 8º semestre (2026.2) |
+| **Instituição** | UniFacens |
+
+### Integrantes
+
+| Nome | RA | Responsabilidade |
+|---|---|---|
+| Gustavo Oliveira Gomes | 235413 | Tech Lead: arquitetura, leitura de QR (ZXing.Net), estimativa de deslocamento com ARCore, dados do trajeto (JSON e conversor) e HUD |
+| João Victor Cardoso Engler Rizzi de Araujo | 236602 | Lógica de navegação em C#: revisão e correções, testes de regressão (EditMode) e pull request |
+| Giulia Oliveira | 210071 | Mapeamento do Prédio L (planilha de pontos e conexões, plantas), pesquisa e QR codes (impressão e validação em campo) |
+| Luiz Augusto Marques Zocca | 235623 | Scrum Master: organização e Trello, logística e participação nos testes de campo |
+| Henrique Seiji Kuroiwa | 236060 | Pesquisa, artigo científico e documentação |
+
 ## Visão Geral
 
 O **SafeSight** é um aplicativo Android de Realidade Aumentada que orienta pessoas que não conhecem o prédio até a **saída-alvo** de uma rota segura previamente cadastrada, em uma **simulação controlada de incêndio** (sem fogo ou fumaça reais).
