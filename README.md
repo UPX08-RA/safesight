@@ -185,3 +185,15 @@ safesight/
 | `docs/diagrams` | Diagramas técnicos |
 | `docs/images` | Screenshots do aplicativo |
 | `docs/documents` | Documentos complementares (`validacao_qrcodes.txt`: resultado da geração e validação dos QR codes) |
+
+## Principais Scripts
+
+| Script | Responsabilidade |
+|---|---|
+| `QrScanner.cs` | Obtém o frame da câmera do ARCore, decodifica o QR com ZXing.Net e dispara o evento de leitura |
+| `DisplacementEstimator.cs` | Estima distância em linha reta, caminho e giro a partir da pose do ARCore; reinicia a cada QR |
+| `NavigationLogic.cs` | Regras de navegação: rota do ponto, estados, alertas, distância restante e instruções |
+| `TrajectoryData.cs` | Estrutura dos dados do `trajeto.json` (pontos, rotas e trechos) |
+| `NavigationController.cs` | Liga leitura de QR, estimativa de deslocamento e lógica; avisos de QR inválido |
+| `NavigationHud.cs` | Desenha o HUD (IMGUI): seta, instrução, progresso, próximos passos e alertas |
+| `NavigationLogicTests.cs`, `NavigationRotasReaisTests.cs` | Testes automatizados com as rotas reais |
