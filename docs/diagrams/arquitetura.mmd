@@ -1,0 +1,14 @@
+flowchart TD
+    U([Usuário]) --> APP[App SafeSight - Unity 6]
+    subgraph APP_INT [Dentro do app]
+        QR[QrScanner<br/>ZXing.Net] --> NC[NavigationController]
+        EST[DisplacementEstimator<br/>pose do ARCore] --> NC
+        NC --> NL[NavigationLogic<br/>rotas cadastradas]
+        JSON[(trajeto.json<br/>pontos e rotas)] --> NL
+        NL --> HUD[NavigationHud<br/>seta, instruções, alertas]
+    end
+    APP --> QR
+    CAM[AR Foundation + ARCore<br/>câmera e rastreamento de movimento] --> QR
+    CAM --> EST
+    CAM --> HUD
+    HW[Câmera e sensores<br/>Galaxy Tab S9 FE] --> CAM
