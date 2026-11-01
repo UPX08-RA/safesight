@@ -12,25 +12,25 @@
 
 ## 1. Identificação do Projeto
 
-| Item | Informação |
-|---|---|
-| **Projeto** | SafeSight |
-| **Equipe** | RotAR |
-| **Curso** | Engenharia da Computação |
-| **Disciplina** | UPX — Realidade Aumentada |
-| **Professor** | Daniel Ohata |
-| **Semestre** | 8º semestre (2026.2) |
-| **Instituição** | UniFacens |
+| Item            | Informação                |
+| --------------- | ------------------------- |
+| **Projeto**     | SafeSight                 |
+| **Equipe**      | RotAR                     |
+| **Curso**       | Engenharia da Computação  |
+| **Disciplina**  | UPX — Realidade Aumentada |
+| **Professor**   | Daniel Ohata              |
+| **Semestre**    | 8º semestre (2026.2)      |
+| **Instituição** | UniFacens                 |
 
 ### Integrantes
 
-| Nome | RA | Responsabilidade |
-|---|---|---|
-| Gustavo Oliveira Gomes | 235413 | Tech Lead: arquitetura, leitura de QR (ZXing.Net), estimativa de deslocamento com ARCore, dados do trajeto (JSON e conversor) e HUD |
-| João Victor Cardoso Engler Rizzi de Araujo | 236602 | Lógica de navegação em C#: revisão e correções, testes de regressão (EditMode) e pull request |
-| Giulia Oliveira | 210071 | Mapeamento do Prédio L (planilha de pontos e conexões, plantas), pesquisa e QR codes (impressão e validação em campo) |
-| Luiz Augusto Marques Zocca | 235623 | Scrum Master: organização e Trello, logística e participação nos testes de campo |
-| Henrique Seiji Kuroiwa | 236060 | Pesquisa, artigo científico e documentação |
+| Nome                                       | RA     | Turma | Responsabilidade                                                                                                                    |
+| ------------------------------------------ | ------ | ----- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Gustavo Oliveira Gomes                     | 235413 | TIN1  | Tech Lead: arquitetura, leitura de QR (ZXing.Net), estimativa de deslocamento com ARCore, dados do trajeto (JSON e conversor) e HUD |
+| João Victor Cardoso Engler Rizzi de Araujo | 236602 | TIN2  | Lógica de navegação em C#: revisão e correções, testes de regressão (EditMode) e pull request                                       |
+| Giulia Oliveira                            | 210071 | TIN1  | Mapeamento do Prédio L (planilha de pontos e conexões, plantas), pesquisa e QR codes (impressão e validação em campo)               |
+| Luiz Augusto Marques Zocca                 | 235623 | TIN1  | Scrum Master: organização e Trello, logística e participação nos testes de campo                                                    |
+| Henrique Seiji Kuroiwa                     | 236060 | TIN1  | Pesquisa, artigo científico e documentação                                                                                          |
 
 ---
 
@@ -83,18 +83,18 @@ Pessoas que não conhecem o Prédio L da UniFacens: calouros, visitantes e profe
 
 ## 6. Funcionalidades
 
-| ID | Funcionalidade | Descrição | Status |
-|---|---|---|---|
-| RF01 | Exibir câmera com seta e instruções | Imagem da câmera ao vivo com seta e instruções sobrepostas | ✅ |
-| RF02 | Ler QR code | Lê o ID do ponto pela câmera do ARCore | ✅ |
-| RF03 | Definir posição e carregar rota | Valida o ID e carrega a rota cadastrada do ponto; nova leitura a qualquer momento | ✅ |
-| RF04 | Orientar até a saída-alvo | Segue a rota cadastrada, trecho a trecho, sem elevador | ✅ |
-| RF05 | Identificar a saída-alvo | Mostra o destino na tela | ✅ |
-| RF06 | Instrução, próximos passos, distância e chegada | Instrução atual, próximos passos, distância restante; chegada ao ler o QR da saída (ou ao completar a distância do último trecho) | ✅ |
-| RF07 | Alertas | "Não utilize o elevador" e extintor cadastrado do ponto atual | ✅ |
-| RF08 | Estimar distância entre QR codes | Distância percorrida pelo rastreamento de movimento do ARCore | ✅ |
-| RF09 | Avisar curva | Avisa a aproximação da curva (cerca de 1 m do fim do trecho) | ✅ |
-| RF10 | Pedir novo QR | Pede nova leitura se o rastreamento é perdido ou o trecho é excedido | ✅ |
+| ID   | Funcionalidade                                  | Descrição                                                                                                                         | Status |
+| ---- | ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| RF01 | Exibir câmera com seta e instruções             | Imagem da câmera ao vivo com seta e instruções sobrepostas                                                                        | ✅     |
+| RF02 | Ler QR code                                     | Lê o ID do ponto pela câmera do ARCore                                                                                            | ✅     |
+| RF03 | Definir posição e carregar rota                 | Valida o ID e carrega a rota cadastrada do ponto; nova leitura a qualquer momento                                                 | ✅     |
+| RF04 | Orientar até a saída-alvo                       | Segue a rota cadastrada, trecho a trecho, sem elevador                                                                            | ✅     |
+| RF05 | Identificar a saída-alvo                        | Mostra o destino na tela                                                                                                          | ✅     |
+| RF06 | Instrução, próximos passos, distância e chegada | Instrução atual, próximos passos, distância restante; chegada ao ler o QR da saída (ou ao completar a distância do último trecho) | ✅     |
+| RF07 | Alertas                                         | "Não utilize o elevador" e extintor cadastrado do ponto atual                                                                     | ✅     |
+| RF08 | Estimar distância entre QR codes                | Distância percorrida pelo rastreamento de movimento do ARCore                                                                     | ✅     |
+| RF09 | Avisar curva                                    | Avisa a aproximação da curva (cerca de 1 m do fim do trecho)                                                                      | ✅     |
+| RF10 | Pedir novo QR                                   | Pede nova leitura se o rastreamento é perdido ou o trecho é excedido                                                              | ✅     |
 
 **Legenda:** ✅ Implementado · 🚧 Em desenvolvimento · ⬜ Planejado · ❌ Cancelado
 
@@ -102,45 +102,45 @@ Pessoas que não conhecem o Prédio L da UniFacens: calouros, visitantes e profe
 
 ## 7. Requisitos Não Funcionais
 
-| ID | Categoria | Requisito |
-|---|---|---|
-| RNF01 | Conectividade | Funcionar offline, sem servidor |
-| RNF02 | Compatibilidade | Executar em Android com suporte ao ARCore |
-| RNF03 | Usabilidade | Interface legível, com texto grande e sem menus |
-| RNF04 | Desempenho | Ler QR sem comprometer a fluidez (30 fps ou mais) |
-| RNF05 | Infraestrutura | Não depender de nada além dos QR codes impressos |
+| ID    | Categoria       | Requisito                                         |
+| ----- | --------------- | ------------------------------------------------- |
+| RNF01 | Conectividade   | Funcionar offline, sem servidor                   |
+| RNF02 | Compatibilidade | Executar em Android com suporte ao ARCore         |
+| RNF03 | Usabilidade     | Interface legível, com texto grande e sem menus   |
+| RNF04 | Desempenho      | Ler QR sem comprometer a fluidez (30 fps ou mais) |
+| RNF05 | Infraestrutura  | Não depender de nada além dos QR codes impressos  |
 
 ---
 
 ## 8. Tecnologias Utilizadas
 
-| Tecnologia | Versão | Utilização |
-|---|---|---|
-| Unity | 6000.3.25f1 (6.3 LTS) | Desenvolvimento principal (template 3D, URP) |
-| C# | compatível com Unity 6 | Scripts da aplicação |
-| AR Foundation | 6.3.5 | Camada de abstração de RA |
-| Google ARCore XR Plugin | 6.3.5 | Rastreamento de movimento e câmera em Android |
-| ZXing.Net | 0.16.11 | Decodificação de QR codes |
-| NuGetForUnity | pacote Git (GlitchEnzo/NuGetForUnity, `src/NuGetForUnity`) | Instalação do ZXing.Net |
-| Unity Test Framework (NUnit) | 1.6.0 | Testes automatizados (EditMode) |
-| Universal Render Pipeline (URP) | 17.3.0 | Pipeline gráfico |
-| Input System | 1.20.0 | Entrada (novo Input System) |
-| XR Plugin Management | 4.6.1 | Carregamento do ARCore no Android |
-| Python 3.13 e openpyxl 3.1.5 | versões do ambiente em que os scripts foram executados (25/10); na máquina do Tech Lead há Python 3.12.7 (sem openpyxl instalado) | Conversor planilha→JSON (`Assets/tools/gerar_trajeto.py`) |
-| OpenCV (Python) 5.0.0, NumPy 2.5.3 e ReportLab 5.0.1 | mesmo ambiente de execução (Python 3.13, 25/10) | Geração e validação dos QR codes e do PDF de impressão (`Assets/tools/gerar_qrcodes.py`, escrito com apoio de IA) |
-| Git e GitHub | — | Controle de versão e hospedagem |
+| Tecnologia                                           | Versão                                                                                                                            | Utilização                                                                                                        |
+| ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Unity                                                | 6000.3.25f1 (6.3 LTS)                                                                                                             | Desenvolvimento principal (template 3D, URP)                                                                      |
+| C#                                                   | compatível com Unity 6                                                                                                            | Scripts da aplicação                                                                                              |
+| AR Foundation                                        | 6.3.5                                                                                                                             | Camada de abstração de RA                                                                                         |
+| Google ARCore XR Plugin                              | 6.3.5                                                                                                                             | Rastreamento de movimento e câmera em Android                                                                     |
+| ZXing.Net                                            | 0.16.11                                                                                                                           | Decodificação de QR codes                                                                                         |
+| NuGetForUnity                                        | pacote Git (GlitchEnzo/NuGetForUnity, `src/NuGetForUnity`)                                                                        | Instalação do ZXing.Net                                                                                           |
+| Unity Test Framework (NUnit)                         | 1.6.0                                                                                                                             | Testes automatizados (EditMode)                                                                                   |
+| Universal Render Pipeline (URP)                      | 17.3.0                                                                                                                            | Pipeline gráfico                                                                                                  |
+| Input System                                         | 1.20.0                                                                                                                            | Entrada (novo Input System)                                                                                       |
+| XR Plugin Management                                 | 4.6.1                                                                                                                             | Carregamento do ARCore no Android                                                                                 |
+| Python 3.13 e openpyxl 3.1.5                         | versões do ambiente em que os scripts foram executados (25/10); na máquina do Tech Lead há Python 3.12.7 (sem openpyxl instalado) | Conversor planilha→JSON (`Assets/tools/gerar_trajeto.py`)                                                         |
+| OpenCV (Python) 5.0.0, NumPy 2.5.3 e ReportLab 5.0.1 | mesmo ambiente de execução (Python 3.13, 25/10)                                                                                   | Geração e validação dos QR codes e do PDF de impressão (`Assets/tools/gerar_qrcodes.py`, escrito com apoio de IA) |
+| Git e GitHub                                         | —                                                                                                                                 | Controle de versão e hospedagem                                                                                   |
 
 ---
 
 ## 9. Hardware Utilizado
 
-| Equipamento | Modelo | Característica relevante | Utilização |
-|---|---|---|---|
-| Tablet | Samsung Galaxy Tab S9 FE | Android 16 / One UI 8 | Build e verificação do HUD |
-| Celular | Samsung Galaxy M54 5G | Android 16 / One UI 8 | Testes de deslocamento e avisos |
-| Celular | Samsung Galaxy A54 5G | Android 16 / One UI 8 | Testes de deslocamento e avisos |
-| Computador | Notebook com Intel Core i7-9750H 2,60 GHz, 32 GB DDR4, Intel UHD Graphics 630 e NVIDIA GeForce GTX 1660 Ti (6 GB) | CPU, RAM e GPU | Desenvolvimento (Gustavo) |
-| Computador | Notebook com Intel Core i7-1165G7 2,80 GHz, 8 GB de RAM e Intel Iris Xe Graphics | CPU, RAM e GPU | Desenvolvimento (João) |
+| Equipamento | Modelo                                                                                                            | Característica relevante | Utilização                      |
+| ----------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------ | ------------------------------- |
+| Tablet      | Samsung Galaxy Tab S9 FE                                                                                          | Android 16 / One UI 8    | Build e verificação do HUD      |
+| Celular     | Samsung Galaxy M54 5G                                                                                             | Android 16 / One UI 8    | Testes de deslocamento e avisos |
+| Celular     | Samsung Galaxy A54 5G                                                                                             | Android 16 / One UI 8    | Testes de deslocamento e avisos |
+| Computador  | Notebook com Intel Core i7-9750H 2,60 GHz, 32 GB DDR4, Intel UHD Graphics 630 e NVIDIA GeForce GTX 1660 Ti (6 GB) | CPU, RAM e GPU           | Desenvolvimento (Gustavo)       |
+| Computador  | Notebook com Intel Core i7-1165G7 2,80 GHz, 8 GB de RAM e Intel Iris Xe Graphics                                  | CPU, RAM e GPU           | Desenvolvimento (João)          |
 
 > Foram usados apenas os três aparelhos acima. Nenhuma compatibilidade foi declarada para outros equipamentos.
 
@@ -232,32 +232,32 @@ safesight/
 
 ### Pastas principais
 
-| Pasta | Finalidade |
-|---|---|
-| `Assets/Scripts` | Scripts produzidos pela equipe |
-| `Assets/Scenes` | Cena principal da aplicação (`ARTest.unity`) |
-| `Assets/Scripts/Navigation` | Lógica de navegação e dados do trajeto (assembly `SafeSight.Navigation`) |
-| `Assets/Resources/trajeto.json` | Pontos e rotas cadastradas do Prédio L |
-| `Assets/Tests/EditMode` | Testes automatizados da navegação |
-| `Assets/tools` | Conversor da planilha de mapeamento para JSON e gerador/validador dos QR codes |
-| `Assets/Packages` | ZXing.Net 0.16.11 (NuGet), versionado |
-| `docs/diagrams` | Diagramas técnicos |
-| `docs/images` | Screenshots do aplicativo |
-| `docs/documents` | Documentos complementares (`validacao_qrcodes.txt`: resultado da geração e validação dos QR codes) |
+| Pasta                           | Finalidade                                                                                         |
+| ------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `Assets/Scripts`                | Scripts produzidos pela equipe                                                                     |
+| `Assets/Scenes`                 | Cena principal da aplicação (`ARTest.unity`)                                                       |
+| `Assets/Scripts/Navigation`     | Lógica de navegação e dados do trajeto (assembly `SafeSight.Navigation`)                           |
+| `Assets/Resources/trajeto.json` | Pontos e rotas cadastradas do Prédio L                                                             |
+| `Assets/Tests/EditMode`         | Testes automatizados da navegação                                                                  |
+| `Assets/tools`                  | Conversor da planilha de mapeamento para JSON e gerador/validador dos QR codes                     |
+| `Assets/Packages`               | ZXing.Net 0.16.11 (NuGet), versionado                                                              |
+| `docs/diagrams`                 | Diagramas técnicos                                                                                 |
+| `docs/images`                   | Screenshots do aplicativo                                                                          |
+| `docs/documents`                | Documentos complementares (`validacao_qrcodes.txt`: resultado da geração e validação dos QR codes) |
 
 ---
 
 ## 13. Principais Scripts
 
-| Script | Responsabilidade |
-|---|---|
-| `QrScanner.cs` | Obtém o frame da câmera do ARCore, decodifica o QR com ZXing.Net e dispara o evento de leitura |
-| `DisplacementEstimator.cs` | Estima distância em linha reta, caminho e giro a partir da pose do ARCore; reinicia a cada QR |
-| `NavigationLogic.cs` | Regras de navegação: rota do ponto, estados, alertas, distância restante e instruções |
-| `TrajectoryData.cs` | Estrutura dos dados do `trajeto.json` (pontos, rotas e trechos) |
-| `NavigationController.cs` | Liga leitura de QR, estimativa de deslocamento e lógica; avisos de QR inválido |
-| `NavigationHud.cs` | Desenha o HUD (IMGUI): seta, instrução, progresso, próximos passos e alertas |
-| `NavigationLogicTests.cs`, `NavigationRotasReaisTests.cs` | Testes automatizados com as rotas reais |
+| Script                                                    | Responsabilidade                                                                               |
+| --------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `QrScanner.cs`                                            | Obtém o frame da câmera do ARCore, decodifica o QR com ZXing.Net e dispara o evento de leitura |
+| `DisplacementEstimator.cs`                                | Estima distância em linha reta, caminho e giro a partir da pose do ARCore; reinicia a cada QR  |
+| `NavigationLogic.cs`                                      | Regras de navegação: rota do ponto, estados, alertas, distância restante e instruções          |
+| `TrajectoryData.cs`                                       | Estrutura dos dados do `trajeto.json` (pontos, rotas e trechos)                                |
+| `NavigationController.cs`                                 | Liga leitura de QR, estimativa de deslocamento e lógica; avisos de QR inválido                 |
+| `NavigationHud.cs`                                        | Desenha o HUD (IMGUI): seta, instrução, progresso, próximos passos e alertas                   |
+| `NavigationLogicTests.cs`, `NavigationRotasReaisTests.cs` | Testes automatizados com as rotas reais                                                        |
 
 ---
 
@@ -409,14 +409,14 @@ Não há tela inicial separada: o app abre direto na câmera, pois o uso ocorre 
 
 Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR codes exibidos em um monitor.
 
-| Tela | Finalidade | Principais elementos | Ação do usuário |
-|---|---|---|---|
-| Aguardando QR (`hud_idle.jpeg`) | Pedir a leitura do primeiro QR | Moldura de leitura e instrução "Aponte a câmera para um QR Code para começar" | Aponta a câmera para um QR code do corredor |
-| Rota ativa (`hud_rota.jpeg`) | Orientar o trecho atual | "Você está em" / destino, seta, instrução, barra de progresso, próximos passos e alertas | Caminha seguindo a seta e as instruções |
-| Aviso de curva (`hud_curva.jpeg`) | Avisar a curva próxima | Seta girada e em âmbar, com a distância até a curva | Prepara-se para virar para o lado indicado |
-| Novo QR (`hud_novo_qr.jpeg`) | Pedir nova leitura | "?" em vermelho e mensagem de posição incerta | Lê o QR code do próximo ponto |
-| QR inválido (`hud_qr_invalido.jpeg`) | Informar QR não reconhecido | Aviso temporário "QR não reconhecido" | Lê um QR code do projeto |
-| Chegada (`hud_chegada.jpeg`) | Informar a chegada | Check em verde e confirmação de chegada | Encerra a rota |
+| Tela                                 | Finalidade                     | Principais elementos                                                                     | Ação do usuário                             |
+| ------------------------------------ | ------------------------------ | ---------------------------------------------------------------------------------------- | ------------------------------------------- |
+| Aguardando QR (`hud_idle.jpeg`)      | Pedir a leitura do primeiro QR | Moldura de leitura e instrução "Aponte a câmera para um QR Code para começar"            | Aponta a câmera para um QR code do corredor |
+| Rota ativa (`hud_rota.jpeg`)         | Orientar o trecho atual        | "Você está em" / destino, seta, instrução, barra de progresso, próximos passos e alertas | Caminha seguindo a seta e as instruções     |
+| Aviso de curva (`hud_curva.jpeg`)    | Avisar a curva próxima         | Seta girada e em âmbar, com a distância até a curva                                      | Prepara-se para virar para o lado indicado  |
+| Novo QR (`hud_novo_qr.jpeg`)         | Pedir nova leitura             | "?" em vermelho e mensagem de posição incerta                                            | Lê o QR code do próximo ponto               |
+| QR inválido (`hud_qr_invalido.jpeg`) | Informar QR não reconhecido    | Aviso temporário "QR não reconhecido"                                                    | Lê um QR code do projeto                    |
+| Chegada (`hud_chegada.jpeg`)         | Informar a chegada             | Check em verde e confirmação de chegada                                                  | Encerra a rota                              |
 
 <p>
 <img src="docs/images/hud_idle.jpeg" alt="Aguardando QR" width="220">
@@ -443,21 +443,21 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 
 ## 22. Testes Técnicos
 
-| Teste | Procedimento | Resultado esperado | Resultado obtido | Status |
-|---|---|---|---|---|
-| Testes automatizados da navegação | Test Runner (EditMode) | Todos passam | 27 de 27 em 29/10 (23 anteriores + 4 testes que percorrem as 38 rotas reais; 0,237 s) | ✅ |
-| Abertura e câmera | Build no tablet | Câmera abre | Câmera liga no tablet (25/10) | ✅ |
-| Leitura de QR | Ler `L-0-04` no tablet | ID mostrado no HUD | HUD mostra "L-0-04", destino, alertas e passos | ✅ |
-| Leitura dos QR codes impressos | Ler com o app todos os QR codes impressos do Prédio L (Giulia, 27/10, durante as primeiras gravações de campo) | Todos os QR codes lidos | Todos foram lidos pelo app sem falha e nenhum precisou ser reimpresso; o tamanho impresso ficou um pouco menor que o planejado (10 cm) e, mesmo assim, a leitura funcionou | ✅ |
-| Deslocamento (5 m) | 3 medições com trena | Erro dentro da tolerância | 5,1 / 4,9 / 4,9 m; erro absoluto médio 0,10 m (2,0%); maior erro 0,1 m | ✅ |
-| Deslocamento (9 m) | 3 medições com trena | Erro dentro da tolerância | 9,3 / 9,1 / 8,8 m; erro absoluto médio 0,20 m (2,2%); maior erro 0,3 m (3,3%) | ✅ |
-| Aviso de curva | Andar até cerca de 1 m do fim do trecho | Aviso e seta girada | Partida em L-2-12 (trecho de 9,38 m, curva à esquerda): aviso apareceu ao andar ~8,7 m (28/10) | ✅ |
-| Curva à direita (L-0-14) | Ler `L-0-14` e andar cerca de 0,7 m | Aviso e seta à direita | "Em 0.9 m, vire à direita", seta à direita em âmbar (print `hud_curva.jpeg`, QR em monitor, 29/10) | ✅ |
-| Direção e instruções | Ler L-2-13 e depois L-2-02 | Seta e passos acompanham o trecho | Seta muda de direção, lista de passos atualiza e, no final, aparece a instrução de escada; curva à direita não gravada em campo (27/10), apenas verificada com QR em monitor (linha acima) | ✅ |
-| Rastreamento perdido | Cobrir a câmera ao caminhar | Pede novo QR | App perdeu o rastreamento e mostrou "Posição incerta. Leia o próximo QR Code" (28/10) | ✅ |
-| Fluxo completo | Partir de E2 (`L-0-04`) e ler, em ordem, `L-0-03`, `L-0-02` e `L-0-01` (saída), caminhando os trechos de 9,0 m, 9,4 m e 9,0 m | Chegada informada | Os 4 QR codes foram lidos em sequência e, ao ler `L-0-01`, apareceu "Você chegou à saída"; aviso de curva a 8,7 m de `L-0-03` (trecho de 9,4 m, curva à esquerda); sem falha da contagem. Galaxy Tab S9 FE, 30/10 ([vídeo](https://drive.google.com/file/d/18JaCDjUtASLCdQrbMRw2V49AzesUXK67/view?usp=drive_link)) | ✅ |
-| Desempenho | 5 min de uso contínuo, alternando os QR codes exibidos em um monitor e movendo o tablet, com o painel de depuração (FPS) consultado durante o teste | 30 fps e sem travar | Nos momentos em que o painel de depuração estava aberto, o FPS permaneceu em 30, mesmo ao mover o tablet e trocar os QR codes (observação visual, sem registro contínuo dos valores). O app não travou, não fechou e não ficou lento, e não houve aquecimento perceptível. Galaxy Tab S9 FE, 31/10 ([vídeo](https://drive.google.com/file/d/1ACtUHaKLJrBJdK2zor92q3utx3Aw_69Q/view?usp=drive_link)) | ✅ |
-| Offline | Desligar Wi-Fi e Bluetooth, ligar o modo avião, abrir o app e ler 2 QR codes | Leitura e rota funcionam sem rede | Wi-Fi e Bluetooth desligados e modo avião ligado antes de abrir o app; 2 QR codes lidos normalmente, com a rota carregada. Testado apenas no Galaxy Tab S9 FE ([vídeo](https://drive.google.com/file/d/1UJedqn4sCrBkW8ny2FhqSKy3TsL88zlw/view?usp=sharing)) | ✅ |
+| Teste                             | Procedimento                                                                                                                                        | Resultado esperado                | Resultado obtido                                                                                                                                                                                                                                                                                                                                                                                    | Status |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| Testes automatizados da navegação | Test Runner (EditMode)                                                                                                                              | Todos passam                      | 27 de 27 em 29/10 (23 anteriores + 4 testes que percorrem as 38 rotas reais; 0,237 s)                                                                                                                                                                                                                                                                                                               | ✅     |
+| Abertura e câmera                 | Build no tablet                                                                                                                                     | Câmera abre                       | Câmera liga no tablet (25/10)                                                                                                                                                                                                                                                                                                                                                                       | ✅     |
+| Leitura de QR                     | Ler `L-0-04` no tablet                                                                                                                              | ID mostrado no HUD                | HUD mostra "L-0-04", destino, alertas e passos                                                                                                                                                                                                                                                                                                                                                      | ✅     |
+| Leitura dos QR codes impressos    | Ler com o app todos os QR codes impressos do Prédio L (Giulia, 27/10, durante as primeiras gravações de campo)                                      | Todos os QR codes lidos           | Todos foram lidos pelo app sem falha e nenhum precisou ser reimpresso; o tamanho impresso ficou um pouco menor que o planejado (10 cm) e, mesmo assim, a leitura funcionou                                                                                                                                                                                                                          | ✅     |
+| Deslocamento (5 m)                | 3 medições com trena                                                                                                                                | Erro dentro da tolerância         | 5,1 / 4,9 / 4,9 m; erro absoluto médio 0,10 m (2,0%); maior erro 0,1 m                                                                                                                                                                                                                                                                                                                              | ✅     |
+| Deslocamento (9 m)                | 3 medições com trena                                                                                                                                | Erro dentro da tolerância         | 9,3 / 9,1 / 8,8 m; erro absoluto médio 0,20 m (2,2%); maior erro 0,3 m (3,3%)                                                                                                                                                                                                                                                                                                                       | ✅     |
+| Aviso de curva                    | Andar até cerca de 1 m do fim do trecho                                                                                                             | Aviso e seta girada               | Partida em L-2-12 (trecho de 9,38 m, curva à esquerda): aviso apareceu ao andar ~8,7 m (28/10)                                                                                                                                                                                                                                                                                                      | ✅     |
+| Curva à direita (L-0-14)          | Ler `L-0-14` e andar cerca de 0,7 m                                                                                                                 | Aviso e seta à direita            | "Em 0.9 m, vire à direita", seta à direita em âmbar (print `hud_curva.jpeg`, QR em monitor, 29/10)                                                                                                                                                                                                                                                                                                  | ✅     |
+| Direção e instruções              | Ler L-2-13 e depois L-2-02                                                                                                                          | Seta e passos acompanham o trecho | Seta muda de direção, lista de passos atualiza e, no final, aparece a instrução de escada; curva à direita não gravada em campo (27/10), apenas verificada com QR em monitor (linha acima)                                                                                                                                                                                                          | ✅     |
+| Rastreamento perdido              | Cobrir a câmera ao caminhar                                                                                                                         | Pede novo QR                      | App perdeu o rastreamento e mostrou "Posição incerta. Leia o próximo QR Code" (28/10)                                                                                                                                                                                                                                                                                                               | ✅     |
+| Fluxo completo                    | Partir de E2 (`L-0-04`) e ler, em ordem, `L-0-03`, `L-0-02` e `L-0-01` (saída), caminhando os trechos de 9,0 m, 9,4 m e 9,0 m                       | Chegada informada                 | Os 4 QR codes foram lidos em sequência e, ao ler `L-0-01`, apareceu "Você chegou à saída"; aviso de curva a 8,7 m de `L-0-03` (trecho de 9,4 m, curva à esquerda); sem falha da contagem. Galaxy Tab S9 FE, 30/10 ([vídeo](https://drive.google.com/file/d/18JaCDjUtASLCdQrbMRw2V49AzesUXK67/view?usp=drive_link))                                                                                  | ✅     |
+| Desempenho                        | 5 min de uso contínuo, alternando os QR codes exibidos em um monitor e movendo o tablet, com o painel de depuração (FPS) consultado durante o teste | 30 fps e sem travar               | Nos momentos em que o painel de depuração estava aberto, o FPS permaneceu em 30, mesmo ao mover o tablet e trocar os QR codes (observação visual, sem registro contínuo dos valores). O app não travou, não fechou e não ficou lento, e não houve aquecimento perceptível. Galaxy Tab S9 FE, 31/10 ([vídeo](https://drive.google.com/file/d/1ACtUHaKLJrBJdK2zor92q3utx3Aw_69Q/view?usp=drive_link)) | ✅     |
+| Offline                           | Desligar Wi-Fi e Bluetooth, ligar o modo avião, abrir o app e ler 2 QR codes                                                                        | Leitura e rota funcionam sem rede | Wi-Fi e Bluetooth desligados e modo avião ligado antes de abrir o app; 2 QR codes lidos normalmente, com a rota carregada. Testado apenas no Galaxy Tab S9 FE ([vídeo](https://drive.google.com/file/d/1UJedqn4sCrBkW8ny2FhqSKy3TsL88zlw/view?usp=sharing))                                                                                                                                         | ✅     |
 
 > Tolerância de deslocamento definida antes da coleta: ±0,5 m ou 10% do trecho. As medições de deslocamento correspondem às tentativas válidas; em cerca de 1 a cada 5 tentativas nos celulares a contagem falhou e a tentativa foi descartada e repetida (ver Limitações Conhecidas).
 
@@ -465,11 +465,11 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 
 ## 23. Dispositivos Testados
 
-| Dispositivo | Sistema | Versão | Resultado |
-|---|---|---|---|
+| Dispositivo              | Sistema | Versão        | Resultado                                                                                            |
+| ------------------------ | ------- | ------------- | ---------------------------------------------------------------------------------------------------- |
 | Samsung Galaxy Tab S9 FE | Android | 16 (One UI 8) | Build instalado; HUD (27/10), fluxo completo (30/10), modo avião e uso contínuo de 5 minutos (31/10) |
-| Samsung Galaxy M54 5G | Android | 16 (One UI 8) | Testes de deslocamento e avisos (28/10) |
-| Samsung Galaxy A54 5G | Android | 16 (One UI 8) | Testes de deslocamento e avisos (28/10) |
+| Samsung Galaxy M54 5G    | Android | 16 (One UI 8) | Testes de deslocamento e avisos (28/10)                                                              |
+| Samsung Galaxy A54 5G    | Android | 16 (One UI 8) | Testes de deslocamento e avisos (28/10)                                                              |
 
 ---
 
@@ -504,31 +504,31 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 
 ## 26. Repositórios e Recursos
 
-| Recurso | Link |
-|---|---|
-| Código-fonte | https://github.com/UPX08-RA/safesight |
-| Trello | [Quadro UPX 8](https://trello.com/b/XR5ZFyCX/upx-8) |
-| Vídeos de teste | [Google Drive](https://drive.google.com/drive/folders/1dR31eKBIoCvF3lHZx4ewHU1OO9hYw7vx?usp=sharing) |
-| Documentação complementar | `docs/documents/` |
+| Recurso                   | Link                                                                                                 |
+| ------------------------- | ---------------------------------------------------------------------------------------------------- |
+| Código-fonte              | https://github.com/UPX08-RA/safesight                                                                |
+| Trello                    | [Quadro UPX 8](https://trello.com/b/XR5ZFyCX/upx-8)                                                  |
+| Vídeos de teste           | [Google Drive](https://drive.google.com/drive/folders/1dR31eKBIoCvF3lHZx4ewHU1OO9hYw7vx?usp=sharing) |
+| Documentação complementar | `docs/documents/`                                                                                    |
 
 ---
 
 ## 27. Cronograma Técnico
 
-| Atividade | Responsável | Status |
-|---|---|---|
-| Configuração do projeto Unity e AR Foundation | Gustavo | ✅ |
-| Pesquisa e artigo científico | Equipe | ✅ |
-| Mapeamento do Prédio L (planilha e plantas) | Giulia | ✅ |
-| Leitura de QR code | Gustavo | ✅ |
-| Dados do trajeto (JSON e conversor) | Gustavo | ✅ |
-| Lógica de navegação e testes | Gustavo e João | ✅ |
-| Estimativa de deslocamento com ARCore | Gustavo | ✅ |
-| HUD de navegação | Gustavo | ✅ |
-| Geração e validação dos QR codes | Gustavo e Giulia | 🚧 |
-| Ícones e seta (PNG/SVG) | Gerados com apoio de IA e entregues à equipe; o HUD atual desenha seta e ícones por código | ✅ (assets entregues; ainda não usados no app) |
-| Testes de campo no Prédio L | Equipe | 🚧 |
-| Documentação técnica | Equipe | ✅ |
+| Atividade                                     | Responsável                                                                                | Status                                         |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------------------- |
+| Configuração do projeto Unity e AR Foundation | Gustavo                                                                                    | ✅                                             |
+| Pesquisa e artigo científico                  | Equipe                                                                                     | ✅                                             |
+| Mapeamento do Prédio L (planilha e plantas)   | Giulia                                                                                     | ✅                                             |
+| Leitura de QR code                            | Gustavo                                                                                    | ✅                                             |
+| Dados do trajeto (JSON e conversor)           | Gustavo                                                                                    | ✅                                             |
+| Lógica de navegação e testes                  | Gustavo e João                                                                             | ✅                                             |
+| Estimativa de deslocamento com ARCore         | Gustavo                                                                                    | ✅                                             |
+| HUD de navegação                              | Gustavo                                                                                    | ✅                                             |
+| Geração e validação dos QR codes              | Gustavo e Giulia                                                                           | 🚧                                             |
+| Ícones e seta (PNG/SVG)                       | Gerados com apoio de IA e entregues à equipe; o HUD atual desenha seta e ícones por código | ✅ (assets entregues; ainda não usados no app) |
+| Testes de campo no Prédio L                   | Equipe                                                                                     | 🚧                                             |
+| Documentação técnica                          | Equipe                                                                                     | ✅                                             |
 
 ---
 
@@ -599,12 +599,12 @@ A versão entregue está marcada com a tag `v1.0`.
 
 ## 31. Custos e Recursos
 
-| Recurso | Tipo | Custo/Condição |
-|---|---|---|
-| Unity | Software | Licença Personal (gratuita) |
-| Git e GitHub | Software | Gratuito |
-| Galaxy Tab S9 FE | Hardware | Equipamento da equipe |
-| QR codes impressos | Material | Impressão em papel sulfite |
+| Recurso            | Tipo     | Custo/Condição              |
+| ------------------ | -------- | --------------------------- |
+| Unity              | Software | Licença Personal (gratuita) |
+| Git e GitHub       | Software | Gratuito                    |
+| Galaxy Tab S9 FE   | Hardware | Equipamento da equipe       |
+| QR codes impressos | Material | Impressão em papel sulfite  |
 
 ---
 
