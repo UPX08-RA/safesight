@@ -130,16 +130,23 @@ public class NavigationHud : MonoBehaviour
     static string StepText(TrajLeg l, string exitId)
     {
         if (l.IsStairs) return $"Use a escada ({l.meters:0} m)";
+        if (l.HasVia)
+            return $"Siga {l.viaMeters:0} m, {NavigationLogic.TurnText(l.viaTurn)}, siga {l.afterViaMeters:0} m" +
+                   (l.turn == "none" ? "" : " e " + NavigationLogic.TurnText(l.turn));
         string s = $"Siga {l.meters:0} m";
         if (l.toId == exitId) return s + " até a saída";
         return l.turn == "none" ? s : s + " e " + NavigationLogic.TurnText(l.turn);
     }
 
-    bool TurnConfirmed(TrajLeg leg, DisplacementEstimator est)
+    // O giro inicial (virar-se para o trecho depois de ler o QR) nao conta como curva: usa o giro
+    // medido a partir do alinhamento (TurnProgressDegrees).
+    bool TurnConfirmed(NavigationLogic logic, TrajLeg leg)
     {
-        if (leg == null || est == null) return false;
-        return (leg.turn == "right" && est.YawDelta >= turnConfirmDegrees) ||
-               (leg.turn == "left" && est.YawDelta <= -turnConfirmDegrees);
+        if (leg == null) return false;
+        float g = logic.TurnProgressDegrees;
+        string turn = logic.CurrentTurn;
+        return (turn == "right" && g >= turnConfirmDegrees) ||
+               (turn == "left" && g <= -turnConfirmDegrees);
     }
 
     void OnGUI()
@@ -216,8 +223,10 @@ public class NavigationHud : MonoBehaviour
             Round(circle, new Color(0.05f, 0.07f, 0.11f, 0.45f), D / 2f);
             RingShape(circle, accent, 6f * u);
             float angle = 0f;
-            if (state == NavState.TurnWarning && leg != null && !logic.IsLastLeg)
-                angle = leg.turn == "right" ? 90f : leg.turn == "left" ? -90f : 0f;
+            if (logic.NeedsAlignment)
+                angle = logic.AlignErrorDegrees; // ainda de lado em relacao ao trecho: a seta mostra para onde girar
+            else if (state == NavState.TurnWarning && leg != null && !logic.IsLastLeg)
+                angle = logic.CurrentTurn == "right" ? 90f : logic.CurrentTurn == "left" ? -90f : 0f;
             float S = 165f * u * pulse;
             var ar = new Rect(cx - S / 2f, cy - S / 2f, S, S);
             var old = GUI.matrix;
@@ -290,7 +299,7 @@ public class NavigationHud : MonoBehaviour
                 Text(new Rect(track.x + 42f * u, sy + i * 36f * u - 1f * u, track.width - 42f * u, 32f * u),
                      StepText(steps[i], logic.ExitId), 24, i == 0 ? Color.white : Muted);
             }
-            if (state == NavState.TurnWarning && !logic.IsLastLeg && TurnConfirmed(leg, est))
+            if (state == NavState.TurnWarning && !logic.IsLastLeg && TurnConfirmed(logic, leg))
                 Text(new Rect(track.x + track.width * 0.4f, sy, track.width * 0.6f, 34f * u), "Curva confirmada", 24,
                      Green, TextAnchor.UpperRight, true);
         }

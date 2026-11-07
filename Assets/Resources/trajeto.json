@@ -12,31 +12,41 @@
       "id": "L-0-02",
       "description": "Primeiro extintor após a entrada.",
       "noElevator": true,
-      "extinguisher": "neste ponto"
+      "extinguisher": "neste ponto",
+      "hasQrFacing": true,
+      "qrFacingDeg": 90
     },
     {
       "id": "L-0-03",
       "description": "Coluna após E1.",
       "noElevator": true,
-      "extinguisher": ""
+      "extinguisher": "",
+      "hasQrFacing": true,
+      "qrFacingDeg": 180
     },
     {
       "id": "L-0-04",
       "description": "Extintor entre P1 e P2.",
       "noElevator": true,
-      "extinguisher": "neste ponto"
+      "extinguisher": "neste ponto",
+      "hasQrFacing": true,
+      "qrFacingDeg": 180
     },
     {
       "id": "L-0-05",
       "description": "Coluna entre E2 e E3.",
       "noElevator": true,
-      "extinguisher": ""
+      "extinguisher": "",
+      "hasQrFacing": true,
+      "qrFacingDeg": 180
     },
     {
       "id": "L-0-06",
       "description": "Extintor após P2.",
       "noElevator": true,
-      "extinguisher": "neste ponto"
+      "extinguisher": "neste ponto",
+      "hasQrFacing": true,
+      "qrFacingDeg": 180
     },
     {
       "id": "L-0-07",
@@ -54,37 +64,49 @@
       "id": "L-0-10",
       "description": "Extintor entre P3 e P4.",
       "noElevator": true,
-      "extinguisher": "neste ponto"
+      "extinguisher": "neste ponto",
+      "hasQrFacing": true,
+      "qrFacingDeg": 0
     },
     {
       "id": "L-0-11",
       "description": "Coluna entre E5 e E6.",
       "noElevator": true,
-      "extinguisher": ""
+      "extinguisher": "",
+      "hasQrFacing": true,
+      "qrFacingDeg": 0
     },
     {
       "id": "L-0-12",
       "description": "Extintor entre P4 e P5.",
       "noElevator": true,
-      "extinguisher": "neste ponto"
+      "extinguisher": "neste ponto",
+      "hasQrFacing": true,
+      "qrFacingDeg": 0
     },
     {
       "id": "L-0-13",
       "description": "Coluna após E6.",
       "noElevator": true,
-      "extinguisher": ""
+      "extinguisher": "",
+      "hasQrFacing": true,
+      "qrFacingDeg": 0
     },
     {
       "id": "L-0-14",
       "description": "Coluna no canto superior da escada.",
       "noElevator": true,
-      "extinguisher": ""
+      "extinguisher": "",
+      "hasQrFacing": true,
+      "qrFacingDeg": 0
     },
     {
       "id": "L-0-15",
       "description": "Ponto junto à escada, após P6.",
       "noElevator": true,
-      "extinguisher": ""
+      "extinguisher": "",
+      "hasQrFacing": true,
+      "qrFacingDeg": 270
     },
     {
       "id": "L-1-01",
@@ -240,6 +262,8 @@
   "routes": [
     {
       "startId": "L-0-02",
+      "hasStartHeading": true,
+      "startHeadingDeg": 180,
       "legs": [
         {
           "toId": "L-0-01",
@@ -250,6 +274,8 @@
     },
     {
       "startId": "L-0-03",
+      "hasStartHeading": true,
+      "startHeadingDeg": 270,
       "legs": [
         {
           "toId": "L-0-02",
@@ -265,6 +291,8 @@
     },
     {
       "startId": "L-0-04",
+      "hasStartHeading": true,
+      "startHeadingDeg": 270,
       "legs": [
         {
           "toId": "L-0-03",
@@ -285,6 +313,8 @@
     },
     {
       "startId": "L-0-05",
+      "hasStartHeading": true,
+      "startHeadingDeg": 270,
       "legs": [
         {
           "toId": "L-0-04",
@@ -310,6 +340,8 @@
     },
     {
       "startId": "L-0-06",
+      "hasStartHeading": true,
+      "startHeadingDeg": 270,
       "legs": [
         {
           "toId": "L-0-05",
@@ -399,12 +431,15 @@
         {
           "toId": "L-0-14",
           "meters": 6.8,
-          "turn": "left"
+          "turn": "none"
         },
         {
           "toId": "L-0-15",
           "meters": 1.66,
-          "turn": "right"
+          "turn": "left",
+          "viaMeters": 1.0,
+          "viaTurn": "left",
+          "afterViaMeters": 2.0
         },
         {
           "toId": "L-0-02",
@@ -420,6 +455,8 @@
     },
     {
       "startId": "L-0-10",
+      "hasStartHeading": true,
+      "startHeadingDeg": 270,
       "legs": [
         {
           "toId": "L-0-11",
@@ -439,12 +476,15 @@
         {
           "toId": "L-0-14",
           "meters": 6.8,
-          "turn": "left"
+          "turn": "none"
         },
         {
           "toId": "L-0-15",
           "meters": 1.66,
-          "turn": "right"
+          "turn": "left",
+          "viaMeters": 1.0,
+          "viaTurn": "left",
+          "afterViaMeters": 2.0
         },
         {
           "toId": "L-0-02",
@@ -460,6 +500,8 @@
     },
     {
       "startId": "L-0-11",
+      "hasStartHeading": true,
+      "startHeadingDeg": 270,
       "legs": [
         {
           "toId": "L-0-12",
@@ -474,12 +516,15 @@
         {
           "toId": "L-0-14",
           "meters": 6.8,
-          "turn": "left"
+          "turn": "none"
         },
         {
           "toId": "L-0-15",
           "meters": 1.66,
-          "turn": "right"
+          "turn": "left",
+          "viaMeters": 1.0,
+          "viaTurn": "left",
+          "afterViaMeters": 2.0
         },
         {
           "toId": "L-0-02",
@@ -495,6 +540,8 @@
     },
     {
       "startId": "L-0-12",
+      "hasStartHeading": true,
+      "startHeadingDeg": 270,
       "legs": [
         {
           "toId": "L-0-13",
@@ -504,12 +551,15 @@
         {
           "toId": "L-0-14",
           "meters": 6.8,
-          "turn": "left"
+          "turn": "none"
         },
         {
           "toId": "L-0-15",
           "meters": 1.66,
-          "turn": "right"
+          "turn": "left",
+          "viaMeters": 1.0,
+          "viaTurn": "left",
+          "afterViaMeters": 2.0
         },
         {
           "toId": "L-0-02",
@@ -525,16 +575,21 @@
     },
     {
       "startId": "L-0-13",
+      "hasStartHeading": true,
+      "startHeadingDeg": 270,
       "legs": [
         {
           "toId": "L-0-14",
           "meters": 6.8,
-          "turn": "left"
+          "turn": "none"
         },
         {
           "toId": "L-0-15",
           "meters": 1.66,
-          "turn": "right"
+          "turn": "left",
+          "viaMeters": 1.0,
+          "viaTurn": "left",
+          "afterViaMeters": 2.0
         },
         {
           "toId": "L-0-02",
@@ -550,11 +605,16 @@
     },
     {
       "startId": "L-0-14",
+      "hasStartHeading": true,
+      "startHeadingDeg": 270,
       "legs": [
         {
           "toId": "L-0-15",
           "meters": 1.66,
-          "turn": "right"
+          "turn": "left",
+          "viaMeters": 1.0,
+          "viaTurn": "left",
+          "afterViaMeters": 2.0
         },
         {
           "toId": "L-0-02",
@@ -570,6 +630,8 @@
     },
     {
       "startId": "L-0-15",
+      "hasStartHeading": true,
+      "startHeadingDeg": 225,
       "legs": [
         {
           "toId": "L-0-02",

@@ -17,6 +17,12 @@ public class NavigationController : MonoBehaviour
     [SerializeField, Min(0.3f)] float overshootMeters = 1.5f;
     [SerializeField, Min(0.5f)] float rescanGapSeconds = 1.5f;
 
+    [Header("Orientacao do QR")]
+    [Tooltip("Usa a direcao para onde o QR fica virado para dizer quanto girar depois da leitura.")]
+    [SerializeField] bool usarOrientacaoDoQr = true;
+    [Tooltip("Erro de giro (graus) aceito para considerar o usuario alinhado ao trecho.")]
+    [SerializeField, Min(5f)] float toleranciaDeAlinhamento = 30f;
+
     [Header("Teste")]
     [SerializeField] bool showDebugPanel = false;
 
@@ -75,6 +81,8 @@ public class NavigationController : MonoBehaviour
         logic.WarnMeters = warnMeters;
         logic.OvershootMeters = overshootMeters;
         logic.RescanGapSeconds = rescanGapSeconds;
+        logic.UseQrOrientation = usarOrientacaoDoQr;
+        logic.AlignToleranceDegrees = toleranciaDeAlinhamento;
     }
 
     void OnEnable()
@@ -115,7 +123,7 @@ public class NavigationController : MonoBehaviour
     void Update()
     {
         if (logic == null || estimator == null || !estimator.Started) return;
-        logic.Tick(estimator.StraightMeters, estimator.TrackingLost);
+        logic.Tick(estimator.StraightMeters, estimator.TrackingLost, estimator.YawDelta);
     }
 
     // Painel de teste simples (sem Canvas). A UI do usuario e o NavigationHud.
@@ -134,11 +142,15 @@ public class NavigationController : MonoBehaviour
         string alertas = (logic.ShowElevatorAlert ? "NAO USE O ELEVADOR  " : "") +
                          (string.IsNullOrEmpty(logic.ExtinguisherText) ? "" : $"Extintor: {logic.ExtinguisherText}");
         string msg = ToastActive ? $"\n{toast}" : "";
+        string giro = logic.HasInitialTurn
+            ? $"Giro inicial: {logic.InitialTurnDegrees:+0;-0;0}°  |  Falta girar: {logic.AlignErrorDegrees:+0;-0;0}°{(logic.NeedsAlignment ? " (alinhando)" : "")}\n"
+            : "Orientacao do QR: sem dado neste ponto\n";
 
         GUI.Label(rect,
             $"Estado: {logic.State}  |  Ponto: {ponto}  |  Destino: {logic.ExitName}\n" +
             $"{logic.Instruction}\n" +
-            $"Restam no trecho: {logic.RemainingLegMeters:0.0} m  |  Ate a saida: {logic.RemainingTotalMeters:0} m\n" +
+            $"Restam no trecho: {logic.RemainingLegMeters:0.0} m  |  Ate a saida: {logic.RemainingTotalMeters:0} m  {logic.StageText}\n" +
+            giro +
             $"{alertas}{msg}", style);
     }
 }
