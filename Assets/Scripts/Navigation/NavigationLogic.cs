@@ -19,6 +19,13 @@ namespace SafeSight.Navigation
         public float OvershootMeters = 1.5f;   // passou do trecho por mais que isso -> novo QR
         public float RescanGapSeconds = 1.5f;  // ignora o mesmo QR repetido dentro deste intervalo
 
+        // Orientacao do QR: o QR fica numa coluna virado para o corredor; o usuario le olhando para
+        // ele, entao pode estar de lado em relacao ao trecho. Com o dado cadastrado, o app diz quanto girar.
+        public bool UseQrOrientation = true;
+        public float AlignToleranceDegrees = 30f; // ate este erro de giro, o usuario conta como alinhado
+        public float AlignWindowMeters = 1.5f;    // depois de andar isto, nao pede mais o giro inicial
+        public float ViaTurnConfirmDegrees = 60f; // giro que confirma a curva no meio do trecho
+
         readonly TrajData data;
         readonly Dictionary<string, TrajPoint> points = new Dictionary<string, TrajPoint>();
         readonly Dictionary<string, TrajRoute> routes = new Dictionary<string, TrajRoute>();
@@ -28,6 +35,10 @@ namespace SafeSight.Navigation
         bool arrived;
         float lastQrTime = -999f;
         float straightMeters;
+        float yawDelta;     // giro (graus, + = direita) desde a leitura do QR
+        bool aligned;       // ja ficou alinhado ao trecho (ou ja andou): nao pede mais o giro inicial
+        bool viaDone;       // ja fez a curva do meio do trecho (so em trechos com curva intermediaria)
+        float viaBase;      // distancia em linha reta (m) no momento da curva do meio do trecho
 
         public NavState State { get; private set; } = NavState.Idle;
 
@@ -77,9 +88,34 @@ namespace SafeSight.Navigation
         /// <summary>Texto do extintor cadastrado para o ponto atual (RF07); vazio se nao houver.</summary>
         public string ExtinguisherText => CurrentPoint != null ? CurrentPoint.extinguisher ?? "" : "";
 
-        /// <summary>Metros que faltam para o fim do trecho atual (nunca negativo).</summary>
-        public float RemainingLegMeters =>
-            route == null ? 0f : Mathf.Max(0f, route.legs[0].meters - straightMeters);
+        /// <summary>O trecho atual tem uma curva no meio (ex.: P6 -> P7).</summary>
+        public bool HasVia => route != null && route.legs[0].HasVia && !route.legs[0].IsStairs;
+
+        /// <summary>Ainda na primeira parte de um trecho com curva no meio.</summary>
+        public bool InViaStage => HasVia && !viaDone;
+
+        /// <summary>Curva da etapa atual: a do meio do trecho (1a etapa) ou a do fim do trecho.</summary>
+        public string CurrentTurn =>
+            route == null ? "none" : InViaStage ? route.legs[0].viaTurn : route.legs[0].turn;
+
+        /// <summary>Texto de etapa para o painel de debug ("" se o trecho nao tem curva no meio).</summary>
+        public string StageText => !HasVia ? "" : (viaDone ? "etapa 2/2" : "etapa 1/2");
+
+        // Depois da curva do meio, a distancia andada na 2a etapa sai do deslocamento em linha reta (a curva e de 90 graus).
+        float AfterViaWalked => Mathf.Sqrt(Mathf.Max(0f, straightMeters * straightMeters - viaBase * viaBase));
+
+        /// <summary>Metros que faltam para o fim do trecho (ou da etapa) atual (nunca negativo).</summary>
+        public float RemainingLegMeters
+        {
+            get
+            {
+                if (route == null) return 0f;
+                var leg = route.legs[0];
+                if (HasVia)
+                    return Mathf.Max(0f, viaDone ? leg.afterViaMeters - AfterViaWalked : leg.viaMeters - straightMeters);
+                return Mathf.Max(0f, leg.meters - straightMeters);
+            }
+        }
 
         /// <summary>Metros ate a saida: o que falta do trecho atual + os proximos trechos.</summary>
         public float RemainingTotalMeters
@@ -88,9 +124,53 @@ namespace SafeSight.Navigation
             {
                 if (route == null) return 0f;
                 float total = RemainingLegMeters;
+                if (InViaStage) total += route.legs[0].afterViaMeters;
                 for (int i = 1; i < route.legs.Count; i++) total += route.legs[i].meters;
                 return total;
             }
+        }
+
+        // ---------- Orientacao do QR ----------
+
+        /// <summary>Ha dado de orientacao para o ponto e a rota atuais (e o recurso esta ligado).</summary>
+        public bool HasInitialTurn =>
+            UseQrOrientation && route != null && route.hasStartHeading &&
+            CurrentPoint != null && CurrentPoint.hasQrFacing;
+
+        /// <summary>
+        /// Giro (graus, + = direita, - = esquerda, ate 180) que o usuario precisa fazer depois de ler o QR
+        /// para ficar virado no sentido do primeiro trecho. Supoe que ele leu o QR de frente, ou seja,
+        /// olhando na direcao oposta a da face do QR.
+        /// </summary>
+        public float InitialTurnDegrees =>
+            HasInitialTurn ? Mathf.DeltaAngle(CurrentPoint.qrFacingDeg + 180f, route.startHeadingDeg) : 0f;
+
+        /// <summary>Quanto ainda falta girar para ficar alinhado ao trecho (+ = direita).</summary>
+        public float AlignErrorDegrees =>
+            HasInitialTurn ? Mathf.DeltaAngle(yawDelta, InitialTurnDegrees) : 0f;
+
+        /// <summary>O app deve pedir o giro inicial (o usuario ainda esta de lado em relacao ao trecho).</summary>
+        public bool NeedsAlignment =>
+            HasInitialTurn && !aligned && !IsStairs &&
+            (State == NavState.Following || State == NavState.TurnWarning) &&
+            Mathf.Abs(AlignErrorDegrees) > AlignToleranceDegrees;
+
+        /// <summary>Giro (graus, + = direita) desde que o usuario ficou alinhado ao trecho; base da "curva confirmada".</summary>
+        public float TurnProgressDegrees
+        {
+            get
+            {
+                float g = HasInitialTurn ? Mathf.DeltaAngle(InitialTurnDegrees, yawDelta) : yawDelta;
+                if (HasVia && viaDone) // desconta a curva de 90 graus do meio do trecho
+                    g = Mathf.DeltaAngle(route.legs[0].viaTurn == "left" ? -90f : 90f, g);
+                return g;
+            }
+        }
+
+        public static string AlignText(float errorDegrees)
+        {
+            if (Mathf.Abs(errorDegrees) > 150f) return "Dê meia-volta";
+            return errorDegrees > 0f ? "Vire à direita" : "Vire à esquerda";
         }
 
         // ---------- Leitura de QR (RF02, RF03) ----------
@@ -141,6 +221,10 @@ namespace SafeSight.Navigation
             route = r;
             arrived = false;
             straightMeters = 0f;
+            yawDelta = 0f;
+            aligned = false;
+            viaDone = false;
+            viaBase = 0f;
             State = NavState.Following;
             Message = "";
             return QrResult.RouteLoaded;
@@ -150,7 +234,8 @@ namespace SafeSight.Navigation
 
         /// <param name="straight">Distancia em linha reta desde o ultimo QR (estimador do ARCore).</param>
         /// <param name="trackingLost">Rastreamento do ARCore perdido.</param>
-        public void Tick(float straight, bool trackingLost)
+        /// <param name="yawDeltaDegrees">Giro (graus, + = direita) desde a leitura do QR (estimador do ARCore).</param>
+        public void Tick(float straight, bool trackingLost, float yawDeltaDegrees = 0f)
         {
             if (arrived) { State = NavState.Arrived; return; }
             if (route == null) { State = NavState.Idle; return; }
@@ -158,6 +243,21 @@ namespace SafeSight.Navigation
             if (State == NavState.NeedNewQr) return;
 
             straightMeters = straight;
+            yawDelta = yawDeltaDegrees;
+            if (HasInitialTurn && !aligned &&
+                (Mathf.Abs(AlignErrorDegrees) <= AlignToleranceDegrees || straight > AlignWindowMeters))
+                aligned = true; // alinhou (ou ja esta andando): nao volta a pedir o giro neste trecho
+            // Curva no meio do trecho: confirmada pelo giro (depois de alinhado e de andar a metade da 1a etapa).
+            if (HasVia && !viaDone && (!HasInitialTurn || aligned) && straight >= 0.5f * route.legs[0].viaMeters)
+            {
+                float g = TurnProgressDegrees;
+                bool left = route.legs[0].viaTurn == "left";
+                if (left ? g <= -ViaTurnConfirmDegrees : g >= ViaTurnConfirmDegrees)
+                {
+                    viaDone = true;
+                    viaBase = straight;
+                }
+            }
             if (trackingLost) { State = NavState.NeedNewQr; return; }
 
             var leg = route.legs[0];
@@ -166,10 +266,11 @@ namespace SafeSight.Navigation
             // o QR no fim da escada continua a rota.
             if (leg.IsStairs) { State = NavState.Following; return; }
 
-            float remaining = leg.meters - straight;
+            float remaining = RemainingLegMeters;
+            float warn = InViaStage ? Mathf.Min(WarnMeters, 0.5f * leg.viaMeters) : WarnMeters;
             if (straight > leg.meters + OvershootMeters) State = NavState.NeedNewQr;
-            else if (IsLastLeg && remaining <= 0f) { arrived = true; State = NavState.Arrived; }
-            else if (remaining <= WarnMeters) State = NavState.TurnWarning;
+            else if (IsLastLeg && !InViaStage && remaining <= 0f) { arrived = true; State = NavState.Arrived; }
+            else if (remaining <= warn) State = NavState.TurnWarning;
             else State = NavState.Following;
         }
 
@@ -189,6 +290,8 @@ namespace SafeSight.Navigation
         {
             get
             {
+                if (NeedsAlignment)
+                    return $"{AlignText(AlignErrorDegrees)} e siga em frente {RemainingLegMeters:0} m";
                 switch (State)
                 {
                     case NavState.Idle:
@@ -197,6 +300,10 @@ namespace SafeSight.Navigation
                         if (IsStairs) return "Use a escada";
                         return $"Siga em frente {RemainingLegMeters:0} m";
                     case NavState.TurnWarning:
+                        if (InViaStage)
+                            return RemainingLegMeters > 0.2f
+                                ? $"Em {RemainingLegMeters:0.0} m, {TurnText(CurrentTurn)}"
+                                : $"Agora, {TurnText(CurrentTurn)}";
                         if (IsLastLeg) return "A saída está logo à frente";
                         return RemainingLegMeters > 0.2f
                             ? $"Em {RemainingLegMeters:0.0} m, {TurnText(CurrentLeg.turn)}"

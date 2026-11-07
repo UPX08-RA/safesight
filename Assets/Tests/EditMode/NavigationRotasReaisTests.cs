@@ -48,7 +48,9 @@ public class NavigationRotasReaisTests
                 }
                 else
                 {
-                    logic.Tick(leg.meters - 0.5f, false);          // faltam 0,5 m: aviso de curva
+                    // O usuario faz o giro inicial pedido pela orientacao do QR (se houver) e anda o trecho.
+                    float giro = logic.HasInitialTurn ? logic.InitialTurnDegrees : 0f;
+                    logic.Tick(leg.meters - 0.5f, false, giro);    // faltam 0,5 m: aviso de curva
                     Assert.AreEqual(NavState.TurnWarning, logic.State, $"rota {r.startId}: aviso em {id}");
                     if (logic.IsLastLeg) StringAssert.Contains("saída", logic.Instruction);
                     else StringAssert.Contains(NavigationLogic.TurnText(leg.turn), logic.Instruction);
