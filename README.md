@@ -312,9 +312,13 @@ Versões conferidas em `Packages/manifest.json` e `Packages/packages-lock.json`.
 
 ### Validação do procedimento
 
-Em 31/10, o procedimento foi executado em um **clone novo** do repositório (`git clone` em uma pasta vazia, sem a pasta `Library`), na máquina do Tech Lead (Windows), com o Unity 6000.3.25f1. A primeira abertura e importação do projeto levou cerca de 10 minutos, o Console não mostrou erros e o Test Runner (EditMode) executou os 27 testes da v1.0 com sucesso (0,209 s). O build para Android não foi repetido nesse clone; ele foi verificado no projeto de desenvolvimento. Esse procedimento foi validado na v1.0; a v1.1 não foi repetida em clone novo (os 52 testes foram executados no projeto de desenvolvimento em 07/11).
+Em 31/10, o procedimento foi executado em um **clone novo** do repositório (`git clone` em uma pasta vazia, sem a pasta `Library`), na máquina do Tech Lead (Windows), com o Unity 6000.3.25f1. A primeira abertura e importação do projeto levou cerca de 10 minutos, o Console não mostrou erros e o Test Runner (EditMode) executou os 27 testes da v1.0 com sucesso (0,209 s). O build para Android não foi repetido nesse clone; ele foi verificado no projeto de desenvolvimento. Esse procedimento foi validado na v1.0; a v1.1 não foi repetida em clone novo (veja o print da v1.1 abaixo).
 
 ![Test Runner e Console no clone limpo](docs/images/validacao_clone_limpo.png)
+
+Na v1.1 (`main`), o Test Runner (EditMode) executa os 52 testes com sucesso (0,304 s). Essa execução foi feita no projeto de desenvolvimento em 07/11, não em um clone novo.
+
+![Test Runner da v1.1: 52 testes](docs/images/testes_unitarios_v1.1.png)
 
 ---
 
@@ -507,7 +511,7 @@ Telas da v1.0 (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os Q
 - Teste em modo avião, Galaxy Tab S9 FE (`AirPlaneModeRecord.mp4`): [Assistir](https://drive.google.com/file/d/1UJedqn4sCrBkW8ny2FhqSKy3TsL88zlw/view?usp=sharing)
 - Print do Test Runner da v1.1 (52 testes verdes, 07/11): `docs/images/testes_unitarios_v1.1.png`
 - Print do Test Runner da v1.0 (27 testes verdes, 29/10): `docs/images/testes_unitarios.png`
-- Dados do experimento de 05 e 06/11 (fichas, questionários e vídeos de tela, identificados só por códigos P01–P10): disponíveis ao docente em pasta restrita do Google Drive; o link não é publicado neste repositório.
+- Dados do experimento de 05 e 06/11 (fichas de observação, questionários e fichas de respostas, identificados só por códigos P01–P10): disponíveis ao docente em pasta restrita do Google Drive; o link não é publicado neste repositório. As gravações de tela ficam só com a equipe, conforme o TCLE.
 
 ![Test Runner da v1.1: 52 testes](docs/images/testes_unitarios_v1.1.png)
 
@@ -536,9 +540,9 @@ Telas da v1.0 (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os Q
 | Lógica de navegação e testes                   | Gustavo e João                                                                             | ✅                                             |
 | Estimativa de deslocamento com ARCore          | Gustavo                                                                                    | ✅                                             |
 | HUD de navegação                               | Gustavo                                                                                    | ✅                                             |
-| Geração e validação dos QR codes               | Gustavo e Giulia                                                                           | 🚧                                             |
+| Geração e validação dos QR codes               | Gustavo e Giulia                                                                           | ✅                                             |
 | Ícones e seta (PNG/SVG)                        | Gerados com apoio de IA e entregues à equipe; o HUD atual desenha seta e ícones por código | ✅ (assets entregues; ainda não usados no app) |
-| Testes de campo no Prédio L                    | Equipe                                                                                     | 🚧                                             |
+| Testes de campo no Prédio L                    | Equipe                                                                                     | ✅                                             |
 | Experimento com usuários (presencial e online) | Equipe                                                                                     | ✅ (05 e 06/11)                                |
 | Documentação técnica                           | Equipe                                                                                     | ✅                                             |
 
