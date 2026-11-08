@@ -1,12 +1,13 @@
 # SafeSight
 
 > **Projeto UPX — Realidade Aumentada (Engenharia da Computação, UniFacens)**
-> Orientação por Realidade Aumentada até a saída-alvo em uma simulação controlada de incêndio no Prédio L, a partir de QR codes.
+> Orientação por Realidade Aumentada até a saída-alvo em uma simulação controlada de evacuação no Prédio L, a partir de QR codes.
 
 ![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
 ![Plataforma](https://img.shields.io/badge/plataforma-Android-green)
 ![Tecnologia](https://img.shields.io/badge/RA-AR%20Foundation%20%2B%20ARCore-blue)
 ![Unity](https://img.shields.io/badge/Unity-6000.3.25f1-black)
+![Versão](https://img.shields.io/badge/vers%C3%A3o-v1.1-blue)
 
 ---
 
@@ -36,11 +37,13 @@
 
 ## 2. Visão Geral
 
-O **SafeSight** é um aplicativo Android de Realidade Aumentada que orienta pessoas que não conhecem o prédio até a **saída-alvo** de uma rota segura previamente cadastrada, em uma **simulação controlada de incêndio** (sem fogo ou fumaça reais).
+O **SafeSight** é um aplicativo Android de Realidade Aumentada que orienta pessoas que não conhecem o prédio até a **saída-alvo** de uma rota segura previamente cadastrada, em uma **simulação controlada de evacuação** (sem fogo ou fumaça reais). O SafeSight não avalia a segurança de saídas em incêndios reais.
 
 O usuário lê com a câmera o **QR code** de um ponto do corredor. O app identifica o ponto, carrega a rota cadastrada daquele ponto até a saída e, enquanto a pessoa caminha, mostra sobre a imagem da câmera uma **seta, a instrução do trecho, a distância restante, os próximos passos e alertas** (elevador proibido e extintor cadastrado). Entre dois QR codes, a distância percorrida é estimada pelo **rastreamento de movimento do ARCore**. Se o rastreamento se perde ou o trecho é excedido, o app pede uma nova leitura de QR.
 
 A Realidade Aumentada entra como a camada que une a câmera ao vivo, o rastreamento de movimento do ARCore e uma interface de orientação (seta, instruções e alertas) sobreposta à imagem da câmera. Essa interface é fixa na tela e associada ao estado da rota; as indicações não são objetos virtuais ancorados ao piso ou ao ambiente. Tudo funciona **offline**, sem servidor.
+
+A **versão v1.1** (tag `v1.1`, usada no experimento com usuários de 05 e 06/11/2026) acrescenta ao fluxo acima dois recursos: o app diz quanto o usuário deve girar depois de ler o QR, a partir da direção cadastrada para onde o QR está virado, e trata a curva no meio de um trecho (coluna P6 → P7).
 
 ![Visão geral do projeto](docs/images/hud_rota.jpeg)
 
@@ -58,7 +61,7 @@ O impacto é a perda de tempo e a possibilidade de escolher um caminho errado du
 
 ### 4.1 Objetivo Geral
 
-Desenvolver uma aplicação de Realidade Aumentada que oriente o usuário, por rota cadastrada, até a saída-alvo do Prédio L em uma simulação controlada de incêndio.
+Desenvolver uma aplicação de Realidade Aumentada que oriente o usuário, por rota cadastrada, até a saída-alvo do Prédio L em uma simulação controlada de evacuação.
 
 ### 4.2 Objetivos Técnicos
 
@@ -73,11 +76,11 @@ Desenvolver uma aplicação de Realidade Aumentada que oriente o usuário, por r
 
 ## 5. Público-Alvo
 
-Pessoas que não conhecem o Prédio L da UniFacens: calouros, visitantes e professores substitutos. O uso ocorre em simulação de incêndio, em movimento e com pouca atenção disponível para a tela; por isso o HUD usa texto grande, poucas informações e nenhum menu.
+Pessoas que não conhecem o Prédio L da UniFacens: calouros, visitantes e professores substitutos. O uso ocorre em simulação de evacuação, em movimento e com pouca atenção disponível para a tela; por isso o HUD usa texto grande, poucas informações e nenhum menu.
 
 - **Familiaridade tecnológica:** pressupõe-se apenas o uso básico de um smartphone ou tablet (abrir o app e autorizar a câmera); não há cadastro nem configuração.
 - **Necessidades:** saber para onde ir a partir do ponto onde está, a cada trecho, e ser avisado da curva e do elevador proibido.
-- **Limitações do uso:** o app depende de o usuário encontrar e ler os QR codes e de o dispositivo ter suporte ao ARCore; o experimento com usuários ainda não foi executado.
+- **Limitações do uso:** o app depende de o usuário encontrar e ler os QR codes e de o dispositivo ter suporte ao ARCore; o experimento com usuários (10 participantes, 05 e 06/11/2026) é preliminar e não permite generalizar os resultados.
 
 ---
 
@@ -97,6 +100,8 @@ Pessoas que não conhecem o Prédio L da UniFacens: calouros, visitantes e profe
 | RF10 | Pedir novo QR                                   | Pede nova leitura se o rastreamento é perdido ou o trecho é excedido                                                              | ✅     |
 
 **Legenda:** ✅ Implementado · 🚧 Em desenvolvimento · ⬜ Planejado · ❌ Cancelado
+
+> A v1.1 não altera a lista acima. Ela acrescenta a orientação inicial pelo QR (giro pedido depois da leitura) e a curva no meio do trecho, descritas na seção 11.2.
 
 ---
 
@@ -180,6 +185,12 @@ NavigationLogic → NavigationHud → Seta, instruções e alertas sobre a câme
 6. O `NavigationHud` mostra seta, instrução, distância restante, próximos passos e alertas sobre a imagem da câmera.
 7. Ao ler o QR do próximo ponto, a estimativa reinicia e a rota seguinte é carregada.
 
+**Acréscimos da v1.1:**
+
+- **Orientação do QR:** nos pontos mapeados, o `trajeto.json` guarda a direção para onde a face do QR aponta (`qrFacingDeg`) e o sentido do primeiro trecho (`startHeadingDeg`). Depois da leitura, a `NavigationLogic` calcula quanto o usuário precisa girar e, se o erro passar de 30°, o HUD mostra "Vire à direita" ou "Vire à esquerda" ("Dê meia-volta" acima de 150°), com a seta apontando o giro. O pedido some quando o usuário fica alinhado ou anda mais de 1,5 m.
+- **Curva no meio do trecho:** o trecho L-0-14 → L-0-15 (P6 → P7) tem 1 m, uma curva à esquerda e mais 2 m (`viaMeters`, `viaTurn` e `afterViaMeters`). A curva é confirmada pelo giro (60°) e a distância restante é calculada por etapa.
+- Os pontos sem dado de orientação (L-0-07, L-0-09 e os andares 1 e 2) mantêm o comportamento da v1.0.
+
 ### 11.3 Estados da navegação
 
 ![Estados da navegação](docs/diagrams/estados.png)
@@ -228,7 +239,7 @@ safesight/
 └── README.md
 ```
 
-> Árvore conferida com o repositório em 31/10. Pastas geradas pelo Unity (`Library`, `Temp`, `Logs`, `UserSettings`) e os builds são ignorados pelo `.gitignore`.
+> Árvore conferida com o repositório em 31/10 (v1.0); a v1.1 só acrescentou o arquivo de testes `NavigationOrientacaoTests.cs` em `Assets/Tests/EditMode/`. Pastas geradas pelo Unity (`Library`, `Temp`, `Logs`, `UserSettings`) e os builds são ignorados pelo `.gitignore`.
 
 ### Pastas principais
 
@@ -249,15 +260,15 @@ safesight/
 
 ## 13. Principais Scripts
 
-| Script                                                    | Responsabilidade                                                                               |
-| --------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `QrScanner.cs`                                            | Obtém o frame da câmera do ARCore, decodifica o QR com ZXing.Net e dispara o evento de leitura |
-| `DisplacementEstimator.cs`                                | Estima distância em linha reta, caminho e giro a partir da pose do ARCore; reinicia a cada QR  |
-| `NavigationLogic.cs`                                      | Regras de navegação: rota do ponto, estados, alertas, distância restante e instruções          |
-| `TrajectoryData.cs`                                       | Estrutura dos dados do `trajeto.json` (pontos, rotas e trechos)                                |
-| `NavigationController.cs`                                 | Liga leitura de QR, estimativa de deslocamento e lógica; avisos de QR inválido                 |
-| `NavigationHud.cs`                                        | Desenha o HUD (IMGUI): seta, instrução, progresso, próximos passos e alertas                   |
-| `NavigationLogicTests.cs`, `NavigationRotasReaisTests.cs` | Testes automatizados com as rotas reais                                                        |
+| Script                                                                                    | Responsabilidade                                                                               |
+| ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `QrScanner.cs`                                                                            | Obtém o frame da câmera do ARCore, decodifica o QR com ZXing.Net e dispara o evento de leitura |
+| `DisplacementEstimator.cs`                                                                | Estima distância em linha reta, caminho e giro a partir da pose do ARCore; reinicia a cada QR  |
+| `NavigationLogic.cs`                                                                      | Regras de navegação: rota do ponto, estados, alertas, distância restante e instruções          |
+| `TrajectoryData.cs`                                                                       | Estrutura dos dados do `trajeto.json` (pontos, rotas e trechos)                                |
+| `NavigationController.cs`                                                                 | Liga leitura de QR, estimativa de deslocamento e lógica; avisos de QR inválido                 |
+| `NavigationHud.cs`                                                                        | Desenha o HUD (IMGUI): seta, instrução, progresso, próximos passos e alertas                   |
+| `NavigationLogicTests.cs`, `NavigationRotasReaisTests.cs`, `NavigationOrientacaoTests.cs` | Testes automatizados: lógica, rotas reais e (v1.1) orientação do QR e curva no meio do trecho  |
 
 ---
 
@@ -301,7 +312,7 @@ Versões conferidas em `Packages/manifest.json` e `Packages/packages-lock.json`.
 
 ### Validação do procedimento
 
-Em 31/10, o procedimento foi executado em um **clone novo** do repositório (`git clone` em uma pasta vazia, sem a pasta `Library`), na máquina do Tech Lead (Windows), com o Unity 6000.3.25f1. A primeira abertura e importação do projeto levou cerca de 10 minutos, o Console não mostrou erros e o Test Runner (EditMode) executou os 27 testes com sucesso (0,209 s). O build para Android não foi repetido nesse clone; ele foi verificado no projeto de desenvolvimento.
+Em 31/10, o procedimento foi executado em um **clone novo** do repositório (`git clone` em uma pasta vazia, sem a pasta `Library`), na máquina do Tech Lead (Windows), com o Unity 6000.3.25f1. A primeira abertura e importação do projeto levou cerca de 10 minutos, o Console não mostrou erros e o Test Runner (EditMode) executou os 27 testes da v1.0 com sucesso (0,209 s). O build para Android não foi repetido nesse clone; ele foi verificado no projeto de desenvolvimento. Esse procedimento foi validado na v1.0; a v1.1 não foi repetida em clone novo (os 52 testes foram executados no projeto de desenvolvimento em 07/11).
 
 ![Test Runner e Console no clone limpo](docs/images/validacao_clone_limpo.png)
 
@@ -327,11 +338,11 @@ cd safesight
 
 1. Abra o SafeSight no dispositivo e autorize o acesso à câmera.
 2. Aponte a câmera para o QR code de um ponto do corredor (a cerca de 30 cm).
-3. Leia a instrução e siga a seta. A barra mostra o avanço do trecho e o texto, a distância até a saída.
+3. Leia a instrução e siga a seta. Se o app pedir "Vire à direita" ou "Vire à esquerda", gire até a seta apontar para a frente. A barra mostra o avanço do trecho e o texto, a distância até a saída.
 4. Perto da curva, a seta gira para o lado indicado.
 5. No fim do trecho, leia o QR code do próximo ponto.
 6. Se aparecer o "?", leia o próximo QR code para retomar.
-7. Ao ler o QR da saída, aparece a confirmação de chegada.
+7. Ao completar o último trecho (ou ao ler o QR da saída), aparece a confirmação de chegada.
 
 Os botões **Reiniciar** e **Debug** ficam no topo da tela.
 
@@ -407,7 +418,7 @@ Não há tela inicial separada: o app abre direto na câmera, pois o uso ocorre 
 
 ## 21. Interface
 
-Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR codes exibidos em um monitor.
+Telas da v1.0 (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR codes exibidos em um monitor. A v1.1 mantém essas telas e acrescenta a instrução de giro inicial ("Vire à direita e siga em frente N m", com a seta apontando o giro), ainda sem captura no repositório.
 
 | Tela                                 | Finalidade                     | Principais elementos                                                                     | Ação do usuário                             |
 | ------------------------------------ | ------------------------------ | ---------------------------------------------------------------------------------------- | ------------------------------------------- |
@@ -429,35 +440,27 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 <img src="docs/images/hud_chegada.jpeg" alt="Chegada" width="220">
 </p>
 
----|---|---|
-| Aguardando QR (`hud_idle.jpeg`) | Pedir a leitura do primeiro QR | Moldura de leitura |
-| Rota ativa (`hud_rota.jpeg`) | Orientar o trecho atual | Você está em / destino, seta, instrução, barra, próximos passos, alertas |
-| Aviso de curva (`hud_curva.jpeg`) | Avisar a curva próxima | Seta girada e em âmbar |
-| Novo QR (`hud_novo_qr.jpeg`) | Pedir nova leitura | "?" em vermelho |
-| QR inválido (`hud_qr_invalido.jpeg`) | Informar QR não reconhecido | Aviso temporário |
-| Chegada (`hud_chegada.jpeg`) | Informar a chegada | Check em verde |
-
-![Rota ativa](docs/images/hud_rota.jpeg)
-
 ---
 
 ## 22. Testes Técnicos
 
-| Teste                             | Procedimento                                                                                                                                        | Resultado esperado                | Resultado obtido                                                                                                                                                                                                                                                                                                                                                                                    | Status |
-| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| Testes automatizados da navegação | Test Runner (EditMode)                                                                                                                              | Todos passam                      | 27 de 27 em 29/10 (23 anteriores + 4 testes que percorrem as 38 rotas reais; 0,237 s)                                                                                                                                                                                                                                                                                                               | ✅     |
-| Abertura e câmera                 | Build no tablet                                                                                                                                     | Câmera abre                       | Câmera liga no tablet (25/10)                                                                                                                                                                                                                                                                                                                                                                       | ✅     |
-| Leitura de QR                     | Ler `L-0-04` no tablet                                                                                                                              | ID mostrado no HUD                | HUD mostra "L-0-04", destino, alertas e passos                                                                                                                                                                                                                                                                                                                                                      | ✅     |
-| Leitura dos QR codes impressos    | Ler com o app todos os QR codes impressos do Prédio L (Giulia, 27/10, durante as primeiras gravações de campo)                                      | Todos os QR codes lidos           | Todos foram lidos pelo app sem falha e nenhum precisou ser reimpresso; o tamanho impresso ficou um pouco menor que o planejado (10 cm) e, mesmo assim, a leitura funcionou                                                                                                                                                                                                                          | ✅     |
-| Deslocamento (5 m)                | 3 medições com trena                                                                                                                                | Erro dentro da tolerância         | 5,1 / 4,9 / 4,9 m; erro absoluto médio 0,10 m (2,0%); maior erro 0,1 m                                                                                                                                                                                                                                                                                                                              | ✅     |
-| Deslocamento (9 m)                | 3 medições com trena                                                                                                                                | Erro dentro da tolerância         | 9,3 / 9,1 / 8,8 m; erro absoluto médio 0,20 m (2,2%); maior erro 0,3 m (3,3%)                                                                                                                                                                                                                                                                                                                       | ✅     |
-| Aviso de curva                    | Andar até cerca de 1 m do fim do trecho                                                                                                             | Aviso e seta girada               | Partida em L-2-12 (trecho de 9,38 m, curva à esquerda): aviso apareceu ao andar ~8,7 m (28/10)                                                                                                                                                                                                                                                                                                      | ✅     |
-| Curva à direita (L-0-14)          | Ler `L-0-14` e andar cerca de 0,7 m                                                                                                                 | Aviso e seta à direita            | "Em 0.9 m, vire à direita", seta à direita em âmbar (print `hud_curva.jpeg`, QR em monitor, 29/10)                                                                                                                                                                                                                                                                                                  | ✅     |
-| Direção e instruções              | Ler L-2-13 e depois L-2-02                                                                                                                          | Seta e passos acompanham o trecho | Seta muda de direção, lista de passos atualiza e, no final, aparece a instrução de escada; curva à direita não gravada em campo (27/10), apenas verificada com QR em monitor (linha acima)                                                                                                                                                                                                          | ✅     |
-| Rastreamento perdido              | Cobrir a câmera ao caminhar                                                                                                                         | Pede novo QR                      | App perdeu o rastreamento e mostrou "Posição incerta. Leia o próximo QR Code" (28/10)                                                                                                                                                                                                                                                                                                               | ✅     |
-| Fluxo completo                    | Partir de E2 (`L-0-04`) e ler, em ordem, `L-0-03`, `L-0-02` e `L-0-01` (saída), caminhando os trechos de 9,0 m, 9,4 m e 9,0 m                       | Chegada informada                 | Os 4 QR codes foram lidos em sequência e, ao ler `L-0-01`, apareceu "Você chegou à saída"; aviso de curva a 8,7 m de `L-0-03` (trecho de 9,4 m, curva à esquerda); sem falha da contagem. Galaxy Tab S9 FE, 30/10 ([vídeo](https://drive.google.com/file/d/18JaCDjUtASLCdQrbMRw2V49AzesUXK67/view?usp=drive_link))                                                                                  | ✅     |
-| Desempenho                        | 5 min de uso contínuo, alternando os QR codes exibidos em um monitor e movendo o tablet, com o painel de depuração (FPS) consultado durante o teste | 30 fps e sem travar               | Nos momentos em que o painel de depuração estava aberto, o FPS permaneceu em 30, mesmo ao mover o tablet e trocar os QR codes (observação visual, sem registro contínuo dos valores). O app não travou, não fechou e não ficou lento, e não houve aquecimento perceptível. Galaxy Tab S9 FE, 31/10 ([vídeo](https://drive.google.com/file/d/1ACtUHaKLJrBJdK2zor92q3utx3Aw_69Q/view?usp=drive_link)) | ✅     |
-| Offline                           | Desligar Wi-Fi e Bluetooth, ligar o modo avião, abrir o app e ler 2 QR codes                                                                        | Leitura e rota funcionam sem rede | Wi-Fi e Bluetooth desligados e modo avião ligado antes de abrir o app; 2 QR codes lidos normalmente, com a rota carregada. Testado apenas no Galaxy Tab S9 FE ([vídeo](https://drive.google.com/file/d/1UJedqn4sCrBkW8ny2FhqSKy3TsL88zlw/view?usp=sharing))                                                                                                                                         | ✅     |
+| Teste                             | Procedimento                                                                                                                                                                                                                                      | Resultado esperado                                       | Resultado obtido                                                                                                                                                                                                                                                                                                                                                                                    | Status                                   |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| Testes automatizados da navegação | Test Runner (EditMode)                                                                                                                                                                                                                            | Todos passam                                             | **v1.1 (07/11):** 52 de 52 em 0,304 s (23 de lógica + 4 que percorrem as 38 rotas reais + 25 de orientação do QR e curva no meio do trecho; print `testes_unitarios_v1.1.png`). **v1.0 (29/10):** 27 de 27 em 0,237 s                                                                                                                                                                               | ✅                                       |
+| Abertura e câmera                 | Build no tablet                                                                                                                                                                                                                                   | Câmera abre                                              | Câmera liga no tablet (25/10)                                                                                                                                                                                                                                                                                                                                                                       | ✅                                       |
+| Leitura de QR                     | Ler `L-0-04` no tablet                                                                                                                                                                                                                            | ID mostrado no HUD                                       | HUD mostra "L-0-04", destino, alertas e passos                                                                                                                                                                                                                                                                                                                                                      | ✅                                       |
+| Leitura dos QR codes impressos    | Ler com o app todos os QR codes impressos do Prédio L (Giulia, 27/10, durante as primeiras gravações de campo)                                                                                                                                    | Todos os QR codes lidos                                  | Todos foram lidos pelo app sem falha e nenhum precisou ser reimpresso; o tamanho impresso ficou um pouco menor que o planejado (10 cm) e, mesmo assim, a leitura funcionou                                                                                                                                                                                                                          | ✅                                       |
+| Deslocamento (5 m)                | 3 medições com trena                                                                                                                                                                                                                              | Erro dentro da tolerância                                | 5,1 / 4,9 / 4,9 m; erro absoluto médio 0,10 m (2,0%); maior erro 0,1 m                                                                                                                                                                                                                                                                                                                              | ✅                                       |
+| Deslocamento (9 m)                | 3 medições com trena                                                                                                                                                                                                                              | Erro dentro da tolerância                                | 9,3 / 9,1 / 8,8 m; erro absoluto médio 0,20 m (2,2%); maior erro 0,3 m (3,3%)                                                                                                                                                                                                                                                                                                                       | ✅                                       |
+| Aviso de curva                    | Andar até cerca de 1 m do fim do trecho                                                                                                                                                                                                           | Aviso e seta girada                                      | Partida em L-2-12 (trecho de 9,38 m, curva à esquerda): aviso apareceu ao andar ~8,7 m (28/10)                                                                                                                                                                                                                                                                                                      | ✅                                       |
+| Curva à direita (L-0-14)          | Ler `L-0-14` e andar cerca de 0,7 m                                                                                                                                                                                                               | Aviso e seta à direita                                   | "Em 0.9 m, vire à direita", seta à direita em âmbar (print `hud_curva.jpeg`, QR em monitor, 29/10)                                                                                                                                                                                                                                                                                                  | ✅                                       |
+| Direção e instruções              | Ler L-2-13 e depois L-2-02                                                                                                                                                                                                                        | Seta e passos acompanham o trecho                        | Seta muda de direção, lista de passos atualiza e, no final, aparece a instrução de escada; curva à direita não gravada em campo (27/10), apenas verificada com QR em monitor (linha acima)                                                                                                                                                                                                          | ✅                                       |
+| Rastreamento perdido              | Cobrir a câmera ao caminhar                                                                                                                                                                                                                       | Pede novo QR                                             | App perdeu o rastreamento e mostrou "Posição incerta. Leia o próximo QR Code" (28/10)                                                                                                                                                                                                                                                                                                               | ✅                                       |
+| Fluxo completo                    | Partir de E2 (`L-0-04`) e ler, em ordem, `L-0-03`, `L-0-02` e `L-0-01` (saída), caminhando os trechos de 9,0 m, 9,4 m e 9,0 m                                                                                                                     | Chegada informada                                        | Os 4 QR codes foram lidos em sequência e, ao ler `L-0-01`, apareceu "Você chegou à saída"; aviso de curva a 8,7 m de `L-0-03` (trecho de 9,4 m, curva à esquerda); sem falha da contagem. Galaxy Tab S9 FE, 30/10 ([vídeo](https://drive.google.com/file/d/18JaCDjUtASLCdQrbMRw2V49AzesUXK67/view?usp=drive_link))                                                                                  | ✅                                       |
+| Desempenho                        | 5 min de uso contínuo, alternando os QR codes exibidos em um monitor e movendo o tablet, com o painel de depuração (FPS) consultado durante o teste                                                                                               | 30 fps e sem travar                                      | Nos momentos em que o painel de depuração estava aberto, o FPS permaneceu em 30, mesmo ao mover o tablet e trocar os QR codes (observação visual, sem registro contínuo dos valores). O app não travou, não fechou e não ficou lento, e não houve aquecimento perceptível. Galaxy Tab S9 FE, 31/10 ([vídeo](https://drive.google.com/file/d/1ACtUHaKLJrBJdK2zor92q3utx3Aw_69Q/view?usp=drive_link)) | ✅                                       |
+| Offline                           | Desligar Wi-Fi e Bluetooth, ligar o modo avião, abrir o app e ler 2 QR codes                                                                                                                                                                      | Leitura e rota funcionam sem rede                        | Wi-Fi e Bluetooth desligados e modo avião ligado antes de abrir o app; 2 QR codes lidos normalmente, com a rota carregada. Testado apenas no Galaxy Tab S9 FE ([vídeo](https://drive.google.com/file/d/1UJedqn4sCrBkW8ny2FhqSKy3TsL88zlw/view?usp=sharing))                                                                                                                                         | ✅                                       |
+| Verificação em campo da v1.1      | 12 casos de verificação técnica (fluxo completo, QR inválido, deslocamento, aviso de curva, perda de rastreamento, recuperação, orientação inicial, chegada, desempenho, interface sem ajuda, legibilidade e modo offline), de 28/10 a 04/11/2026 | Critério definido por caso                               | 9 atendidos, 2 parciais (caso 7, orientação inicial; caso 11, legibilidade) e 1 não executado (caso 6, recuperação). No caso 8, a chegada foi avaliada pela especificação da v1.1: mensagem ao completar os 9 m do último trecho, sem o QR da saída. Detalhes no artigo V3 (Quadro 2)                                                                                                               | 9 atendidos, 2 parciais, 1 não executado |
+| Experimento com usuários          | 5 participantes presenciais (P01–P05, app v1.1, Galaxy Tab S9 FE) e 5 online (P06–P10, 6 fotos da sinalização por videochamada), em 05 e 06/11/2026; 6 pontos de decisão na rota L-0-11 → L-0-01 (41,22 m)                                        | Proporção de direções corretas por ponto de decisão (H1) | Presencial: 30/30, todos chegaram (pela mensagem do app), tempos de 01:13 a 01:40 (mediana 01:33), 3 avisos de "Posição incerta" e 2 hesitações no fim de L-0-15. Online: 23/30 (76,7%), com 1/5 no ponto P6. Grupos pequenos, não equivalentes e sem sorteio: compatível com H1, que fica parcialmente sustentada, sem generalizar (artigo V3, seção 4)                                            | ✅                                       |
 
 > Tolerância de deslocamento definida antes da coleta: ±0,5 m ou 10% do trecho. As medições de deslocamento correspondem às tentativas válidas; em cerca de 1 a cada 5 tentativas nos celulares a contagem falhou e a tentativa foi descartada e repetida (ver Limitações Conhecidas).
 
@@ -465,11 +468,11 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 
 ## 23. Dispositivos Testados
 
-| Dispositivo              | Sistema | Versão        | Resultado                                                                                            |
-| ------------------------ | ------- | ------------- | ---------------------------------------------------------------------------------------------------- |
-| Samsung Galaxy Tab S9 FE | Android | 16 (One UI 8) | Build instalado; HUD (27/10), fluxo completo (30/10), modo avião e uso contínuo de 5 minutos (31/10) |
-| Samsung Galaxy M54 5G    | Android | 16 (One UI 8) | Testes de deslocamento e avisos (28/10)                                                              |
-| Samsung Galaxy A54 5G    | Android | 16 (One UI 8) | Testes de deslocamento e avisos (28/10)                                                              |
+| Dispositivo              | Sistema | Versão        | Resultado                                                                                                                                                        |
+| ------------------------ | ------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Samsung Galaxy Tab S9 FE | Android | 16 (One UI 8) | Build instalado; HUD (27/10), fluxo completo (30/10), modo avião e uso contínuo de 5 minutos (31/10), experimento com usuários presencial (05 e 06/11, app v1.1) |
+| Samsung Galaxy M54 5G    | Android | 16 (One UI 8) | Testes de deslocamento e avisos (28/10) e modo avião (04/11)                                                                                                     |
+| Samsung Galaxy A54 5G    | Android | 16 (One UI 8) | Testes de deslocamento e avisos (28/10) e modo avião (04/11)                                                                                                     |
 
 ---
 
@@ -477,7 +480,7 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 
 - A estimativa de deslocamento entre QR codes tem erro; trechos longos (até 18 m) acumulam mais erro. A medição real está na seção de testes.
 - Os QR codes ficam a mais de 8 m de distância em 30 dos 38 trechos (média de 8,6 m; máximo de 18 m), por causa do posicionamento das colunas do prédio; o recomendado era de 5 a 8 m.
-- A direção da primeira curva depende de como o QR é posicionado: o app não registra a orientação do QR. Mitigação: colar o QR virado para o sentido de caminhada, à altura do peito.
+- A direção da primeira curva depende de como o QR é posicionado. A v1.0 não registrava a orientação do QR; a v1.1 registra no `trajeto.json`, mas só nos pontos do térreo (veja abaixo). Nos pontos sem esse dado vale a mitigação: colar o QR virado para o sentido de caminhada, à altura do peito.
 - Na escada, a estimativa mede só o plano horizontal; por isso não há aviso por distância nesse trecho. O QR no fim da escada continua a rota.
 - O aviso de rastreamento perdido depende do estado da sessão do ARCore; em campo, cobrir a câmera o disparou (28/10), mas outras causas de perda de rastreamento não foram testadas.
 - Os ícones em PNG/SVG foram gerados com apoio de IA e não são usados pelo aplicativo: o HUD desenha a seta e os ícones por código. Não houve arquivo de design no Figma.
@@ -485,7 +488,11 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 - Testado em três aparelhos Samsung (Tab S9 FE, Galaxy M54 5G e Galaxy A54 5G); não há garantia de compatibilidade com outros aparelhos.
 - O pedido de novo QR por trecho excedido (distância maior que o trecho cadastrado mais 1,5 m) foi verificado apenas nos testes automatizados; em campo foi testada a perda de rastreamento.
 - A curva à direita foi verificada apenas com o QR exibido em um monitor (print), sem caminhar um trecho real no prédio; em campo foram gravados esquerda e reto.
-- A experiência com usuários (experimento com dois grupos) está planejada e não foi executada.
+- O experimento com usuários (05 e 06/11/2026; 5 presenciais com o app v1.1 e 5 online com fotos da sinalização) é preliminar: grupos pequenos, não equivalentes e sem sorteio, um único aparelho (Galaxy Tab S9 FE), sem comitê de ética (CEP/Conep) e sem inspeção formal do percurso. O resultado é compatível com a hipótese H1, mas não a comprova e não permite generalizar. Detalhes no artigo V3 (seção 4).
+- Na v1.1, a mensagem "Você chegou" aparece ao completar os 9 m do último trecho (L-0-02 → L-0-01), por distância estimada, antes da leitura do QR de L-0-01. No experimento, o QR da saída não foi apresentado.
+- A orientação do QR da v1.1 só existe para os pontos do térreo usados no experimento: L-0-07, L-0-09 e os andares 1 e 2 não têm o dado, e o de L-0-02 foi inferido do giro pedido em campo (a face desse QR não foi conferida). Nesses pontos o app se comporta como na v1.0.
+- No experimento, a seta confundiu participantes no fim de L-0-15 (a seta indicava a esquerda e o QR de L-0-02 estava à direita; 4 dos 5 participantes presenciais descreveram a confusão) e o app mostrou "Posição incerta" 3 vezes (P02, P03 e P04). O código não foi alterado depois disso.
+- O app não exibe aviso de que é experimental e não substitui a sinalização oficial; isso fica como melhoria futura.
 - Cobertura do mapeamento: o pilar E5 do 2º andar não foi mapeado e, por isso, não está no `trajeto.json` nem tem QR code; os pontos de rampa (`L-0-08`, `L-1-08` e `L-2-08`) também não têm QR. O aplicativo funciona sobre os pontos cadastrados; incluir o E5 exige novo mapeamento, atualização do JSON e novo QR.
 - As distâncias do mapeamento vêm do levantamento da equipe e não foram remedidas com trena, exceto nos testes de campo.
 
@@ -498,7 +505,11 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 - Vídeos de deslocamento (5 m e 9 m, 3 repetições cada), avisos e direção/instruções (`DirecaoInstrucoes.mp4`): [Pasta UPX08 no Google Drive](https://drive.google.com/drive/folders/1dR31eKBIoCvF3lHZx4ewHU1OO9hYw7vx?usp=sharing)
 - Teste de desempenho de 5 minutos de uso contínuo, Galaxy Tab S9 FE: [Assistir](https://drive.google.com/file/d/1ACtUHaKLJrBJdK2zor92q3utx3Aw_69Q/view?usp=drive_link)
 - Teste em modo avião, Galaxy Tab S9 FE (`AirPlaneModeRecord.mp4`): [Assistir](https://drive.google.com/file/d/1UJedqn4sCrBkW8ny2FhqSKy3TsL88zlw/view?usp=sharing)
-- Print do Test Runner (27 testes verdes): `docs/images/testes_unitarios.png`
+- Print do Test Runner da v1.1 (52 testes verdes, 07/11): `docs/images/testes_unitarios_v1.1.png`
+- Print do Test Runner da v1.0 (27 testes verdes, 29/10): `docs/images/testes_unitarios.png`
+- Dados do experimento de 05 e 06/11 (fichas, questionários e vídeos de tela, identificados só por códigos P01–P10): disponíveis ao docente em pasta restrita do Google Drive; o link não é publicado neste repositório.
+
+![Test Runner da v1.1: 52 testes](docs/images/testes_unitarios_v1.1.png)
 
 ---
 
@@ -515,20 +526,21 @@ Telas atuais (HUD sobre a câmera), capturadas no aplicativo em 29/10, com os QR
 
 ## 27. Cronograma Técnico
 
-| Atividade                                     | Responsável                                                                                | Status                                         |
-| --------------------------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------------------- |
-| Configuração do projeto Unity e AR Foundation | Gustavo                                                                                    | ✅                                             |
-| Pesquisa e artigo científico                  | Equipe                                                                                     | ✅                                             |
-| Mapeamento do Prédio L (planilha e plantas)   | Giulia                                                                                     | ✅                                             |
-| Leitura de QR code                            | Gustavo                                                                                    | ✅                                             |
-| Dados do trajeto (JSON e conversor)           | Gustavo                                                                                    | ✅                                             |
-| Lógica de navegação e testes                  | Gustavo e João                                                                             | ✅                                             |
-| Estimativa de deslocamento com ARCore         | Gustavo                                                                                    | ✅                                             |
-| HUD de navegação                              | Gustavo                                                                                    | ✅                                             |
-| Geração e validação dos QR codes              | Gustavo e Giulia                                                                           | 🚧                                             |
-| Ícones e seta (PNG/SVG)                       | Gerados com apoio de IA e entregues à equipe; o HUD atual desenha seta e ícones por código | ✅ (assets entregues; ainda não usados no app) |
-| Testes de campo no Prédio L                   | Equipe                                                                                     | 🚧                                             |
-| Documentação técnica                          | Equipe                                                                                     | ✅                                             |
+| Atividade                                      | Responsável                                                                                | Status                                         |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------------------- |
+| Configuração do projeto Unity e AR Foundation  | Gustavo                                                                                    | ✅                                             |
+| Pesquisa e artigo científico                   | Equipe                                                                                     | ✅                                             |
+| Mapeamento do Prédio L (planilha e plantas)    | Giulia                                                                                     | ✅                                             |
+| Leitura de QR code                             | Gustavo                                                                                    | ✅                                             |
+| Dados do trajeto (JSON e conversor)            | Gustavo                                                                                    | ✅                                             |
+| Lógica de navegação e testes                   | Gustavo e João                                                                             | ✅                                             |
+| Estimativa de deslocamento com ARCore          | Gustavo                                                                                    | ✅                                             |
+| HUD de navegação                               | Gustavo                                                                                    | ✅                                             |
+| Geração e validação dos QR codes               | Gustavo e Giulia                                                                           | 🚧                                             |
+| Ícones e seta (PNG/SVG)                        | Gerados com apoio de IA e entregues à equipe; o HUD atual desenha seta e ícones por código | ✅ (assets entregues; ainda não usados no app) |
+| Testes de campo no Prédio L                    | Equipe                                                                                     | 🚧                                             |
+| Experimento com usuários (presencial e online) | Equipe                                                                                     | ✅ (05 e 06/11)                                |
+| Documentação técnica                           | Equipe                                                                                     | ✅                                             |
 
 ---
 
@@ -543,7 +555,12 @@ test: adiciona testes de regressão da navegação
 docs: atualiza README
 ```
 
-A versão entregue está marcada com a tag `v1.0`.
+As versões estão marcadas com tags:
+
+| Tag    | Commit    | Descrição                                                                                                                                           |
+| ------ | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `v1.0` | `e9271d5` | Entrega da documentação técnica (31/10/2026); 27 testes                                                                                             |
+| `v1.1` | `d61a22c` | Versão usada na coleta de 05 e 06/11/2026: orientação do QR, curva no meio do trecho e 52 testes. Desenvolvida na branch `feature/v1.1-experimento` |
 
 ---
 
@@ -585,13 +602,28 @@ A versão entregue está marcada com a tag `v1.0`.
 **Causa:** não identificada. O comportamento é compatível com perda momentânea de rastreamento do ARCore durante a caminhada, mas isso não foi investigado.
 **Solução:** sem correção definitiva. Mitigação: o app pede nova leitura de QR quando detecta a perda de rastreamento ou o trecho excedido, e as tentativas com falha foram descartadas e repetidas nos testes.
 
+### Problema 7 — QR lido de lado em relação ao trecho
+
+**Problema:** o QR fica numa coluna virado para o corredor; ao lê-lo, o usuário pode estar de lado em relação ao primeiro trecho, e a seta (HUD fixo) não dizia para onde girar.
+**Causa:** o ZXing.Net só decodifica o texto do QR, sem pose, e o app não conhecia a direção para onde cada QR estava virado.
+**Solução (v1.1):** o `trajeto.json` passou a guardar a direção da face do QR e o sentido do primeiro trecho. A `NavigationLogic` calcula o giro necessário e o HUD mostra "Vire à direita" ou "Vire à esquerda", com a seta apontando o giro, até o usuário ficar alinhado (tolerância de 30°). O dado existe só nos pontos do térreo da rota do experimento, e o de L-0-02 foi inferido do giro pedido em campo. No experimento ainda houve hesitação no fim de L-0-15 (ver Limitações Conhecidas).
+
+### Problema 8 — Trecho com curva no meio (P6 → P7)
+
+**Problema:** no percurso de P6 (L-0-14) até P7 (L-0-15), observado em campo em 04/11, o usuário anda cerca de 1 m para passar a coluna, vira à esquerda, anda mais 2 m e vira à esquerda para ler o QR de P7. O modelo de trecho só previa curva no fim.
+**Causa:** cada trecho do `trajeto.json` tinha apenas uma curva, no fim do trecho.
+**Solução (v1.1):** campos opcionais `viaMeters`, `viaTurn` e `afterViaMeters` no trecho. A curva do meio é confirmada pelo giro (60°) e a distância restante é calculada por etapa ("etapa 1/2" e "etapa 2/2" no painel de depuração). Só esse trecho usa o recurso; o `gerar_trajeto.py` o aplica à rota que passa por P6.
+
 ---
 
 ## 30. Melhorias Futuras
 
 - registrar a orientação do QR (direção da primeira curva);
 - mais QR codes ao longo dos trechos longos;
-- experimento com usuários (SafeSight vs. sinalização estática);
+- repetir o experimento com amostra maior, grupos sorteados e mais de um aparelho (SafeSight vs. sinalização estática);
+- completar o dado de orientação dos QR (L-0-07, L-0-09 e andares 1 e 2) e conferir a face do QR de L-0-02;
+- tratar a confusão no fim de L-0-15 (seta e QR de L-0-02) e avaliar a chegada pela leitura do QR da saída, e não só pela distância estimada;
+- aviso de "experimental" na tela;
 - teste em outros dispositivos Android;
 - rastreamento contínuo em mapa 2D e rota ancorada ao piso.
 
@@ -625,24 +657,3 @@ Projeto acadêmico desenvolvido para fins educacionais na disciplina de UPX — 
 **Instituição:** UniFacens
 **Disciplina:** UPX — Realidade Aumentada
 **Semestre:** 8º semestre (2026.2)
-
----
-
-## Checklist de Entrega
-
-- [x] Código-fonte atualizado
-- [x] README completamente preenchido
-- [x] Versões das tecnologias registradas
-- [x] Arquitetura apresentada
-- [x] Funcionamento da RA explicado
-- [x] Estrutura de pastas documentada
-- [x] Scripts principais descritos
-- [x] Procedimento de instalação testado em clone limpo
-- [x] Procedimento de execução testado
-- [x] Screenshots reais adicionados
-- [x] Testes registrados
-- [x] Dispositivos testados informados
-- [x] Limitações conhecidas documentadas
-- [x] Evidência de funcionamento adicionada
-- [x] Commits representam a evolução do projeto
-- [x] Tag ou release criada
